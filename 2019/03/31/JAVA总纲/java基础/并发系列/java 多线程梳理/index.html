@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java 多线程梳理start和run方法区别，start 方法开启一个新的线程区执行，run是当前线程发起。可以看jvm.cpp有一个jvm_startThread 的方法。 runnable 接口和thread 关系，runnable就是一个有run方法的接口而已。 线程的6个状态，new ，runnable，waiting ，timed-wating ，blocked，terminated">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 多线程梳理">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/JAVA总纲/java基础/并发系列/java 多线程梳理/index.html">
+<meta property="og:site_name" content="雨正来【一路奔跑的人】">
+<meta property="og:description" content="java 多线程梳理start和run方法区别，start 方法开启一个新的线程区执行，run是当前线程发起。可以看jvm.cpp有一个jvm_startThread 的方法。 runnable 接口和thread 关系，runnable就是一个有run方法的接口而已。 线程的6个状态，new ，runnable，waiting ，timed-wating ，blocked，terminated">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T12:14:05.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 多线程梳理">
+<meta name="twitter:description" content="java 多线程梳理start和run方法区别，start 方法开启一个新的线程区执行，run是当前线程发起。可以看jvm.cpp有一个jvm_startThread 的方法。 runnable 接口和thread 关系，runnable就是一个有run方法的接口而已。 线程的6个状态，new ，runnable，waiting ，timed-wating ，blocked，terminated">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/JAVA总纲/java基础/并发系列/java 多线程梳理/">
+
+
+
+
+
+  <title>java 多线程梳理 | 雨正来【一路奔跑的人】</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雨正来【一路奔跑的人】</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/java基础/并发系列/java 多线程梳理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java 多线程梳理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="java-多线程梳理"><a href="#java-多线程梳理" class="headerlink" title="java 多线程梳理"></a>java 多线程梳理</h1><p>start和run方法区别，start 方法开启一个新的线程区执行，run是当前线程发起。可以看jvm.cpp有一个jvm_startThread 的方法。</p>
+<p>runnable 接口和thread 关系，runnable就是一个有run方法的接口而已。</p>
+<p>线程的6个状态，new ，runnable，waiting ，timed-wating ，blocked，terminated</p>
+<p>sleep只会让出cpu，wait会让出cpu和锁。 sleep只能和synchronized 结合使用。 </p>
+<p>wait 和while经常一起使用为什么？不是wait 和if </p>
+<p>构造一个固定大小的同步容器怎么实现？<br><a id="more"></a></p>
+<p>使用condition ReentrantLock await() ，signalAll()；</p>
+<p>Threadlocal 线程的局部变量！</p>
+<p>内部的结构了解下</p>
+<p>volatile  内存可见性，防止指令重排，内部是用内存屏障 保证。强制刷新到主内存的。</p>
+<p>variable handle api jdk 9 需要看看。</p>
+<h2 id="synchronized和lock"><a href="#synchronized和lock" class="headerlink" title="synchronized和lock"></a>synchronized和lock</h2><p>synchronized 底层是用对象头 mark word，实例数据，对齐填充</p>
+<p>mark word 中存储 对象年龄，hashcode，锁类型，锁标位</p>
+<p>preBlockPin 参数</p>
+<p>自旋锁，自适应自旋锁，锁消除，锁粗化</p>
+<p>一个线程在进入同步代码时候，默认进入偏向锁，同时修改mark word 扩大把当线程的id 设置成synchronized Markword 中的threadid，这样省去获取锁的时间。</p>
+<p>当第二个线程加入锁竞争的时候，就会膨胀位轻量级锁00，如果有多个线程竞争，那么升级为重量级锁</p>
+<p>synchronized 修饰普通方法是锁定this对象，修饰到静态方法是锁定class对象。</p>
+<p>synchronized 是可重入锁，底层是jvm  命令monitor enter 和exit ，修饰到代码块是常量池ACC_SYNCHRONIZED标识修饰，如果发生异常jvm底层自动释放锁的。</p>
+<p>ReentrantLock 可以替代synchronized ，发生异常需要手工释放锁。另外还有trylock方法尝试加锁，trylock（5，timeunit.second）</p>
+<p>Unsafe.park 方法的</p>
+<p>实现多路的通知，配合condition </p>
+<p>Lock.lockinterrunptibly();  打断另外线程占有的锁，从而响应中断操作。</p>
+<p>还可以配合condition 结合使用，底层是AQS实现。 AQS是 CAS实现，可以通过构造方法构造是否为公平锁。</p>
+<h2 id="理解-Java-对象头与-Monitor"><a href="#理解-Java-对象头与-Monitor" class="headerlink" title="理解 Java 对象头与 Monitor"></a>理解 Java 对象头与 Monitor</h2><p>jmm java 内存规范   </p>
+<p>happen-before ，可见性，指令重排 </p>
+<p>同步容器</p>
+<p>CurrentLinkedQueue  poll 拿数据</p>
+<p>CurrentHashMap，currentSkipListMap，</p>
+<p>有序的map </p>
+<p>TreeMap 需要实现compare接口，SortedMap，LinkedMap</p>
+<p>CopyOnWriteArrayList 写时复制 ，读效率高，写效率低</p>
+<p>currentLinkedQueue  无界队列 offer  ，peek拿不删 ，poll 拿出来删除</p>
+<p>BlockingQueue  put 和 take 方法都是阻塞的</p>
+<p>​    LinkedBlockingQueue</p>
+<p>​    ArrayBlockingQueue 有界队列   注意put 阻塞方法</p>
+<p>DelayQueue 添加元素要实现Delayed 实现compare接口</p>
+<p>transferQueue  先启动消费者，p发现有消费者直接消费，不用加入队列。 Transfer阻塞方法</p>
+<p>SynchronusQueue 无容量队列，注意区分put阻塞  和add 二个方法，add 报错队列满。</p>
+<h2 id="Executor接口"><a href="#Executor接口" class="headerlink" title="Executor接口"></a>Executor接口</h2><p>ExecutorService接口，submit等接口，runnable，callerable 接口，可以抛出checkedException 有返回值</p>
+<p>Executors 操作Executor的工具类</p>
+<p>ThreadPool 接口</p>
+<p>Executors.newfixedThreadPool</p>
+<p>Future 和FutureTask 后者包装了一个callable ，future.get() 阻塞future.isdone()</p>
+<p>newCachedThreadPool 默认60s销毁，最大线程为Integer.maxValue</p>
+<p>ScheduleThreadPool  4个参数，commnd ，时间，周期，time单位。</p>
+<p>workingStealingPool 用forkJoinPool 实现</p>
+<p>ForkJoinPool    ForkJoinTask —》RecursiveTask（有返回值） 或者RecursiveAction （无）</p>
+<p>对数据进行切分，执行fork方法</p>
+<p>ThreadPoolExecutor 除了scheduleThreadPool其他的线程池都是拿它进行实现。</p>
+<p>核心线程数，最大线程数，存活时间，存活时间单位，阻塞队列，拒绝策略</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/31/JAVA总纲/java基础/并发系列/看Java如何解决可见性和有序性问题/" rel="next" title="java 内存模型如何解决可见性和有序性问题">
+                <i class="fa fa-chevron-left"></i> java 内存模型如何解决可见性和有序性问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/31/JAVA总纲/java基础/并发系列/1并发来源/" rel="prev" title="并发编程的bug源头">
+                并发编程的bug源头 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lancecong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java-多线程梳理"><span class="nav-number">1.</span> <span class="nav-text">java 多线程梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized和lock"><span class="nav-number">1.1.</span> <span class="nav-text">synchronized和lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Java-对象头与-Monitor"><span class="nav-number">1.2.</span> <span class="nav-text">理解 Java 对象头与 Monitor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Executor接口"><span class="nav-number">1.3.</span> <span class="nav-text">Executor接口</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lancecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

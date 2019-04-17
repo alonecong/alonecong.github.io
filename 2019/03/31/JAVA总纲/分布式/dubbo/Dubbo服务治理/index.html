@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Dubbo服务治理dubbo-config 模块 源码理解 dubbo的配置优先级别：  三大核心能力   面向接口的远程方法调用 服务容错和负载均衡 服务自动注册和发现   服务治理的功能   服务提供者注册服务 消费者获取服务，并通过负载均衡策略选择服务提供者 动态增减服务提供者和消费者 服务监控 服务限流  服务之间 服务降级   dubbo 服务应用名 指定zk地址 指定消费者或提供者 协">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dubbo服务治理">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/index.html">
+<meta property="og:site_name" content="雨正来【一路奔跑的人】">
+<meta property="og:description" content="Dubbo服务治理dubbo-config 模块 源码理解 dubbo的配置优先级别：  三大核心能力   面向接口的远程方法调用 服务容错和负载均衡 服务自动注册和发现   服务治理的功能   服务提供者注册服务 消费者获取服务，并通过负载均衡策略选择服务提供者 动态增减服务提供者和消费者 服务监控 服务限流  服务之间 服务降级   dubbo 服务应用名 指定zk地址 指定消费者或提供者 协">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/_image/2019-03-24-12-27-06.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/_image/2019-03-24-12-56-32.png">
+<meta property="og:updated_time" content="2019-03-31T11:57:50.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dubbo服务治理">
+<meta name="twitter:description" content="Dubbo服务治理dubbo-config 模块 源码理解 dubbo的配置优先级别：  三大核心能力   面向接口的远程方法调用 服务容错和负载均衡 服务自动注册和发现   服务治理的功能   服务提供者注册服务 消费者获取服务，并通过负载均衡策略选择服务提供者 动态增减服务提供者和消费者 服务监控 服务限流  服务之间 服务降级   dubbo 服务应用名 指定zk地址 指定消费者或提供者 协">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/_image/2019-03-24-12-27-06.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/">
+
+
+
+
+
+  <title>Dubbo服务治理 | 雨正来【一路奔跑的人】</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雨正来【一路奔跑的人】</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dubbo服务治理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Dubbo服务治理"><a href="#Dubbo服务治理" class="headerlink" title="Dubbo服务治理"></a>Dubbo服务治理</h2><h2 id="dubbo-config-模块-源码理解"><a href="#dubbo-config-模块-源码理解" class="headerlink" title="dubbo-config 模块 源码理解"></a>dubbo-config 模块 源码理解</h2><p><img src="./_image/2019-03-24-12-27-06.png" alt></p>
+<p>dubbo的配置优先级别：<br><img src="./_image/2019-03-24-12-56-32.png" alt></p>
+<blockquote>
+<p>三大核心能力</p>
+</blockquote>
+<ol>
+<li>面向接口的远程方法调用</li>
+<li>服务容错和负载均衡</li>
+<li>服务自动注册和发现</li>
+</ol>
+<blockquote>
+<p>服务治理的功能</p>
+</blockquote>
+<ol>
+<li>服务提供者注册服务</li>
+<li>消费者获取服务，并通过负载均衡策略选择服务提供者</li>
+<li>动态增减服务提供者和消费者</li>
+<li>服务监控</li>
+<li>服务限流  服务之间</li>
+<li>服务降级</li>
+</ol>
+<blockquote>
+<p>dubbo 服务应用名</p>
+<p>指定zk地址</p>
+<p>指定消费者或提供者 协议和端口  </p>
+<p>&lt;dubbo:reference interface =”” id=”提供者service”&gt;</p>
+<p>&lt;dubbo:service =”” id=””&gt;</p>
+<p>定义提供的beans ，包括接口和实现</p>
+</blockquote>
+<h2 id="异步化消息服务"><a href="#异步化消息服务" class="headerlink" title="异步化消息服务"></a>异步化消息服务</h2><p>不阻塞原来业务</p>
+<p>服务调用解耦</p>
+<h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><p>任务：task 完成一系列的事情</p>
+<p>调度 ： 执行任务的智慧，处罚，规则程序</p>
+<blockquote>
+<p> 应用场景</p>
+</blockquote>
+<ul>
+<li>业务跑批轮训等待处理</li>
+<li>失败异常重试</li>
+<li>定时处理任务</li>
+</ul>
+<blockquote>
+<p>单机调度机制：</p>
+</blockquote>
+<p>Timer定时器</p>
+<p>time 类  内存里TaskList  </p>
+<p>timerTask 类 本质上一个thread </p>
+<blockquote>
+<p>所有任务都是一个线程调度，同一时间只能有一个任务执行</p>
+</blockquote>
+<p>​ScheduledExcutor</p>
+<p>​Quartz  missfire 机制</p>
+<p>elastic job 分片的机制  如何分片</p>
+<h2 id="池化技术"><a href="#池化技术" class="headerlink" title="池化技术"></a>池化技术</h2><h3 id="连接池（数据库，redis等）"><a href="#连接池（数据库，redis等）" class="headerlink" title="连接池（数据库，redis等）"></a>连接池（数据库，redis等）</h3><ul>
+<li>核心连接数</li>
+<li>最大连接数</li>
+<li>连接等待时间</li>
+<li>数据读取时间</li>
+<li>等待释放时间</li>
+<li>validate</li>
+</ul>
+<p>tomcat 线程池</p>
+<p>连接池存储clientSocket连接   ，io线程池 ，worker线程池</p>
+<p>io线程获取clientsocket，recv ，之后交给worker线程处理</p>
+<h2 id="缓存技术"><a href="#缓存技术" class="headerlink" title="缓存技术"></a>缓存技术</h2><h3 id="快速访问"><a href="#快速访问" class="headerlink" title="快速访问"></a>快速访问</h3><p>千万级别数据</p>
+<p>主键1ms以内</p>
+<p>唯一索引 10ms</p>
+<p>非唯一查询 100ms</p>
+<p>全表扫描 s+</p>
+<p>qps&lt; 10000</p>
+<p>模型不能聚合</p>
+<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>将数据写入/读取速度最快的存储</li>
+<li>将数据缓存到应用最近的位置</li>
+<li>将数据离用户最近的位置</li>
+</ul>
+<h5 id="缓存分类"><a href="#缓存分类" class="headerlink" title="缓存分类"></a>缓存分类</h5><ul>
+<li>CDN缓存</li>
+<li>反向代理缓存</li>
+<li>分布式Cache</li>
+<li>本地应用缓存。guava 本地缓存</li>
+</ul>
+<h5 id="如何缓存"><a href="#如何缓存" class="headerlink" title="如何缓存"></a>如何缓存</h5><ul>
+<li><p>实时写入</p>
+</li>
+<li><p>异步写入</p>
+</li>
+<li><p>读取时实时写入</p>
+</li>
+<li><p>读取时异步写入</p>
+<h4 id="缓存失效"><a href="#缓存失效" class="headerlink" title="缓存失效"></a>缓存失效</h4></li>
+<li><p>固定时间   redis是惰性删除+定时失效</p>
+</li>
+<li><p>相对时间</p>
+</li>
+</ul>
+<h3 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h3><ul>
+<li>cdn缓存 静态资源</li>
+<li>nginx 代理缓存 （接入层 ，ng的proxy cache）</li>
+<li>nginx lua share dic  （应用层的ng 内存字典）</li>
+<li>nginx lua redis （应用层的lua脚本）</li>
+<li>tomcat 本地缓存</li>
+<li>redis服务器</li>
+<li>数据库</li>
+</ul>
+<h3 id="缓存不一致性"><a href="#缓存不一致性" class="headerlink" title="缓存不一致性"></a>缓存不一致性</h3><p>数据容忍性</p>
+<p>异步更新机制</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/31/JAVA总纲/分布式/es/EalsticSearch/" rel="next" title="EalsticSearch">
+                <i class="fa fa-chevron-left"></i> EalsticSearch
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/31/JAVA总纲/分布式/apmq/RabbitMq/" rel="prev" title="RabbitMq">
+                RabbitMq <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lancecong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dubbo服务治理"><span class="nav-number">1.</span> <span class="nav-text">Dubbo服务治理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dubbo-config-模块-源码理解"><span class="nav-number">2.</span> <span class="nav-text">dubbo-config 模块 源码理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步化消息服务"><span class="nav-number">3.</span> <span class="nav-text">异步化消息服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务调度"><span class="nav-number">4.</span> <span class="nav-text">任务调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化技术"><span class="nav-number">5.</span> <span class="nav-text">池化技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接池（数据库，redis等）"><span class="nav-number">5.1.</span> <span class="nav-text">连接池（数据库，redis等）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存技术"><span class="nav-number">6.</span> <span class="nav-text">缓存技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快速访问"><span class="nav-number">6.1.</span> <span class="nav-text">快速访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计原则"><span class="nav-number">6.2.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存分类"><span class="nav-number">6.2.0.1.</span> <span class="nav-text">缓存分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何缓存"><span class="nav-number">6.2.0.2.</span> <span class="nav-text">如何缓存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存失效"><span class="nav-number">6.2.1.</span> <span class="nav-text">缓存失效</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多级缓存"><span class="nav-number">6.3.</span> <span class="nav-text">多级缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存不一致性"><span class="nav-number">6.4.</span> <span class="nav-text">缓存不一致性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lancecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

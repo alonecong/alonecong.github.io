@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="微服务架构学习服务描述三种类型RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）restful和grpc 都是跨语言平台的 如何注册和发现服务注册中心原理 https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc 注册中心Api 服务注册及反注册 ： 服务提供者提供至少有服务地址，">
+<meta name="keywords" content="学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/JAVA总纲/架构理念/微服务架构学习/index.html">
+<meta property="og:site_name" content="雨正来【一路奔跑的人】">
+<meta property="og:description" content="微服务架构学习服务描述三种类型RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）restful和grpc 都是跨语言平台的 如何注册和发现服务注册中心原理 https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc 注册中心Api 服务注册及反注册 ： 服务提供者提供至少有服务地址，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T12:12:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务">
+<meta name="twitter:description" content="微服务架构学习服务描述三种类型RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）restful和grpc 都是跨语言平台的 如何注册和发现服务注册中心原理 https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc 注册中心Api 服务注册及反注册 ： 服务提供者提供至少有服务地址，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/JAVA总纲/架构理念/微服务架构学习/">
+
+
+
+
+
+  <title>微服务 | 雨正来【一路奔跑的人】</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雨正来【一路奔跑的人】</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/架构理念/微服务架构学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微服务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:30:11+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="微服务架构学习"><a href="#微服务架构学习" class="headerlink" title="微服务架构学习"></a>微服务架构学习</h2><h2 id="服务描述"><a href="#服务描述" class="headerlink" title="服务描述"></a>服务描述</h2><h4 id="三种类型"><a href="#三种类型" class="headerlink" title="三种类型"></a>三种类型</h4><h6 id="RESTful-Api-（springcloud），XML配置（dubbo）以及IDL文件（grpc）"><a href="#RESTful-Api-（springcloud），XML配置（dubbo）以及IDL文件（grpc）" class="headerlink" title="RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）"></a>RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）</h6><p>restful和grpc 都是跨语言平台的</p>
+<h3 id="如何注册和发现服务"><a href="#如何注册和发现服务" class="headerlink" title="如何注册和发现服务"></a>如何注册和发现服务</h3><p>注册中心原理</p>
+<p><a href="https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc" target="_blank" rel="noopener">https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc</a></p>
+<p>注册中心Api</p>
+<p>服务注册及反注册 ：</p>
+<p>服务提供者提供至少有服务地址，端口等信息。</p>
+<p>心跳汇报：及时反馈是否存活</p>
+<p>服务订阅： 通过服务订阅提供服务地址列表，并变更时通知</p>
+<p>服务变更查询</p>
+<p>服务查询</p>
+<p>服务修改</p>
+<p>集群部署<br><a id="more"></a></p>
+<p>zookeeper工作原理</p>
+<p>每个节点内存都存储了一份数据，client 的读可以从任何一个server读取。</p>
+<p>zk启动将从实例中选择一个leader （paxso协议）</p>
+<p>leader负责处理数据更新等（zab协议）</p>
+<h4 id="服务健康状态检测"><a href="#服务健康状态检测" class="headerlink" title="服务健康状态检测"></a>服务健康状态检测</h4><p>客户端和服务建立连接会话，并生成一个全局的session ，服务端和客户端维持一个长链接，在SESSION_TIMEOUT内通过客户端定期ping 发送心跳 到 服务端，并重置下次的SESSION_TIMEOUT。</p>
+<h4 id="服务状态变更通知"><a href="#服务状态变更通知" class="headerlink" title="服务状态变更通知"></a>服务状态变更通知</h4><p>zk采用的watcher机制来实现服务变更通知服务消费者的</p>
+<h5 id="白名单机制"><a href="#白名单机制" class="headerlink" title="白名单机制"></a>白名单机制</h5><p>注册提供白名单机制，防止本地测试服务注册到生产环境中的zk上。禁止调用服务注册接口。</p>
+<h3 id="RPC调用"><a href="#RPC调用" class="headerlink" title="RPC调用"></a>RPC调用</h3><p>客户端和服务端如何建立网络连接？</p>
+<p>http 协议 基于tcp 协议 三次握手四次挥手</p>
+<p>socket  bind ，connected ，accept ，send ，recievd ，close </p>
+<p>服务端任何处理请求？</p>
+<p>bio，nio，aio </p>
+<p>数据传输采用什么协议？</p>
+<p>http协议开放，或者是自定义的消息协议，消息头和消息体 二部分</p>
+<p>数据如何序列化和反序列化？</p>
+<h3 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h3><h5 id="监控对象"><a href="#监控对象" class="headerlink" title="监控对象"></a>监控对象</h5><p>用户端监控</p>
+<p>接口监控</p>
+<p>资源监控</p>
+<p>基础监控</p>
+<h5 id="监控指标"><a href="#监控指标" class="headerlink" title="监控指标"></a>监控指标</h5><p>请求量  二个维度，一个实时请求量，一个统计请求量</p>
+<p>QPS 每秒查询次数，PV 一段时间内用户的访问量</p>
+<p>响应时间</p>
+<p>错误率一般按照返回错误码503的比率来表示</p>
+<p><strong>监控系统主要包括四个环节：数据采集、数据传输、数据处理和数据展示</strong></p>
+<p><strong>数据采集</strong>二种方式：</p>
+<p>服务主动上报 硬编码在业务代码</p>
+<p>代理收集  调用的记录到日志文件</p>
+<p><strong>数据传输</strong> </p>
+<p>UDP 传输</p>
+<p>kafaka 传输 发送到指定的topic上 ，传输格式二进制PB效率高，文本协议json ，解析性能差点</p>
+<p><strong>数据处理</strong> </p>
+<p>接口维度聚合 ，把实时收到的数据按照接口名聚合在一起，计算每个接口的实时请求量和平均耗时等信息。</p>
+<p>聚合后的数据存储 索引数据库 elasticsearch ，时序数据库openTSDB</p>
+<p><strong>数据展示</strong></p>
+<p>曲线图 ，饼状图，橘子图</p>
+<p>服务追踪的作用</p>
+<p><strong>第一，优化系统瓶颈。</strong></p>
+<p><strong>第二，优化链路调用。</strong></p>
+<p><strong>第三，生成网络拓扑。</strong></p>
+<p><strong>第四，透明传输数据。</strong></p>
+<p>服务追踪原理  核心理念就是调用链 ，例如twiiter 的zipkin，阿里鹰眼，美团mtrace</p>
+<p>spanId，用于标识一次 RPC 调用在分布式请求中的位置</p>
+<p>traceId，用于标识某一次具体的请求 ID</p>
+<p>常用的服务治理手段</p>
+<p>节点管理</p>
+<p>1.注册中心主动摘除机制</p>
+<p>2.服务消费者摘除</p>
+<p>3.负载均衡</p>
+<blockquote>
+<p>随机，轮询，一致性hash，最少活跃调用</p>
+</blockquote>
+<p>服务路由</p>
+<p>为什么要定制路由？</p>
+<p>业务存在灰度发布的需求</p>
+<p>多机房访问需求</p>
+<p>路由规则</p>
+<blockquote>
+<p>静态配置</p>
+<p>动态配置</p>
+<p>服务容错</p>
+</blockquote>
+<p>服务容错手段</p>
+<p>failover 失败自动切换，要幂等</p>
+<p>failback 失败通知 ，非幂等场景应该先去查询下服务的状态</p>
+<p>failcache 失败缓存，间隔一定时间在去重新调用</p>
+<p>failfast 快速失败，仅仅记录失败日志就返回</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/13/暂未整理/vim fly/" rel="next" title="让命令飞起来 命令操作">
+                <i class="fa fa-chevron-left"></i> 让命令飞起来 命令操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/31/JAVA总纲/分布式/redis/redis 复习/" rel="prev" title="redis复习">
+                redis复习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lancecong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微服务架构学习"><span class="nav-number">1.</span> <span class="nav-text">微服务架构学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务描述"><span class="nav-number">2.</span> <span class="nav-text">服务描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三种类型"><span class="nav-number">2.0.1.</span> <span class="nav-text">三种类型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#RESTful-Api-（springcloud），XML配置（dubbo）以及IDL文件（grpc）"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#如何注册和发现服务"><span class="nav-number">2.1.</span> <span class="nav-text">如何注册和发现服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务健康状态检测"><span class="nav-number">2.1.1.</span> <span class="nav-text">服务健康状态检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务状态变更通知"><span class="nav-number">2.1.2.</span> <span class="nav-text">服务状态变更通知</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#白名单机制"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">白名单机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC调用"><span class="nav-number">2.2.</span> <span class="nav-text">RPC调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控"><span class="nav-number">2.3.</span> <span class="nav-text">监控</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#监控对象"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">监控对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#监控指标"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">监控指标</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lancecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
