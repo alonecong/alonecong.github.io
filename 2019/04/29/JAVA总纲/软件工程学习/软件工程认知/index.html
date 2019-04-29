@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件工程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="软件工程学习【Everything is a project】记录极客时间学习要点   想法: 想法阶段通常是想要解决问题。最开始问题通常是模糊的，所以需要清晰地定义 好问题，研究其可行性，检查是否有可行的解决方案 概念: 概念阶段就是用图纸、草图、模型等方式，提出一些概念性的解决方案。这些方 案可能有多个，最终会确定一个解决方案 计划:计划阶段是关于如何实施的计划，通常会包含人员、任务、任务持续">
+<meta name="keywords" content="软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程认知">
+<meta property="og:url" content="http://yoursite.com/2019/04/29/JAVA总纲/软件工程学习/软件工程认知/index.html">
+<meta property="og:site_name" content="雨正来【一路奔跑的人】">
+<meta property="og:description" content="软件工程学习【Everything is a project】记录极客时间学习要点   想法: 想法阶段通常是想要解决问题。最开始问题通常是模糊的，所以需要清晰地定义 好问题，研究其可行性，检查是否有可行的解决方案 概念: 概念阶段就是用图纸、草图、模型等方式，提出一些概念性的解决方案。这些方 案可能有多个，最终会确定一个解决方案 计划:计划阶段是关于如何实施的计划，通常会包含人员、任务、任务持续">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://sites.tufts.edu/eeseniordesignhandbook/files/2013/03/Engr-Sci-Methods_Figure.jpg">
+<meta property="og:image" content="http://yoursite.com/blog-pic/2019-04-29-10-47-33.png">
+<meta property="og:image" content="http://yoursite.com/blog-pic/2019-04-29-10-53-44.png">
+<meta property="og:image" content="http://yoursite.com/blog-pic/2019-04-29-10-57-36.png">
+<meta property="og:updated_time" content="2019-04-29T02:59:26.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程认知">
+<meta name="twitter:description" content="软件工程学习【Everything is a project】记录极客时间学习要点   想法: 想法阶段通常是想要解决问题。最开始问题通常是模糊的，所以需要清晰地定义 好问题，研究其可行性，检查是否有可行的解决方案 概念: 概念阶段就是用图纸、草图、模型等方式，提出一些概念性的解决方案。这些方 案可能有多个，最终会确定一个解决方案 计划:计划阶段是关于如何实施的计划，通常会包含人员、任务、任务持续">
+<meta name="twitter:image" content="http://sites.tufts.edu/eeseniordesignhandbook/files/2013/03/Engr-Sci-Methods_Figure.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/29/JAVA总纲/软件工程学习/软件工程认知/">
+
+
+
+
+
+  <title>软件工程认知 | 雨正来【一路奔跑的人】</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雨正来【一路奔跑的人】</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/JAVA总纲/软件工程学习/软件工程认知/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程认知</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-29T09:01:49+08:00">
+                2019-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="软件工程学习【Everything-is-a-project】"><a href="#软件工程学习【Everything-is-a-project】" class="headerlink" title="软件工程学习【Everything is a project】"></a>软件工程学习【Everything is a project】</h1><p><strong>记录极客时间学习要点</strong></p>
+<p><img src="http://sites.tufts.edu/eeseniordesignhandbook/files/2013/03/Engr-Sci-Methods_Figure.jpg" alt></p>
+<ul>
+<li>想法: 想法阶段通常是想要解决问题。最开始问题通常是模糊的，所以需要清晰地定义 好问题，研究其可行性，检查是否有可行的解决方案</li>
+<li>概念: 概念阶段就是用图纸、草图、模型等方式，提出一些概念性的解决方案。这些方 案可能有多个，最终会确定一个解决方案</li>
+<li>计划:计划阶段是关于如何实施的计划，通常会包含人员、任务、任务持续时间、任务 的依赖关系，以及完成项目所需要的预算。</li>
+<li>设计:设计阶段就是要针对产品需求，将解决方案进一步细化，设计整体架构和划分功 能模块，作为分工合作和开发实施的一个依据和参考。</li>
+<li>开发:开发阶段就是根据设计方案，将解决方案构建实施。开发阶段通常是一个迭代的 过程，这个阶段通常会有构建、测试、调试和重新设计的迭代</li>
+<li>部署:将最终结果包括文档发布。<h1 id="什么是工程方法？"><a href="#什么是工程方法？" class="headerlink" title="什么是工程方法？"></a>什么是工程方法？</h1><blockquote>
+<p> 有目的、有计划、有步骤的解决问题的方法就是工程方法。</p>
+</blockquote>
+#瀑布模型及软件周期</li>
+</ul>
+<ol>
+<li>用户需求文档&amp;可行性分析</li>
+<li>需求分析文档</li>
+<li>架构设计文档【系统架构文档，数据库文档】</li>
+<li>软件开发</li>
+<li>测试报告</li>
+<li>运行说明和维护<br><strong>需求、设计、编码、测试</strong> 无论是瀑布模型还是其他的scrum 模型 都归根结底离不开这四个核心环节。</li>
+</ol>
+<a id="more"></a>
+<p>##瀑布模型优缺点<br><strong>最大的问题就是不能及时响应需求变更，越到后期变更代价越大！</strong><br>瀑布模型简单易用，前期需求明确，能开发出高质量的软件产品。</p>
+<h1 id="瀑布模型的衍生模型"><a href="#瀑布模型的衍生模型" class="headerlink" title="瀑布模型的衍生模型"></a>瀑布模型的衍生模型</h1><h2 id="快速原型模型"><a href="#快速原型模型" class="headerlink" title="快速原型模型"></a>快速原型模型</h2><blockquote>
+<p> 快速原型模型，就是为了要解决客户的需求不明确和需求多变的问题。<br><strong>思考</strong>： 在一些公司，如果产品对于需求不是特别明确的情况下或者能预见性的以后会多变的需求，是否可以采用这样的方式呢？<br>虽然快速原型模型能适应多变的需求，但是代码质量往往是致命的，那么其实就需要一种方法解决。</p>
+</blockquote>
+<p>###解决快速原型的策略</p>
+<blockquote>
+<p>通常有两种处理策略:抛弃策略和附加策略。<br>抛弃策略很好理解，就是废弃掉，重新来过。附加策略则是在这个基础上进行完善。<br>快速原型模型即使到现在还一直有在用，用于低成本快速的确认需求。个人感觉快速原型模型主要还是集中在需求特别不确认的情况下，用于做产品交付类型的小公司，主要集中在产品经理外加点开发的基础上，有时候仅仅是产品利用axure 原型工具就能搞定。</p>
+</blockquote>
+<h2 id="【大瀑布-》小瀑布模型理念】-增量模型-和-迭代模型"><a href="#【大瀑布-》小瀑布模型理念】-增量模型-和-迭代模型" class="headerlink" title="【大瀑布-》小瀑布模型理念】 增量模型 和 迭代模型"></a>【大瀑布-》小瀑布模型理念】 增量模型 和 迭代模型</h2><p><strong>增量模型</strong>——按模块分批次交付<br>每个模块有按照原有的瀑布模型，需求分析、设计、编码、测试、交付，多个开发模块可以并行。</p>
+<h3 id="适应场景"><a href="#适应场景" class="headerlink" title="适应场景"></a>适应场景</h3><p>增量模型主要适用于:需求比较清楚，能模块化的软件系统，并且可以 按模块分批次交付。</p>
+<blockquote>
+<p>Tip： 个人感觉在企业中，一般需求都能比较清楚，当然也不排除垃圾的产品经理，至于模块化，如果系统架构不理想也大致能从系统拆分出模块的概念，例如 用户模块、订单模块等。</p>
+</blockquote>
+<h2 id="迭代模型——每次迭代都有一个可用的版本"><a href="#迭代模型——每次迭代都有一个可用的版本" class="headerlink" title="迭代模型——每次迭代都有一个可用的版本"></a>迭代模型——每次迭代都有一个可用的版本</h2><p>迭代模型每次只设计和实现产品的一部分，然后逐步完成更多功能。每次设计和实现一个<br>阶段叫做一个迭代。其实也是类似于增量模型，增量模型个人感觉模块是针对的关键点，迭代应该能上线的一个最原始的版本，虽然不完善，但是应该有好多模块。</p>
+<h3 id="迭代模型和增量模型的区别"><a href="#迭代模型和增量模型的区别" class="headerlink" title="迭代模型和增量模型的区别"></a>迭代模型和增量模型的区别</h3><p><strong> 增量模型是按照功能模块来拆分;而迭代模型则是按照时间来拆分，看单位时间内能完成<br>多少功能。</strong><br>迭代模型最难的部分，在于规划每次迭代的内容和要达到的目标，如果你做的是小项目的话，并不建议使用迭代模型来开发。<br>个人理解： 但是感觉大部分的领导还是趋向于所谓的“结果导向” ，所以可能迭代模型偏重。</p>
+<h2 id="如何更好的选择过程模型？"><a href="#如何更好的选择过程模型？" class="headerlink" title="如何更好的选择过程模型？"></a>如何更好的选择过程模型？</h2><ol>
+<li><p>外包的话建议采用V型瀑布模型，因为每个阶段可能都需要和甲方进行确认。<br> <img src="/../../../blog-pic/2019-04-29-10-47-33.png" alt></p>
+</li>
+<li><p>项目风险高 ，随时可能中断<br><img src="/../../../blog-pic/2019-04-29-10-53-44.png" alt><br>增量模型和迭代模型，同时注意风险控制！</p>
+</li>
+<li><p>山寨一款软件产品，希望能快速上线发布<br> 增量模型，但是个人感觉迭代模型也可以进行，可能原因是需求比较明确所以不太需要通过迭代模型来适应吧。</p>
+</li>
+<li><p>一个大型的系统<br><img src="/../../../blog-pic/2019-04-29-10-57-36.png" alt></p>
+</li>
+<li><p>产品已经上线，需要持续的更新  迭代模型比较合适</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/28/JAVA总纲/分布式/分布式事务/分布式事务的理念/" rel="next" title="分布式事务的理念">
+                <i class="fa fa-chevron-left"></i> 分布式事务的理念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/29/JAVA总纲/软件工程学习/敏捷开发/" rel="prev" title="敏捷开发">
+                敏捷开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lancecong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件工程学习【Everything-is-a-project】"><span class="nav-number">1.</span> <span class="nav-text">软件工程学习【Everything is a project】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是工程方法？"><span class="nav-number">2.</span> <span class="nav-text">什么是工程方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#瀑布模型的衍生模型"><span class="nav-number">3.</span> <span class="nav-text">瀑布模型的衍生模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速原型模型"><span class="nav-number">3.1.</span> <span class="nav-text">快速原型模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【大瀑布-》小瀑布模型理念】-增量模型-和-迭代模型"><span class="nav-number">3.2.</span> <span class="nav-text">【大瀑布-》小瀑布模型理念】 增量模型 和 迭代模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适应场景"><span class="nav-number">3.2.1.</span> <span class="nav-text">适应场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代模型——每次迭代都有一个可用的版本"><span class="nav-number">3.3.</span> <span class="nav-text">迭代模型——每次迭代都有一个可用的版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代模型和增量模型的区别"><span class="nav-number">3.3.1.</span> <span class="nav-text">迭代模型和增量模型的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何更好的选择过程模型？"><span class="nav-number">3.4.</span> <span class="nav-text">如何更好的选择过程模型？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lancecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
