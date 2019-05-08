@@ -166,9 +166,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一条更新语句是如何执行的]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2F2%E4%B8%80%E6%9D%A1%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84%2F</url>
-    <content type="text"><![CDATA[一条更新语句是如何执行的？复习之前学过的内容，分析器，解析器，优化器，执行器 。更新流程和查询不一样，会涉及到2个重要的日志，一个redo log ，一个是bin log 。 Redo Log redo log 属于innodb 引擎的日志 mysql中的WAL 技术，全称 write-ahead-loging ，关键点，先写内存后写磁盘，更新到内存更新就算完成了，innodb会在系统空闲时候去做写入磁盘操作。 redo log 是固定大小的，比如配置4个大小为1G的文件，从头开始写，写到3的末尾结束。 write pos 和 check point 中间的位置是可以写入的内容，2个pos 都是向前推进的，当write 追上check的位置时，不能执行更新，需要check 往前进行推进。即使数据库发生异常，mysql 也能保证之前提交的记录保存下来，这个机制叫做crash-safe 。 Bin log binlog 属于server层的日志 ，binlog 有二种模式，一种是statement 另外是row ，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更 新前和更新后都有。注： mysql 其实就2块，一块server层 另外一块是引擎层 。 redo log 和 binlog 的不同点 redo log 属于引擎层，binlog 属于server层。 redo log 记录是的物理的日志，例如 “某个数据项上进行了修改”，binlog 是逻辑日志，记录这个语句的原始逻辑，例如 给id 为2 的c字段加一。 redo log 可以循环写，空间固定会用完，binlog 进行追加写，写到固定大小后，换另外一块写，不会覆盖。 分析下一个sql 更新的过程 例如更新一个表中id=2 的数据 首先执行器先找出id=2 的记录，id 是索引，通过索引树查询这条记录，判断如果在当前数据页中，直接返回给执行器，如果不是要从磁盘读取到内容，之后返回给执行器。 之后这行c 的值进行加一操作，写入到新行中。 新行数据写入到内存中，之后写入redolog 这个时候redo log处于 prepare 准备阶段。 mysql 写入binlog ，提交事务处于commit 状态，提交完成。 二阶段提交 这里写入日志分为prepare 和 commit 二个阶段，这就属于2阶段提交。首先数据库要根据自己的业务每天或者是2天进行一次全量的备份，可以编写定时脚本取做，cornb ？所谓的二阶段提交就是保证redo log 和 bin log 保持逻辑上的一致。 思考 如果先写redo log 后写 binlog 不使用二阶段提交会出什么问题？ 如果写bin log 后 redo log 有什么样的问题发生？不仅仅是mysql 崩溃时候 出现数据不一致，还有可能在数据扩容的时候发生不一致的情况，如果不采用二阶段提交。小结redo log 有一个参数 innodb-flush-log-at-trx-commit 设置成1 ，表示每次事务的redo 日志都持久化到磁盘，这样mysql 异常重启之后数据不会丢失。binlog 参数 sync-binlog 设置成1 ，表示每次事务binlog 都写入磁盘，mysql重启数据不会丢失。]]></content>
+    <title><![CDATA[一条SQL查询语句是如何执行的]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2F1%E4%B8%80%E6%9D%A1SQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%2F</url>
+    <content type="text"><![CDATA[#一条SQL查询语句是如何执行的?当我们执行一条语句时候，select * from table where ID = 1；下边是mysql 语句执行的过程 12mysql -h$ip -P$port -u$user -pshow processlist 查看进程之后就显示出，现在数据库连接的状态等。其中第一条就是空闲的连接，默认时间为8h，参数为wait-timeout ，请注意最早开发还遇到过 Lost connection to MySQL server during query 这样的错误就是因为连接超时自动断开了。客户端其实最好保持长连接状态 ，执行完大的任务后，执行下 mysql_reset_connection，重新初始化连接资源。mysql 8版本之后，查询缓存已经被去掉了。主要简单理解下，mysql 执行过程，了解分析器，优化器，执行器，存储引擎 innodb，myisam]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -177,9 +177,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一条SQL查询语句是如何执行的]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2F1%E4%B8%80%E6%9D%A1SQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%2F</url>
-    <content type="text"><![CDATA[#一条SQL查询语句是如何执行的?当我们执行一条语句时候，select * from table where ID = 1；下边是mysql 语句执行的过程 12mysql -h$ip -P$port -u$user -pshow processlist 查看进程之后就显示出，现在数据库连接的状态等。其中第一条就是空闲的连接，默认时间为8h，参数为wait-timeout ，请注意最早开发还遇到过 Lost connection to MySQL server during query 这样的错误就是因为连接超时自动断开了。客户端其实最好保持长连接状态 ，执行完大的任务后，执行下 mysql_reset_connection，重新初始化连接资源。mysql 8版本之后，查询缓存已经被去掉了。主要简单理解下，mysql 执行过程，了解分析器，优化器，执行器，存储引擎 innodb，myisam]]></content>
+    <title><![CDATA[一条更新语句是如何执行的]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2F2%E4%B8%80%E6%9D%A1%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84%2F</url>
+    <content type="text"><![CDATA[一条更新语句是如何执行的？复习之前学过的内容，分析器，解析器，优化器，执行器 。更新流程和查询不一样，会涉及到2个重要的日志，一个redo log ，一个是bin log 。 Redo Log redo log 属于innodb 引擎的日志 mysql中的WAL 技术，全称 write-ahead-loging ，关键点，先写内存后写磁盘，更新到内存更新就算完成了，innodb会在系统空闲时候去做写入磁盘操作。 redo log 是固定大小的，比如配置4个大小为1G的文件，从头开始写，写到3的末尾结束。 write pos 和 check point 中间的位置是可以写入的内容，2个pos 都是向前推进的，当write 追上check的位置时，不能执行更新，需要check 往前进行推进。即使数据库发生异常，mysql 也能保证之前提交的记录保存下来，这个机制叫做crash-safe 。 Bin log binlog 属于server层的日志 ，binlog 有二种模式，一种是statement 另外是row ，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更 新前和更新后都有。注： mysql 其实就2块，一块server层 另外一块是引擎层 。 redo log 和 binlog 的不同点 redo log 属于引擎层，binlog 属于server层。 redo log 记录是的物理的日志，例如 “某个数据项上进行了修改”，binlog 是逻辑日志，记录这个语句的原始逻辑，例如 给id 为2 的c字段加一。 redo log 可以循环写，空间固定会用完，binlog 进行追加写，写到固定大小后，换另外一块写，不会覆盖。 分析下一个sql 更新的过程 例如更新一个表中id=2 的数据 首先执行器先找出id=2 的记录，id 是索引，通过索引树查询这条记录，判断如果在当前数据页中，直接返回给执行器，如果不是要从磁盘读取到内容，之后返回给执行器。 之后这行c 的值进行加一操作，写入到新行中。 新行数据写入到内存中，之后写入redolog 这个时候redo log处于 prepare 准备阶段。 mysql 写入binlog ，提交事务处于commit 状态，提交完成。 二阶段提交 这里写入日志分为prepare 和 commit 二个阶段，这就属于2阶段提交。首先数据库要根据自己的业务每天或者是2天进行一次全量的备份，可以编写定时脚本取做，cornb ？所谓的二阶段提交就是保证redo log 和 bin log 保持逻辑上的一致。 思考 如果先写redo log 后写 binlog 不使用二阶段提交会出什么问题？ 如果写bin log 后 redo log 有什么样的问题发生？不仅仅是mysql 崩溃时候 出现数据不一致，还有可能在数据扩容的时候发生不一致的情况，如果不采用二阶段提交。小结redo log 有一个参数 innodb-flush-log-at-trx-commit 设置成1 ，表示每次事务的redo 日志都持久化到磁盘，这样mysql 异常重启之后数据不会丢失。binlog 参数 sync-binlog 设置成1 ，表示每次事务binlog 都写入磁盘，mysql重启数据不会丢失。]]></content>
       <categories>
         <category>编程</category>
       </categories>
