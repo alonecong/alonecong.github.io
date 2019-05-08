@@ -466,7 +466,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  149
                 </span>
               
 
@@ -503,214 +503,6 @@
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" itemprop="url">java内存gc相关复习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
-                2019-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" class="leancloud_visitors" data-flag-title="java内存gc相关复习">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="java内存gc相关复习"><a href="#java内存gc相关复习" class="headerlink" title="java内存gc相关复习"></a>java内存gc相关复习</h1><p>##平台无关性</p>
-<p>jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface </p>
-<p>java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。</p>
-<p>classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true</p>
-<p>bootstrapclassloader extclassloader appclassloader </p>
-<p>##为什么有双亲委派机制？</p>
-<p>​    避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。</p>
-<p>class.forname 是完成初始化的</p>
-<p>classloader.loadclass 为未完成初始化的</p>
-<p>元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。</p>
-<p>metaspace优势于永久代的几点：</p>
-<ol>
-<li>字符串常量池存储在永久代中容易出现性能问题和内存溢出 <ol>
-<li>类的方法和信息大小难易确认给永久代带来困难</li>
-<li>永久代给gc 带来复杂度提升</li>
-<li>hotspot 和 jrockit 可能要合并
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ol></li></ol></div>
-    
-    
     
 
     
@@ -864,7 +656,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  267
                 </span>
               
 
@@ -928,6 +720,8 @@
 
     
 
+    
+
     <footer class="post-footer">
 
       
@@ -965,7 +759,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/java基础/网络编程复习/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lancecong">
@@ -984,7 +778,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/31/JAVA总纲/java基础/网络编程复习/" itemprop="url">网络编程相关复习</a></h1>
+                <a class="post-title-link" href="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" itemprop="url">java内存gc相关复习</a></h1>
         
 
         <div class="post-meta">
@@ -1037,8 +831,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/31/JAVA总纲/java基础/网络编程复习/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/31/JAVA总纲/java基础/网络编程复习/" itemprop="commentCount"></span>
+                <a href="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1046,7 +840,7 @@
 
           
           
-             <span id="/2019/03/31/JAVA总纲/java基础/网络编程复习/" class="leancloud_visitors" data-flag-title="网络编程相关复习">
+             <span id="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" class="leancloud_visitors" data-flag-title="java内存gc相关复习">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1073,7 +867,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  1.3k
                 </span>
               
 
@@ -1099,28 +893,39 @@
 
       
         
-          <h1 id="网络编程复习"><a href="#网络编程复习" class="headerlink" title="网络编程复习"></a>网络编程复习</h1><p>7层</p>
-<p>物理层 ，链路层，网络层，传输层，会话层，表示层，应用层</p>
-<p>tcp 报文头 构成 </p>
-<p>source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口，</p>
-<p>tcpflags   ACK,SYN,FIN，urg，rst，psh</p>
-<p>三次握手 </p>
-<p>C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1.<br>
+          <h1 id="java内存gc相关复习"><a href="#java内存gc相关复习" class="headerlink" title="java内存gc相关复习"></a>java内存gc相关复习</h1><p>##平台无关性</p>
+<p>jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface </p>
+<p>java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。</p>
+<p>classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true</p>
+<p>bootstrapclassloader extclassloader appclassloader </p>
+<p>##为什么有双亲委派机制？</p>
+<p>​    避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。</p>
+<p>class.forname 是完成初始化的</p>
+<p>classloader.loadclass 为未完成初始化的</p>
+<p>元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。</p>
+<p>metaspace优势于永久代的几点：</p>
+<ol>
+<li>字符串常量池存储在永久代中容易出现性能问题和内存溢出 <ol>
+<li>类的方法和信息大小难易确认给永久代带来困难</li>
+<li>永久代给gc 带来复杂度提升</li>
+<li>hotspot 和 jrockit 可能要合并
         
 
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/31/JAVA总纲/java基础/网络编程复习/" rel="contents">
+            <a class="btn" href="/2019/03/31/JAVA总纲/java基础/java内存gc相关复习/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </p></div>
+    </li></ol></li></ol></div>
     
     
+    
+
     
 
     
@@ -1274,7 +1079,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  424
                 </span>
               
 
@@ -1321,6 +1126,211 @@
     </li></ul></div>
     
     
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/JAVA总纲/java基础/网络编程复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/31/JAVA总纲/java基础/网络编程复习/" itemprop="url">网络编程相关复习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/31/JAVA总纲/java基础/网络编程复习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/31/JAVA总纲/java基础/网络编程复习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/03/31/JAVA总纲/java基础/网络编程复习/" class="leancloud_visitors" data-flag-title="网络编程相关复习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  176
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="网络编程复习"><a href="#网络编程复习" class="headerlink" title="网络编程复习"></a>网络编程复习</h1><p>7层</p>
+<p>物理层 ，链路层，网络层，传输层，会话层，表示层，应用层</p>
+<p>tcp 报文头 构成 </p>
+<p>source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口，</p>
+<p>tcpflags   ACK,SYN,FIN，urg，rst，psh</p>
+<p>三次握手 </p>
+<p>C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1.<br>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/31/JAVA总纲/java基础/网络编程复习/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
     
 
     
@@ -1474,7 +1484,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  210
                 </span>
               
 
@@ -1511,6 +1521,8 @@
     </div>
     
     
+    
+
     
 
     
@@ -1664,7 +1676,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  846
                 </span>
               
 
@@ -1723,6 +1735,8 @@
     </li></ol></div>
     
     
+    
+
     
 
     
@@ -1876,7 +1890,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  278
                 </span>
               
 
@@ -1928,6 +1942,8 @@
     </div>
     
     
+    
+
     
 
     
@@ -2081,7 +2097,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  1.5k
                 </span>
               
 
@@ -2126,6 +2142,8 @@
     </p></div>
     
     
+    
+
     
 
     
@@ -2279,7 +2297,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  
+                  99
                 </span>
               
 
@@ -2314,6 +2332,8 @@
     </div>
     
     
+    
+
     
 
     
@@ -2422,7 +2442,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

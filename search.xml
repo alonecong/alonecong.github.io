@@ -122,17 +122,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[java内存gc相关复习]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2Fjava%E5%86%85%E5%AD%98gc%E7%9B%B8%E5%85%B3%E5%A4%8D%E4%B9%A0%2F</url>
-    <content type="text"><![CDATA[java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true bootstrapclassloader extclassloader appclassloader ##为什么有双亲委派机制？ ​ 避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。 class.forname 是完成初始化的 classloader.loadclass 为未完成初始化的 元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。 metaspace优势于永久代的几点： 字符串常量池存储在永久代中容易出现性能问题和内存溢出 类的方法和信息大小难易确认给永久代带来困难 永久代给gc 带来复杂度提升 hotspot 和 jrockit 可能要合并 ##java堆 对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间 jvm三大调优参数 -Xms 堆初始大小 -Xmx 堆能达到的最大值 -Xss 规定每个虚拟机栈的大小（堆栈） ##java内存中堆和栈的区别-内存分配的策略 ​ 静态存储：编译时确定每个数据目标在运行时的存储空间 ​ 栈式存储：数据区在编译时未知，运行时模块入口前确认 ​ 堆式存储：编译时或运行时模块前都无法确认，动态分配 联系 ：引用对象、数组时，栈里定义变量保存堆中目标的首地址。 例如调用Person p = new Person 这个对象时，在栈中存储p这个变量，这个变量的引用地址为堆中这个对象的指针。 栈是自动释放，堆需要gc回收 空间大小栈比堆小 栈碎片小于堆 分配方式堆只有动态分配，栈可以是静态和动态 栈的效率比堆高 jdk 6 和jdk6+ 之后 string 的intern 方法区别？ ​ 6+以后不仅仅在字符串常量池中创建对象，而且还会在堆中创建一份。 ## 垃圾回收机制 判断对象是否进行引用了 引用计数法，可达分析算法 可做为gc Root对象 虚拟机栈中引用的对象 方法区中常量引用的对象 方法区中静态变量引用的对象 本地方法栈中jni引用的对象 活跃线程引用的对象 垃圾回收的算法标记-清除 从根集合进行扫描，对存活对象进行标记 对堆内存进行线性遍历，回收不可达的对象 碎片化严重，后续如果遇到大对象需要连续内存则触发垃圾回收 复制算法 分二块区域，存活的对象复制到to区域，之后from区域全部清除，适合生命周期短的对象。年轻代算法。 标记-整理 从根集合进行扫描，对存活对象进行标记 移动所有存活对象且按照内存地址一次排序，然后将内存地址末端进行回收。 分代垃圾回收算法 针对不同的区域进行不同的垃圾回收机制，年轻代用复制算法，老年代和永久代用标记整理或者标记清除算法，1.8以后没有永久代。 Eden survivors 区 比例8:1:1 young占1/3 堆内存 ，老年代2/3 内存 -XX:MaxTenuringThreshold 参数是经过多少次minor gc 进入 老年代。 默认值15次 -XX:pertennuerSizeThreshold 控制大对象的大小 -XX:survivorRatio eden和survivor 的比值 默认8:1:1 -XX:NewRatio 年轻代和老年代比值 。2 触发full gc 条件 老年代空间不足 7之前版本 永久代空间不足 minor gc 晋升到老年代的空间大于老年代的剩余空间 rmi 来进行rpc的java应用默认会一个小时执行一次full gc 垃圾收集器-XX:UseParNewGC 这个是减少时间停顿 多线程手机其他serial 收集器一样，复制算法 能于cms 一起配合工作 年轻代使用的垃圾收集器 默认是吞吐量-XX:UseParallelGC CMS -XX: UseconcMarkSweepGC 标记清除 减少停顿 初始标记，并发标记，重新标记，清除。会有stop the world 空间碎片问题 -XX:UseG1GC 用于年轻和老年代的垃圾回收器 复制+标记-整理 将整个堆划分成独立多个region区域 强引用，软引用，弱引用，虚引用强引用必须收到设置为null，并且jvm认可抛出oom也不会回收的对象 软引用 高速缓存，没有足够空间是垃圾回收 softReference 虚引用，]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux复习]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2FLinux%2Flinux%E5%91%BD%E4%BB%A4%E5%A4%8D%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[linux复习 # 自动标记这一次的 commit 为上一个 commit 的 fix $ git commit –fixup git rebase -i —autosquash 自动组织合并两个 commit 内核空间，用户空间 ls -S1 从大到小排序 ls-Slr 从小到大排序 ls-lt 从新到旧 ls-lrt 从旧到新 find / -name ‘target.xxx’ find ~ -iname ‘ddd*‘ 忽略大小写查找文件 grep ‘moo’ target* 查找所有target开头的文件中含有moo字符的文件 Awk ‘{print $1,$2}’ xx.xx Awk ‘$1==”tcp” &amp; $2==0 {print $0}’ xx.xx Awk ‘($1==”tcp” &amp; $2==0 ) || NR=1 {print $0}’ xx.xx nr=1 代表表头第一行 awk 默认是按照空格进行分割的， awk -F “,” ‘{print $0}’ log.log 自定义按照逗号分隔 sed ‘s/s/^Str/String ‘ a.java 替换a.java 文件中字符串类型并把Str开头的字符串替换成String sed -i 是表示更改 sed -i ‘s/\.$/\.;/‘ a.java 把a.java 文件中以. 结尾的替换成；结尾 /s（操作类型）/str（替换的字符串）/String （想替换的字符串）/g （表示全文替换） sed -i ‘/^ *.$’/d’ a.java 删除空行]]></content>
@@ -144,9 +133,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[网络编程相关复习]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2F%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%A4%8D%E4%B9%A0%2F</url>
-    <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
+    <title><![CDATA[java内存gc相关复习]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2Fjava%E5%86%85%E5%AD%98gc%E7%9B%B8%E5%85%B3%E5%A4%8D%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true bootstrapclassloader extclassloader appclassloader ##为什么有双亲委派机制？ ​ 避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。 class.forname 是完成初始化的 classloader.loadclass 为未完成初始化的 元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。 metaspace优势于永久代的几点： 字符串常量池存储在永久代中容易出现性能问题和内存溢出 类的方法和信息大小难易确认给永久代带来困难 永久代给gc 带来复杂度提升 hotspot 和 jrockit 可能要合并 ##java堆 对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间 jvm三大调优参数 -Xms 堆初始大小 -Xmx 堆能达到的最大值 -Xss 规定每个虚拟机栈的大小（堆栈） ##java内存中堆和栈的区别-内存分配的策略 ​ 静态存储：编译时确定每个数据目标在运行时的存储空间 ​ 栈式存储：数据区在编译时未知，运行时模块入口前确认 ​ 堆式存储：编译时或运行时模块前都无法确认，动态分配 联系 ：引用对象、数组时，栈里定义变量保存堆中目标的首地址。 例如调用Person p = new Person 这个对象时，在栈中存储p这个变量，这个变量的引用地址为堆中这个对象的指针。 栈是自动释放，堆需要gc回收 空间大小栈比堆小 栈碎片小于堆 分配方式堆只有动态分配，栈可以是静态和动态 栈的效率比堆高 jdk 6 和jdk6+ 之后 string 的intern 方法区别？ ​ 6+以后不仅仅在字符串常量池中创建对象，而且还会在堆中创建一份。 ## 垃圾回收机制 判断对象是否进行引用了 引用计数法，可达分析算法 可做为gc Root对象 虚拟机栈中引用的对象 方法区中常量引用的对象 方法区中静态变量引用的对象 本地方法栈中jni引用的对象 活跃线程引用的对象 垃圾回收的算法标记-清除 从根集合进行扫描，对存活对象进行标记 对堆内存进行线性遍历，回收不可达的对象 碎片化严重，后续如果遇到大对象需要连续内存则触发垃圾回收 复制算法 分二块区域，存活的对象复制到to区域，之后from区域全部清除，适合生命周期短的对象。年轻代算法。 标记-整理 从根集合进行扫描，对存活对象进行标记 移动所有存活对象且按照内存地址一次排序，然后将内存地址末端进行回收。 分代垃圾回收算法 针对不同的区域进行不同的垃圾回收机制，年轻代用复制算法，老年代和永久代用标记整理或者标记清除算法，1.8以后没有永久代。 Eden survivors 区 比例8:1:1 young占1/3 堆内存 ，老年代2/3 内存 -XX:MaxTenuringThreshold 参数是经过多少次minor gc 进入 老年代。 默认值15次 -XX:pertennuerSizeThreshold 控制大对象的大小 -XX:survivorRatio eden和survivor 的比值 默认8:1:1 -XX:NewRatio 年轻代和老年代比值 。2 触发full gc 条件 老年代空间不足 7之前版本 永久代空间不足 minor gc 晋升到老年代的空间大于老年代的剩余空间 rmi 来进行rpc的java应用默认会一个小时执行一次full gc 垃圾收集器-XX:UseParNewGC 这个是减少时间停顿 多线程手机其他serial 收集器一样，复制算法 能于cms 一起配合工作 年轻代使用的垃圾收集器 默认是吞吐量-XX:UseParallelGC CMS -XX: UseconcMarkSweepGC 标记清除 减少停顿 初始标记，并发标记，重新标记，清除。会有stop the world 空间碎片问题 -XX:UseG1GC 用于年轻和老年代的垃圾回收器 复制+标记-整理 将整个堆划分成独立多个region区域 强引用，软引用，弱引用，虚引用强引用必须收到设置为null，并且jvm认可抛出oom也不会回收的对象 软引用 高速缓存，没有足够空间是垃圾回收 softReference 虚引用，]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -158,6 +147,17 @@
     <title><![CDATA[分布式解决方案]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2F%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1Fescar%2F</url>
     <content type="text"><![CDATA[#分布式解决方案 FescarFescar github 地址传统的解决无侵入的方案为XA，但是XA 有一定的局限性，比如要求mysql版本高于5.7其他都是在业务上采用如下解决方案： 基于可靠消息解决 TCC Saga 什么是分布式事务？分布式事务就是一个包含了若干个分支事务的全局事务。全局事务就是协调包含的分支事务从而达成一致，要么全部成功，否则全部失败。分支事务就是本地的事务ACID，这与XA的理念是一样的。下图就是基本的分布式事务的过程 Transaction Coordinator (TC)： 事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚。 Transaction Manager (TM)： 控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议。 Resource Manager (RM)： 控制分支事务，负责分支注册、状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚。 TM向TC 首先申请开启一个全局事务，全局事务创建成功并返回一个XID(全局事务id） XID 必须要在全局事务中进行传播，如果没有xid那么不能判断出属于哪一个全局事务啦！ RM 向 TC 注册分支事务，将其纳入 XID 对应全局事务的管辖。 TM 向 TC 发起针对 XID 的全局提交或回滚决议。 TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[网络编程相关复习]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2F%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%A4%8D%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
       <categories>
         <category>编程</category>
       </categories>
