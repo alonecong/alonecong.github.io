@@ -427,6 +427,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/31/JAVA总纲/分布式/apmq/RabbitMq/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/31/JAVA总纲/分布式/apmq/RabbitMq/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -574,8 +584,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/" rel="next" title="Dubbo服务治理">
-                <i class="fa fa-chevron-left"></i> Dubbo服务治理
+              <a href="/2019/03/31/JAVA总纲/java基础/并发系列/java 多线程梳理/" rel="next" title="java 多线程梳理">
+                <i class="fa fa-chevron-left"></i> java 多线程梳理
               </a>
             
           </div>
@@ -584,8 +594,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/31/JAVA总纲/分布式/es/EalsticSearch/" rel="prev" title="EalsticSearch">
-                EalsticSearch <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/31/JAVA总纲/分布式/dubbo/Dubbo服务治理/" rel="prev" title="Dubbo服务治理">
+                Dubbo服务治理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -615,6 +625,9 @@
 
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -952,6 +965,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = '';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'T0DhtjC4BXDkiqq0kwUJhIXr-gzGzoHsz',
+        appKey: '9YJnsDrwdENowmDrDfGRYzp7',
+        placeholder: 'ヾﾉ≧∀≦)o快来评论一下吧!',
+        avatar:'monsterid',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
