@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2019%2F05%2F09%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2FLinux%2Flnmp%2F</url>
+    <content type="text"><![CDATA[centos下设置语言123# echo &apos;LANG=zh_CN.utf8&apos; &gt;&gt;/etc/profile# source /etc/profile# su -l ##安装redis12345678910111213141516171819202122232425yum install gcc-c++yum install -y tclyum install wgetwget http://download.redis.io/releases/redis-2.8.13.tar.gztar -xzvf redis-2.8.19.tar.gzmv redis-2.8.19 /usr/local/rediscd /usr/local/redismakemake installmkdir -p /etc/rediscp redis.conf/etc/redisvi /etc/redis/redis.conf仅修改： daemonize yes （no--&gt;yes）/usr/local/bin/redis-server /etc/redis/redis.confps -ef | grep redis redis-cli&gt;set name davidOK&gt;get name&quot;david&quot;11.关闭客户端redis-cli shutdownecho &quot;/usr/local/bin/redis-server /etc/redis/redis.conf &amp;&quot; &gt;&gt; /etc/rc.local rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm步骤 2—安装 Nginx现在，Nginx的资源库已安装在服务器上，使用以下yum command安装Nginx的： sudo yum install nginx当你回答Y，Nginx的将完成安装虚拟专用服务器（VPS）上。 步骤 3—开启 NginxNginx的不会自动启动。为了让Nginx的运行，键入： sudo systemctl start nginx.service server { listen 80; server_name localhost; #charset koi8-r; #access_log /var/log/nginx/log/host.access.log main; root /home/www/public/; location / { try_files $uri $uri/ /index.php$is_args$args; ## root /home/www/ss-panel/public/; ## index index.html index.htm; } #error_page 404 /404.html; # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; location = /50x.html { root /usr/share/nginx/html; } # proxy the PHP scripts to Apache listening on 127.0.0.1:80 # # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 # location ~ \.php$ { root html; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name; include fastcgi_params; }]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[大厂敏捷都有哪些方法]]></title>
     <url>%2F2019%2F05%2F09%2FJAVA%E6%80%BB%E7%BA%B2%2F%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%2F%E6%95%8F%E6%8D%B7%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[文章都来自于学习极客时间《软件工程之美》 大型公司都在用哪些敏捷的方法？回溯本质，不论什么方法归根都要解决一个问题就是怎么更好的进行管理和指导软件开发工作。其实最后用到所谓的方法论或者行之有效的方法就是“分而治之” 。 大项目拆分成N个小项目、大服务拆分小服务、大团队拆分小团队 、小项目拆分多个模块。公司的管理也是这样的例子，总经理—部门经理—组长—组员！大趋势所需，现在微服务、容器化等技术越来越流行敏捷更流行吧！ 参考学习下 敏捷开发的根本矛盾是什么？从业十余年的工程师在思考 敏捷开发相关的主要流程规范毕竟要有一套行之有效的方法论，指导我们去进行相关事务的落实工作。那么我们看看都有哪些关于敏捷开发的流程？ 一切工作任务围绕 Ticket 开展最早是甘特图，相信很多大龄的貌似多多少少接触过，而敏捷是则是看板board，记得几年前在一家公司，总监曾就职隶属于老美的App Annie，当时就采用了scrum 敏捷的一些流程，现在回忆起来有点感慨，但是没做多久！ 先说说看板（分为Todo，Progress，Done），就是管理软件来管理跟踪这些任务。即时贴 ticket 也有叫 issue 也就对应的和开发任务关联起来了。一个需求、一个bug、要重构的代码、都是一个ticket 。 每一个任务都有状态清晰的知道 谁在做？什么时间开始的？进度完成情况？ 结合看板或者手机ticket 就知道 当前Sprint(迭代)的 Backlog（任务清单）更好的掌握全局情况。 任何时刻我们都要有风险意识存在，开发人员的主观能动性、长期的ticket停留、ticket过多在一个sprint中、这些都是因素。是否sprint安排不合理，会议上每个开发错误的评估ticket时间等。 基于 Git 和 CI 的开发流程 git 的流程去参考阮一峰老师的文章或者标准的git-flow ，CI 这个嘛！github 企业版有提供，当然公司自己搭建的gitlab 配合jekins 或者py或者shell脚本 等完成。 应用敏捷开发方法的基本开发流程：1.开发todo-》Progress –》从master创建分支用于开发或者修复bug–》实现代码单元测试提交到分支–》持续提交代码更新到分支，直到完成–》创建PR–》codereview –》CI （包括检查代码规范、单元测试、集成测试）–》CI 通过 progress到done 部署上线流程 部署的不再是程序代码，而是 Docker 的 Image，每次代码合并后 CI 都会自动 生成新的 Image，测试也是基于 Image 测试。部署生产环境之前，先在内部的测试环境充分测试。 部署生产环境前，需要审批确认，有 Ticket 跟踪。 部署时，先部署一部分，监测正常后再全量部署。 整个过程都有监控报警，出现问题及时回滚。这里想补充下，并不是每个公司现在都容器化完善的，那么我们要向这个方向努力，理解这个过程更好的完善更重要，如果你有权你能决定这些 每日的站会 谁主持Scrum Master(敏捷教练）采用轮班制 会议内容 成员发言，昨天做了什么，今天计划做什么？有没有阻碍无法推进？ 检查是否有新增ticket，是考虑加入sprint 还是backlog中 停车场问题，能解决的问题就当场解决，一般都是需要后续进行讨论或者再次组织会议。 总结： 敏捷开发中有很多概念，例如看板，ticket，git ，ci ，jira，禅道，站会，代码审查，自动化测试等等，这所有的一切都是保证敏捷的实施而已。要真正理解敏捷开发中的知识点，指定出好的规范。]]></content>
@@ -130,28 +135,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[openresty nginx]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%AE%89%E8%A3%85openresty%20nginx%2F</url>
-    <content type="text"><![CDATA[安装openresty nginx命令install openresty/brew/openresty```123456789101112131415161718192021222324252627之后当前目录下创建`mkdir ~/work cd ~/work mkdir logs/ conf/`在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 `nginx -s reload nginx -h nginx -p nginx -c `nginx.conf 配置文件内容 配置这个反向服务代理要代理的服务器集群&lt;!-- more --&gt;``` shellupstream backend_server &#123; server localhost:8080 weight=1;&#125;server&#123; listen 7777; location / &#123; proxy_pass http://backend_server ; &#125; #当用户访问这个目录下文件，即认为在访问静态资源 location /resources &#123; alias //usr/local/opt/openresty/nginx/html; &#125;&#125;]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[linux复习]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2FLinux%2Flinux%E5%91%BD%E4%BB%A4%E5%A4%8D%E4%B9%A0%2F</url>
-    <content type="text"><![CDATA[linux复习 # 自动标记这一次的 commit 为上一个 commit 的 fix $ git commit –fixup git rebase -i —autosquash 自动组织合并两个 commit 内核空间，用户空间 ls -S1 从大到小排序 ls-Slr 从小到大排序 ls-lt 从新到旧 ls-lrt 从旧到新 find / -name ‘target.xxx’ find ~ -iname ‘ddd*‘ 忽略大小写查找文件 grep ‘moo’ target* 查找所有target开头的文件中含有moo字符的文件 Awk ‘{print $1,$2}’ xx.xx Awk ‘$1==”tcp” &amp; $2==0 {print $0}’ xx.xx Awk ‘($1==”tcp” &amp; $2==0 ) || NR=1 {print $0}’ xx.xx nr=1 代表表头第一行 awk 默认是按照空格进行分割的， awk -F “,” ‘{print $0}’ log.log 自定义按照逗号分隔 sed ‘s/s/^Str/String ‘ a.java 替换a.java 文件中字符串类型并把Str开头的字符串替换成String sed -i 是表示更改 sed -i ‘s/\.$/\.;/‘ a.java 把a.java 文件中以. 结尾的替换成；结尾 /s（操作类型）/str（替换的字符串）/String （想替换的字符串）/g （表示全文替换） sed -i ‘/^ *.$’/d’ a.java 删除空行]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[java内存gc相关复习]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2Fjava%E5%86%85%E5%AD%98gc%E7%9B%B8%E5%85%B3%E5%A4%8D%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true bootstrapclassloader extclassloader appclassloader ##为什么有双亲委派机制？ ​ 避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。 class.forname 是完成初始化的 classloader.loadclass 为未完成初始化的 元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。 metaspace优势于永久代的几点： 字符串常量池存储在永久代中容易出现性能问题和内存溢出 类的方法和信息大小难易确认给永久代带来困难 永久代给gc 带来复杂度提升 hotspot 和 jrockit 可能要合并 ##java堆 对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间 jvm三大调优参数 -Xms 堆初始大小 -Xmx 堆能达到的最大值 -Xss 规定每个虚拟机栈的大小（堆栈） ##java内存中堆和栈的区别-内存分配的策略 ​ 静态存储：编译时确定每个数据目标在运行时的存储空间 ​ 栈式存储：数据区在编译时未知，运行时模块入口前确认 ​ 堆式存储：编译时或运行时模块前都无法确认，动态分配 联系 ：引用对象、数组时，栈里定义变量保存堆中目标的首地址。 例如调用Person p = new Person 这个对象时，在栈中存储p这个变量，这个变量的引用地址为堆中这个对象的指针。 栈是自动释放，堆需要gc回收 空间大小栈比堆小 栈碎片小于堆 分配方式堆只有动态分配，栈可以是静态和动态 栈的效率比堆高 jdk 6 和jdk6+ 之后 string 的intern 方法区别？ ​ 6+以后不仅仅在字符串常量池中创建对象，而且还会在堆中创建一份。 ## 垃圾回收机制 判断对象是否进行引用了 引用计数法，可达分析算法 可做为gc Root对象 虚拟机栈中引用的对象 方法区中常量引用的对象 方法区中静态变量引用的对象 本地方法栈中jni引用的对象 活跃线程引用的对象 垃圾回收的算法标记-清除 从根集合进行扫描，对存活对象进行标记 对堆内存进行线性遍历，回收不可达的对象 碎片化严重，后续如果遇到大对象需要连续内存则触发垃圾回收 复制算法 分二块区域，存活的对象复制到to区域，之后from区域全部清除，适合生命周期短的对象。年轻代算法。 标记-整理 从根集合进行扫描，对存活对象进行标记 移动所有存活对象且按照内存地址一次排序，然后将内存地址末端进行回收。 分代垃圾回收算法 针对不同的区域进行不同的垃圾回收机制，年轻代用复制算法，老年代和永久代用标记整理或者标记清除算法，1.8以后没有永久代。 Eden survivors 区 比例8:1:1 young占1/3 堆内存 ，老年代2/3 内存 -XX:MaxTenuringThreshold 参数是经过多少次minor gc 进入 老年代。 默认值15次 -XX:pertennuerSizeThreshold 控制大对象的大小 -XX:survivorRatio eden和survivor 的比值 默认8:1:1 -XX:NewRatio 年轻代和老年代比值 。2 触发full gc 条件 老年代空间不足 7之前版本 永久代空间不足 minor gc 晋升到老年代的空间大于老年代的剩余空间 rmi 来进行rpc的java应用默认会一个小时执行一次full gc 垃圾收集器-XX:UseParNewGC 这个是减少时间停顿 多线程手机其他serial 收集器一样，复制算法 能于cms 一起配合工作 年轻代使用的垃圾收集器 默认是吞吐量-XX:UseParallelGC CMS -XX: UseconcMarkSweepGC 标记清除 减少停顿 初始标记，并发标记，重新标记，清除。会有stop the world 空间碎片问题 -XX:UseG1GC 用于年轻和老年代的垃圾回收器 复制+标记-整理 将整个堆划分成独立多个region区域 强引用，软引用，弱引用，虚引用强引用必须收到设置为null，并且jvm认可抛出oom也不会回收的对象 软引用 高速缓存，没有足够空间是垃圾回收 softReference 虚引用，]]></content>
@@ -166,17 +149,6 @@
     <title><![CDATA[网络编程相关复习]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2F%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%A4%8D%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[分布式解决方案]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2F%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1Fescar%2F</url>
-    <content type="text"><![CDATA[#分布式解决方案 FescarFescar github 地址传统的解决无侵入的方案为XA，但是XA 有一定的局限性，比如要求mysql版本高于5.7其他都是在业务上采用如下解决方案： 基于可靠消息解决 TCC Saga 什么是分布式事务？分布式事务就是一个包含了若干个分支事务的全局事务。全局事务就是协调包含的分支事务从而达成一致，要么全部成功，否则全部失败。分支事务就是本地的事务ACID，这与XA的理念是一样的。下图就是基本的分布式事务的过程 Transaction Coordinator (TC)： 事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚。 Transaction Manager (TM)： 控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议。 Resource Manager (RM)： 控制分支事务，负责分支注册、状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚。 TM向TC 首先申请开启一个全局事务，全局事务创建成功并返回一个XID(全局事务id） XID 必须要在全局事务中进行传播，如果没有xid那么不能判断出属于哪一个全局事务啦！ RM 向 TC 注册分支事务，将其纳入 XID 对应全局事务的管辖。 TM 向 TC 发起针对 XID 的全局提交或回滚决议。 TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -229,17 +201,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[算法复习]]></title>
-    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E7%AE%97%E6%B3%95%2F%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0%2F</url>
-    <content type="text"><![CDATA[算法复习堆排序， 把数组理解为完全二叉树形式。二叉树，满二叉树，完全二叉树 理解完全二叉树，左叶子节点 是 i乘以2+1 右节点是 i乘以2 +2，父节点是 i-1除以2堆就是完全二叉树，大根堆任何这棵树最大值都在树的顶部所形成的结构。小根堆]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[JAVA 基础]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2F%E5%A4%8D%E4%B9%A0%E9%A2%98%2F</url>
     <content type="text"><![CDATA[##JAVA 基础 JAVA 中的几种基本数据类型是什么，各自占用多少字节。 Int,double,byte,short,char，float ，long，boolean String 类能被继承吗，为什么。不能，String类型是final修饰，不可变类型。final修饰的类是不能进行继承的 String，Stringbuffer，StringBuilder 的区别。 buffer线程安全，用synchronized 修饰 StringBuilder 和 StringBuffer 都是可变字符串，前者线程不安全，后者线程安全。 StringBuilder 和 StringBuffer 的大部分方法均调用父类 AbstractStringBuilder 的实现。其扩容机制首先是把容量变为原来容量的 2 倍加 2。最大容量是 Integer.MAX_VALUE，也就是 0x7fffffff。 StringBuilder 和 StringBuffer 的默认容量都是 16. ArrayList 和 LinkedList 有什么区别。 数据结构上，一个是数组，一个是链表结构，查询O(1) 增加O(n) 。链表插入，删除快，查询需要遍历结点 讲讲类的实例化顺序，比如父类静态数据，构造函数，字段，子类静态数据，构造函数，字 段，当 new 的时候，他们的执行顺序。 父类静态变量、 父类静态代码块、 子类静态变量、 子类静态代码块、 父类非静态变量（父类实例成员变量）、 父类构造函数、 子类非静态变量（子类实例成员变量）、 子类构造函数 用过哪些 Map 类，都有什么区别，HashMap 是线程安全的吗，并发下使用的 Map 是什么，他们 内部原理分别是什么，比如存储方式，hashcode，扩容，默认容量等。 JAVA8 的 ConcurrentHashMap 为什么放弃了分段锁，有什么问题吗，如果你来设计，你如何 设计。 ​ 变成了cas+node 方式，减少并发竞争是提高性能的表现。 有没有有顺序的 Map 实现类，如果有，他们是怎么保证有序的。 linkedhashmap，treemap 都是有序的map 抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么，类可以实现多个接口 么。 继承和聚合的区别在哪。 IO 模型有哪些，讲讲你理解的 nio ，他和 bio，aio 的区别是啥，谈谈 reactor 模型。 反射的原理，反射创建类实例的三种方式是什么。 对象.getClass() 方式 类名.Class 方式 Class.forName( 类的包名 ) 方式 反射中，Class.forName 和 ClassLoader 区别 1.Class.forName 返回的 Class 对象可以决定是否初始化。而 ClassLoader.loadClass 返回的类型绝对不会初始化，最多只会做连接操作。 2.Class.forName 可以决定由哪个 classLoader 来请求这个类型。而 ClassLoader.loadClass 是用当前的 classLoader 去请求。 描述动态代理的几种实现方式，分别说出相应的优缺点。 静态代理和动态代理，静态代理 ，代理类和本身需要实现同一个接口，队外暴露代理类达到目的。 动态代理与 cglib 实现的区别。 jdk的动态代理类因为实现了proxy类，所以不能在继承其他类，所以从构造方法需要传入接口，所以仅仅能代理接口类，cglib 通过动态的字节码方式创建类，并且利用发射加上aop拦截父类的方法，MethodInterceptor 这也是为什么要实现insterceptor的原因。 final 的用途。 写出三种单例模式实现 。 如何在父类中为子类自动完成所有的 hashcode 和 equals 实现？这么做有何优劣。 请结合 OO 设计理念，谈谈访问修饰符 public、private、protected、default 在应用设 计中的作用。 深拷贝和浅拷贝区别。 数组和链表数据结构描述，各自的时间复杂度。 error 和 exception 的区别，CheckedException，RuntimeException 的区别。 请列出 5 个运行时异常。 在自己的代码中，如果创建一个 java.lang.String 类，这个类是否可以被类加载器加 载？为什么。 ​ 因为类加载有双亲委派模式，即加载一个类时候首先让它父类的加载器去加载，如果没有才会加载，这样就保证了类加载重复的问题，也保证一个类只加载一次，提高安全性。 说一说你对 java.lang.Object 对象中 hashCode 和 equals 方法的理解。在什么场景下需 要重新实现这两个方法。 ​ 如果hashmap 中，要拿一个对象作为key，那么必须要重写hashcode，equals 方法。 在 jdk1.5 中，引入了泛型，泛型的存在是用来解决什么问题。 这样的 a.hashcode () 有什么用，与 a.equals (b) 有什么关系。 有没有可能 2 个不相等的对象有相同的 hashcode。 hashCode 是怎么来的？—— 原来有很多，自增序列，随机数，内存地址 2的32次方。 这段代码可以看出 OpenJDK 一共实现了 5 中不同的计算 hash 值的方法，通过这段代码中 hashCode 进行切换。其中 hashCode == 4 的是直接使用地址的 所以说有这样的情况，这也就是hashmap key 为啥会冲突的原因。 Java 中的 HashSet 内部是如何工作的。 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。 java8 的新特性。 JVM 知识 什么情况下会发生栈内存溢出。 如果递归调用有可能产生栈溢出情况 JVM 的内存结构，Eden 和 Survivor 比例。 默认的，新生代 (Young) 与老年代 ( Old ) 的比例的值为 1:2 ( 该值可以通过参数 –XX:NewRatio 来指定 )，即：新生代 ( Young ) = 1/3 的堆空间大小。老年代 (Old) = 2/3 的堆空间大小。其中，新生代 ( Young ) 被细分为 Eden 和 两个 Survivor 区域，这两个 Survivor 区域分别被命名为 from 和 to，以示区分。默认的，Edem : from : to = 8 : 1 : 1 (可以通过参数 –XX:SurvivorRatio 来设定)，即： Eden = 8/10 的新生代空间大小，from = to = 1/10 的新生代空间大小。JVM 每次只会使用 Eden 和其中的一块 Survivor 区域来为对象服务，所以无论什么时候，总是有一块 Survivor 区域是空闲着的。 因此，新生代实际可用的内存空间为 9/10 (即 90%) 的新生代空间。 JVM 内存为什么要分成新生代，老年代，持久代。新生代中为什么要分为 Eden 和 Survivor。 JVM 中一次完整的 GC 流程是怎样的，对象如何晋升到老年代，说说你知道的几种主要的 JVM 参 数。 你知道哪几种垃圾收集器，各自的优缺点，重点讲下 cms 和 G1，包括原理，流程，优缺点。 垃圾回收算法的实现原理。 当出现了内存溢出，你怎么排错。 JVM 内存模型的相关知识了解多少，比如重排序，内存屏障，happen-before，主内存，工作 内存等。 简单说说你了解的类加载器，可以打破双亲委派么，怎么打破。 讲讲 JAVA 的反射机制。 你们线上应用的 JVM 参数有哪些。 g1 和 cms 区别，吞吐量优先和响应优先的垃圾收集器选择。 怎么打出线程栈信息。 请解释如下 jvm 参数的含义： -server -Xms512m -Xmx512m -Xss1024K-XX:PermSize=256m -XX:MaxPermSize=512m -XX:MaxTenuringThreshold=20XX:CMSInitiatingOccupancyFraction=80 -XX:+UseCMSInitiatingOccupancyOnly。 开源框架知识 简单讲讲 tomcat 结构，以及其类加载器流程，线程模型等。 tomcat 如何调优，涉及哪些参数 。 讲讲 Spring 加载流程。 Spring AOP 的实现原理。 讲讲 Spring 事务的传播属性。 Spring 如何管理事务的。 Spring 怎么配置事务（具体说出一些关键的 xml 元素）。 说说你对 Spring 的理解，非单例注入的原理？它的生命周期？循环注入的原理，aop 的实现原 理，说说 aop 中的几个术语，它们是怎么相互工作的。 Springmvc 中 DispatcherServlet 初始化过程。 netty 的线程模型，netty 如何基于 reactor 模型上实现的。 为什么选择 netty。 什么是 TCP 粘包，拆包。解决方式是什么。 netty 的 fashwheeltimer 的用法，实现原理，是否出现过调用不够准时，怎么解决。 netty 的心跳处理在弱网下怎么办。 netty 的通讯协议是什么样的。 springmvc 用到的注解，作用是什么，原理。 springboot 启动机制。 点击这里有一套答案版的 Spring 试题。 操作系统 Linux 系统下你关注过哪些内核参数，说说你知道的。 Linux 下 IO 模型有几种，各自的含义是什么。 epoll 和 poll 有什么区别。 平时用到哪些 Linux 命令。 用一行命令查看文件的最后五行。 cat filename | head -n 5 | tail -n +10 tail -f log.log Sed -n ‘’ log.log 用一行命令输出正在运行的 java 进程。 Jps ps -ef | grep java 介绍下你理解的操作系统中线程切换过程。 进程和线程的区别。 top 命令之后有哪些内容，有什么作用。 线上 CPU 爆高，请问你如何找到问题所在。 多线程 多线程的几种实现方式，什么是线程安全。 volatile 的原理，作用，能代替锁么。 画一个线程的生命周期状态图。 sleep 和 wait 的区别。 sleep 和 sleep (0) 的区别。 Lock 与 Synchronized 的区别 。 synchronized 的原理是什么，一般用在什么地方 (比如加在静态方法和非静态方法的区别，静 态方法和非静态方法同时执行的时候会有影响吗)，解释以下名词：重排序，自旋锁，偏向锁，轻量级锁，可重入锁，公平锁，非公平锁，乐观锁，悲观锁。 用过哪些原子类，他们的原理是什么。 JUC 下研究过哪些并发工具，讲讲原理。 用过线程池吗，如果用过，请说明原理，并说说 newCache 和 newFixed 有什么区别，构造函 数的各个参数的含义是什么，比如 coreSize，maxsize 等。 线程池的关闭方式有几种，各自的区别是什么。 假如有一个第三方接口，有很多个线程去调用获取数据，现在规定每秒钟最多有 10 个线程同 时调用它，如何做到。 一个空的object 对象多大？ 32 位的 JDK 是 4 字节，64 位的 JDK 是 8 字节 spring 的 controller 是单例还是多例，怎么保证并发的安全。 用三个线程按顺序循环打印 abc 三个字母，比如 abcabcabc。 ThreadLocal 用过么，用途是什么，原理是什么，用的时候要注意什么。 简单说 ThreadLocal 就是一种以空间换时间的做法，在每个 Thread 里面维护了一个以开地址法实现的 ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享 怎么检测一个对象是否持有对象监视器 ​ Thread 类提供了一个 holdsLock (Object obj) 方法 如果让你实现一个并发安全的链表，你会怎么做？ 在insert时候因为是链表应该锁住前驱和后驱的节点，保证线程安全。 5.lock接口和synchronized 区别？ 1）ReentrantLock 可以对获取锁的等待时间进行设置，这样就避免了死锁 （2）ReentrantLock 可以获取各种锁的信息 （3）ReentrantLock 可以灵活地实现多路通知 另外，二者的锁机制其实也是不一样的。ReentrantLock 底层调用的是 Unsafe 的 park 方法加锁，synchronized 操作的应该是对象头中 mark word linkedhashmap 怎么实现有序的，重写了addEntry的方法，让插入的数据添加到链表的尾部！改变了数据的前后节点。 有哪些无锁数据结构，他们实现的原理是什么。 cas 实现的类，lock-free 利用compare and swap 实现。 讲讲 java 同步机制的 wait 和 notify。 CAS 机制是什么，如何解决 ABA 问题。 用 AtomicStampedReference/AtomicMarkableReference 解决 ABA 问题 多线程如果线程挂住了怎么办？ 首先排查jstack heap dump 查看hang住的线程，之后利用 countdowlatch 和 cyclicbarrier 的内部原理和用法，以及相互之间的差别 (比如 countdownlatch 的 await 方法和是怎么实现的)。 对 AbstractQueuedSynchronizer 了解多少，讲讲加锁和解锁的流程，独占锁和公平所 加锁有什么不同。 使用 synchronized 修饰静态方法和非静态方法有什么区别。 简述 ConcurrentLinkedQueue 和 LinkedBlockingQueue 的用处和不同之处。 导致线程死锁的原因？怎么解除线程死锁。 非常多个线程（可能是不同机器），相互之间需要等待协调，才能完成某种工作，问怎么设计这种协调方案。 用过读写锁吗，原理是什么，一般在什么场景下用。 开启多个线程，如果保证顺序执行，有哪几种实现方式，或者如何保证多个线程都执行完 再拿到结果。 延迟队列的实现方式，delayQueue 和时间轮算法的异同。 点击这里有一套答案版的多线程试题。 TCP 与 HTTP http1.0 和 http1.1 有什么区别。 TCP 三次握手和四次挥手的流程，为什么断开连接要 4 次，如果握手只有两次，会出现什么。 TIME_WAIT 和 CLOSE_WAIT 的区别。 说说你知道的几种 HTTP 响应码，比如 200, 302, 404。 当你用浏览器打开一个链接（如：http://www.javastack.cn）的时候，计算机做了哪些工作步骤。 TCP/IP 如何保证可靠性，说说 TCP 头的结构。 如何避免浏览器缓存。 如何理解 HTTP 协议的无状态性。 简述 Http 请求 get 和 post 的区别以及数据包格式。 HTTP 有哪些 method 简述 HTTP 请求的报文格式。 HTTP 的长连接是什么意思。 HTTPS 的加密方式是什么，讲讲整个加密解密流程。 Http 和 https 的三次握手有什么区别。 什么是分块传送。 Session 和 cookie 的区别。 点击这里有一套答案版的试题。 架构设计与分布式 用 java 自己实现一个 LRU。 分布式集群下如何做到唯一序列号。 设计一个秒杀系统，30 分钟没付款就自动关闭交易。 如何使用 redis 和 zookeeper 实现分布式锁？有什么区别优缺点，会有什么问题，分别适用什么 场景。（延伸：如果知道 redlock，讲讲他的算法实现，争议在哪里） 如果有人恶意创建非法连接，怎么解决。 分布式事务的原理，优缺点，如何使用分布式事务，2pc 3pc 的区别，解决了哪些问题，还有 哪些问题没解决，如何解决，你自己项目里涉及到分布式事务是怎么处理的。 什么是一致性 hash。 采用2的32次方的槽，对key进行hash操作形成一个虚拟环，顺时针查找， 什么是 restful，讲讲你理解的 restful。 如何设计一个良好的 API。 如何设计建立和保持 100w 的长连接。 解释什么是 MESI 协议 (缓存一致性)。 说说你知道的几种 HASH 算法，简单的也可以。 什么是 paxos 算法， 什么是 zab 协议。 一个在线文档系统，文档可以被编辑，如何防止多人同时对同 一份文档进行编辑更新。 线上系统突然变得异常缓慢，你如何查找问题。 说说你平时用到的设计模式。 Dubbo 的原理，有看过源码么，数据怎么流转的，怎么实现集群，负载均衡，服务注册 和发现，重试转发，快速失败的策略是怎样的 。 一次 RPC 请求的流程是什么。 自己实现过 rpc 么，原理可以简单讲讲。Rpc 要解决什么问题。 异步模式的用途和意义。 编程中自己都怎么考虑一些设计原则的，比如开闭原则，以及在工作中的应用。 设计一个社交网站中的 “私信” 功能，要求高并发、可扩展等等。 画一下架构图。 MVC 模式，即常见的 MVC 框架。 聊下曾经参与设计的服务器架构并画图，谈谈遇到的问题，怎么解决的。 应用服务器怎么监控性能，各种方式的区别。 如何设计一套高并发支付方案，架构如何设计。 如何实现负载均衡，有哪些算法可以实现。 Zookeeper 的用途，选举的原理是什么。 每一个server启动都会分配一个zxid 事务id，组成由自增计数器+epoch 高32位代表当前集群年代和周期 zab协议。选主和同步 服务启动都询问其他服务选票给那个server， ​ ​ ​ Zookeeper watch 机制原理。 Mybatis 的底层实现原理。 请思考一个方案，实现分布式环境下的 countDownLatch。 后台系统怎么防止请求重复提交。 描述一个服务从发布到被消费的详细过程。 讲讲你理解的服务治理。 如何做到接口的幂等性。 如何做限流策略，令牌桶和漏斗算法的使用场景。 什么叫数据一致性，你怎么理解数据一致性。 分布式服务调用方，不依赖服务提供方的话，怎么处理服务方挂掉后，大量无效资源请求 的浪费，如果只是服务提供方吞吐不高的时候该怎么做，如果服务挂了，那么一会重启，该怎么做到最小的资源浪费，流量半开的实现机制是什么。 dubbo 的泛化调用怎么实现的，如果是你，你会怎么做。 远程调用会有超时现象，如果做到优雅的控制，JDK 自带的超时机制有哪些，怎么实现的。 算法 10 亿个数字里里面找最小的 10 个。 有 1 亿个数字，其中有 2 个是重复的，快速找到它，时间和空间要最优。 2 亿个随机生成的无序整数，找出中间大小的值。 给一个不知道长度的（可能很大）输入字符串，设计一种方案，将重复的字符排重。 遍历二叉树。 有 3n+1 个数字，其中 3n 个中是重复的，只有 1 个是不重复的，怎么找出来。 写一个字符串（如：www.javastack.cn）反转函数。 常用的排序算法，快排，归并、冒泡。 快排的最优时间复杂度，最差复杂度。冒泡排序的 优化方案。 二分查找的时间复杂度，优势。 一个已经构建好的 TreeSet，怎么完成倒排序。 什么是 B + 树，B - 树，列出实际的使用场景。 一个单向链表，删除倒数第 N 个数据。 200 个有序的数组，每个数组里面 100 个元素，找出 top20 的元素。 单向链表，查找中间的那个元素。 数据库知识 数据库隔离级别有哪些，各自的含义是什么，MYSQL 默认的隔离级别是是什么。 什么是幻读。 MYSQL 有哪些存储引擎，各自优缺点。 高并发下，如何做到安全的修改同一行数据。 乐观锁和悲观锁是什么，INNODB 的标准行级锁有哪 2 种，解释其含义。 SQL 优化的一般步骤是什么，怎么看执行计划，如何理解其中各个字段的含义。 数据库会死锁吗，举一个死锁的例子，mysql 怎么解决死锁。 MYsql 的索引原理，索引的类型有哪些，如何创建合理的索引，索引如何优化。 聚集索引和非聚集索引的区别。 select for update 是什么含义，会锁表还是锁行或是其他。 为什么要用 Btree 实现，它是怎么分裂的，什么时候分裂，为什么是平衡的。 数据库的 ACID 是什么。 某个表有近千万数据，CRUD 比较慢，如何优化。 Mysql 怎么优化 table scan 的。 如何写 sql 能够有效的使用到复合索引。 mysql 中 in 和 exists 区别。 数据库自增主键可能的问题。 MVCC 的含义，如何实现的。 你做过的项目里遇到分库分表了吗，怎么做的，有用到中间件么，比如 sharding jdbc 等，他 们的原理知道么。 MYSQL 的主从延迟怎么解决。 消息队列 消息队列的使用场景。 消息的重发，补充策略。 如何保证消息的有序性。 用过哪些 MQ，和其他 mq 比较有什么优缺点，MQ 的连接是线程安全的吗，你们公司的 MQ 服务 架构怎样的。 MQ 系统的数据如何保证不丢失。 rabbitmq 如何实现集群高可用。 kafka 吞吐量高的原因。 kafka 和其他消息队列的区别，kafka 主从同步怎么实现。 利用 mq 怎么实现最终一致性。 使用 kafka 有没有遇到什么问题，怎么解决的。 MQ 有可能发生重复消费，如何避免，如何做到幂等。 MQ 的消息延迟了怎么处理，消息可以设置过期时间么，过期了你们一般怎么处理。 缓存 常见的缓存策略有哪些，如何做到缓存 (比如 redis) 与 DB 里的数据一致性，你们项目中用到了 什么缓存系统，如何设计的。 如何防止缓存击穿和雪崩。 缓存数据过期后的更新如何设计。 redis 的 list 结构相关的操作。 Redis 的数据结构都有哪些。 Redis 的使用要注意什么，讲讲持久化方式，内存设置，集群的应用和优劣势，淘汰策略等。 redis2 和 redis3 的区别，redis3 内部通讯机制。 当前 redis 集群有哪些玩法，各自优缺点，场景。 Memcache 的原理，哪些数据适合放在缓存中。 redis 和 memcached 的内存管理的区别。 Redis 的并发竞争问题如何解决，了解 Redis 事务的 CAS 操作吗。 Redis 的选举算法和流程是怎样的。 redis 的持久化的机制，aof 和 rdb 的区别。 redis 的集群怎么同步的数据的。 知道哪些 redis 的优化操作。 Reids 的主从复制机制原理。 Redis 的线程模型是什么。 请思考一个方案，设计一个可以控制缓存总体大小的自动适应的本地缓存。 如何看待缓存的使用（本地缓存，集中式缓存），简述本地缓存和集中式缓存和优缺点。 本地缓存在并发使用时的注意事项。 搜索 elasticsearch 了解多少，说说你们公司 es 的集群架构，索引数据大小，分片有多少，以及一些 调优手段 。elasticsearch 的倒排索引是什么。 elasticsearch 索引数据多了怎么办，如何调优，部署。 elasticsearch 是如何实现 master 选举的。 详细描述一下 Elasticsearch 索引文档的过程。 详细描述一下 Elasticsearch 搜索的过程。 Elasticsearch 在部署时，对 Linux 的设置有哪些优化方法？ lucence 内部结构是什么。]]></content>
@@ -284,6 +245,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[算法复习]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2F%E7%AE%97%E6%B3%95%2F%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[算法复习堆排序， 把数组理解为完全二叉树形式。二叉树，满二叉树，完全二叉树 理解完全二叉树，左叶子节点 是 i乘以2+1 右节点是 i乘以2 +2，父节点是 i-1除以2堆就是完全二叉树，大根堆任何这棵树最大值都在树的顶部所形成的结构。小根堆]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[RabbitMq]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2Fapmq%2FRabbitMq%2F</url>
     <content type="text"><![CDATA[RabbitMqAmqp 消息协议 Routingkey 路由健 连接生产者消息和exchage之间纽带。routingkey需要和交换机类型和绑定健bingdingkey联合才能最终生效。 Binding 通过绑定exchage和队列关联起来。绑定时候指定一个bindingkey。 exchange 路由交换机 交换机类型 fanout，direct，topic ，headers fanout是广播形式， 无视routingkey，它会把所有发送到该交换器的消息路由到所有与该交换器绑定的队列中 direct精确匹配 消息路由到那些 BindingKey和 RoutingKey完全匹配的队列中。 topic 是模糊匹配 RoutingKey 为一个点号” “分隔的字符串 BindingKey 和 RoutingKey 一样也是点号” “分隔的字符串; BindingKey 中可以存在两种特殊 字符串”*”和”#”，用于做模糊匹配，其中”#”用于匹配0个或者多个单词。 运转流程 首先生产者与mq的broker产生建立连接connection，开通一个channel 生产者声明一个交换机。比如交换机类型，消息是否持久化等。 生产者声明一个队列并设置属性，是否排他，是否持久化，是否自动删除 生产者通过路由键将交换机和队列绑定起来 生产者将消息发送到mq的broker 响应的交换机通过routingkey查找对应的队列 如果找到把响应的信息存储在队列中，如果不匹配按照相关配置返回生产者或者丢弃。 关闭信道，关闭连接 消费者建立连接，开通信道，向mq broker请求消费消息，可能设置一些回调函数，消费者确认ack接收到消息，mq从队列中删除已经确认的消息，关闭信道，关闭连接。 AMQP协议本身包括三层 module layer 协议最高层，主要提供一些客户端的命令queue.declare 定义队列 queue.consumer 定义订阅消费队列中消息 session layer 将客户端命令发送给服务端，将服务端返回给客户端。 ransport layer 传输二进制数据流，提供帧处理，信道复用]]></content>
@@ -317,9 +289,42 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[openresty nginx]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2Fnginx%2F%E5%AE%89%E8%A3%85openresty%20nginx%2F</url>
+    <content type="text"><![CDATA[安装openresty nginx命令install openresty/brew/openresty```123456789101112131415161718192021222324252627之后当前目录下创建`mkdir ~/work cd ~/work mkdir logs/ conf/`在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 `nginx -s reload nginx -h nginx -p nginx -c `nginx.conf 配置文件内容 配置这个反向服务代理要代理的服务器集群&lt;!-- more --&gt;``` shellupstream backend_server &#123; server localhost:8080 weight=1;&#125;server&#123; listen 7777; location / &#123; proxy_pass http://backend_server ; &#125; #当用户访问这个目录下文件，即认为在访问静态资源 location /resources &#123; alias //usr/local/opt/openresty/nginx/html; &#125;&#125;]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[redis常用命令]]></title>
     <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2Fredis%2Fredis%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[redis常用命令stringredis 分配默认是预分配冗余空间的，例如len是字符串长度，实际分配为大于len ，字符串小于1m时候扩容是加倍空间，大于1m时候扩容是增加1m，最多存储512m 12345678910111213141516171819set key valueget key valueset key 5incr keyincrby key 5Incrby key -5mset key value key1 value2 key3 value3 mget key key1 key2 key3 setnx key value setex key 5 value = set key value + expire key 5 listrpush books java python go lpop books rpop books llen books 慢操作 lindex books 1 lrange books 0 -1 ltrim books 0 1 保留区间值 数据量小的时采用ziplist 压缩列表进行存储，数据量大时候使用quick list 即 zplist 组成的链表 hash 数据结构和java的hashmap 一样，无序字典。不同于java的是使用渐进rehash，在后续hash操作或者定时任务时候慢慢迁移到新的hash上。 Hash 最后一个元素删除进行内存的回收 123456789hset books java "java"hset books python "python"#获取所有元素hgetall books hlen books# 批量 sethmset books java "effective java" python "learning python" golang "modern golang programming" hget key field #hincrby 或者hincr 与字符串操作一致 set集合 无序唯一的字典，它所有的value都是null 类似于java中的hashset，使用场景用于中奖保证用户只能中奖一次等 12345678910sadd books pythonsadd books java golang#查询key所有的值smembers books#查询某个key是否存在sismember books java# 获取长度相当于 count()scard books #弹出一个元素spop books zset有序集合 Java 的 SortedSet 和 HashMap 的结合体,给每一个value都赋予一个score ，代表这个value的排序权重，它的内部实现用的是一种叫做「跳跃列表」的数据结构。想想自己身处的地域 黑龙江-哈尔滨-阿城区-延川大街 1234567891011121314151617zadd books 9.0 "java"zadd books 8.7 "python"zadd bokks 8.9 "go"#排序zrange books 0 -1 #逆序zrevrange books 0 -1 zcard books#获取value的socrezscore books "java" zrank books "java" # 排名 0开始⚠️# 根据分值区间遍历 zsetzrangebyscore books 0 8.91 # 根据分值区间 (-∞, 8.91] 遍历 zset，同时返回分值zrangebyscore books -inf 8.91 withscores #删除valuezrem books "java" 容器型数据结构的通用规则 create if not exists 如果不存在则创建一个，drop if no elements 没有元素即释放内存 过期时间redis的过期时间是以对象为单位，例如hash，真个hash都过期了。 给字符串设置过期时间，如果再次发生set操作，那么过期时间失效。 redis 延迟队列一般情况下使用rpush lpop二个命令即可。但是这2个命令如果队列为空就会产生空轮询导致cup上升redis的qps也会高，那么使用blpop，rlpop 阻塞读取，但是这样要注意捕获异常，因为redis空闲链接会自动断开，编写客户端要注意，还要重试。 位图比如一个用户的一年签到，签到1，未签到0，redis提供了位图数据结构，签到记录就是1位，365天就是46个字节，—待继续学习 HyperLogLogpv pageview 访问页面次数 uv 独立访客次数 指同一个客户端访问n次记一次。 HyperLogLog 提供不精确的去重计数方案,10w数据差277个 ,pf 的内存占用为什么是 12k 1234pfadd pageid user1pfadd pageid user2pfcount pageid pfmerge，用于将多个 pf 计数值累加在一起形成一个新的 pf 值。 布隆过滤器bloomfilter布隆过滤器可以理解为一个不怎么精确的 set 结构 Redis 4.0 提供了插件功能之后才正式登场 12布隆过滤器有二个基本指令，bf.add 添加元素，bf.exists 查询元素是否存在bf.madd bf.mexists 原理在redis里就是一个大型的位数组和几个不一样的无偏hash函数。无偏就是hash算的比较均匀 add 时候用多个hash函数对key进行hash计算一个整数索引值，之后对位数组长度取模，得到多个位置设置成1。 查询key是否存在时候，同样，只要有一个位置是0那么就不存在，如果都是1只能说明大概率存在，有可能误判。]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[分布式解决方案]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2F%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%2F%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1Fescar%2F</url>
+    <content type="text"><![CDATA[#分布式解决方案 FescarFescar github 地址传统的解决无侵入的方案为XA，但是XA 有一定的局限性，比如要求mysql版本高于5.7其他都是在业务上采用如下解决方案： 基于可靠消息解决 TCC Saga 什么是分布式事务？分布式事务就是一个包含了若干个分支事务的全局事务。全局事务就是协调包含的分支事务从而达成一致，要么全部成功，否则全部失败。分支事务就是本地的事务ACID，这与XA的理念是一样的。下图就是基本的分布式事务的过程 Transaction Coordinator (TC)： 事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚。 Transaction Manager (TM)： 控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议。 Resource Manager (RM)： 控制分支事务，负责分支注册、状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚。 TM向TC 首先申请开启一个全局事务，全局事务创建成功并返回一个XID(全局事务id） XID 必须要在全局事务中进行传播，如果没有xid那么不能判断出属于哪一个全局事务啦！ RM 向 TC 注册分支事务，将其纳入 XID 对应全局事务的管辖。 TM 向 TC 发起针对 XID 的全局提交或回滚决议。 TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux复习]]></title>
+    <url>%2F2019%2F03%2F31%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2FLinux%2Flinux%E5%91%BD%E4%BB%A4%E5%A4%8D%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[linux复习 # 自动标记这一次的 commit 为上一个 commit 的 fix $ git commit –fixup git rebase -i —autosquash 自动组织合并两个 commit 内核空间，用户空间 ls -S1 从大到小排序 ls-Slr 从小到大排序 ls-lt 从新到旧 ls-lrt 从旧到新 find / -name ‘target.xxx’ find ~ -iname ‘ddd*‘ 忽略大小写查找文件 grep ‘moo’ target* 查找所有target开头的文件中含有moo字符的文件 Awk ‘{print $1,$2}’ xx.xx Awk ‘$1==”tcp” &amp; $2==0 {print $0}’ xx.xx Awk ‘($1==”tcp” &amp; $2==0 ) || NR=1 {print $0}’ xx.xx nr=1 代表表头第一行 awk 默认是按照空格进行分割的， awk -F “,” ‘{print $0}’ log.log 自定义按照逗号分隔 sed ‘s/s/^Str/String ‘ a.java 替换a.java 文件中字符串类型并把Str开头的字符串替换成String sed -i 是表示更改 sed -i ‘s/\.$/\.;/‘ a.java 把a.java 文件中以. 结尾的替换成；结尾 /s（操作类型）/str（替换的字符串）/String （想替换的字符串）/g （表示全文替换） sed -i ‘/^ *.$’/d’ a.java 删除空行]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -362,7 +367,7 @@
   </entry>
   <entry>
     <title><![CDATA[让命令飞起来 命令操作]]></title>
-    <url>%2F2016%2F11%2F13%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fvim%20fly%2F</url>
+    <url>%2F2016%2F11%2F13%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2FLinux%2Fvim%20fly%2F</url>
     <content type="text"><![CDATA[categories: 编程 # 命令小纪 #让命令飞起来CTRL + A 行首ctrl +e 行尾alt +b 后单词alt +f 前单词CTRL alt + F 前一个字母ctrl + alt + b 后一个字母ctrl + c 结束命令ctrl +u 删掉命令 ctrl + h 删除尾到首 一个字符ctrl +d 删除首到尾 一个字符ctrl + k 删除到行尾ctrl+ p 上一条记录ctrl +n 下一条记录ls */.xml zsh下就能匹配出任意目录下的xml文件brew install ackbrew search zshbrew install zsh-syntax-highlightingbrew install zsh-lovers brew install cowsay date |boxes brew install boxes date |boxes date | cowsay -f bunnybrew install pipbrew install python brew install wine –devel run-wine 能在mac 或者unix 上运行exe的命令 brew linkapps python pip install –upgrade pip pip install tldr tldr ssh 提示怎么用ssh这个命令并且已经高亮 alias sd = cliclick -w 500 m:0,0 c:29,10 c:50,265 # shutdown自动注销mac]]></content>
       <tags>
         <tag>学习</tag>
@@ -370,24 +375,13 @@
   </entry>
   <entry>
     <title><![CDATA[spring4 +cxf 排错]]></title>
-    <url>%2F2016%2F10%2F18%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fspring4%20%2Bcxf%20%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86%2F</url>
+    <url>%2F2016%2F10%2F18%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2Fspring4%20%2Bcxf%20%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86%2F</url>
     <content type="text"><![CDATA[##排查依赖错误由于项目用到cxf 需要调用第三方的接口，需要写一个客户端。这个貌似没啥问题，记得之前写过的cxf 现在好久不用了，apache的官网已经更新到了3.1.7 。自从用maven以来还真很少遇到过冲突，但是群里大婶说的一句话很好，maven已经较少了依赖关系的冲突，但是不代表就不存在。项目有用gradle的，也有用maven的。首先你的jvm可以加上参数 -XX:+TraceClassLoading 这个主要是看你的classtrace的。mvn dependency:tree 和 gradle的 dependencies 命令很重要。主要还是看报错控制台的信息，我的错误为 java.lang.NoSuchFileldError ： REFLECTION这就很明显了是冲突，之后看具体的出错的 class —&gt; RuntimeModelBuilder compile (“com.sun.jersey:jersey-json:$jerseyVersion”){ exclude(module : ‘jaxb-impl’) }compile(‘org.apache.cxf:cxf-rt-frontend-jaxws:3.1.7’) { exclude(module : ‘jaxb-impl’) exclude(module : ‘jaxb-core’) } com.alibaba dubbo-registry-zookeeper 2.5.4 javax.xml jaxb-impl 这三个地方用到了!另外还有 http://stackoverflow.com/questions/25765238/java-lang-nosuchfielderror-reflection You have a conflict between the cxf-rt-frontend-jaxws and cxf-common-utilities libraries. Both of these provide as their dependencies com.sun.xml.bind which is the cause of your problem. So you should either exclude com.sun.xml.bind:jaxb-impl from cxf-common-utilities or remove your dependency on cxf-common-utilities. exclude(module : ‘jaxb-impl’) exclude(module : ‘jaxb-core’) 这里有一个com.sun.xml.bind.v2.model/impl 中有一个什么类具体不清楚和jaxb-impl中有一个类重名也就是冲突。最后才找到原来就是它惹的祸！共勉の 以后大家用cxf的时候小心，搞了2个多小时。和大家分享下！]]></content>
       <categories>
         <category>编程</category>
       </categories>
       <tags>
         <tag>排查错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[微服务]]></title>
-    <url>%2F2016%2F09%2F23%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E5%BE%AE%E6%9C%8D%E5%8A%A1%2F</url>
-    <content type="text"><![CDATA[微服务 Eric Evans 的《领域驱动设计》 Alistair Cockburn 的六边形架构理论Netflix 分享了构建大型反脆弱系统的经验 github ： https://github.com/Netflix什么是微服务 微服务就是一些协同工作的小而自治的服务 很小，专注于做好一件事在一个单块系统内，通常会创建一些抽象层或者模块来保证代码的内聚性，从而避免上述问题。内聚性是指将相关代码放在一起，在考虑使用微服务的时候，内聚性这一概念很重要。Robert C. Martin 有一个对单一职责原则（Single Responsibility Principle，http://programmer.97things.oreilly.com/wiki/index.php/The_Single_Responsibility_Principle）的论述：“把因相同原因而变化的东西聚合到一起，而把因不同原因而变化的东西分离开来。 ”该论述很好地强调了内聚性这一概念。 也让我同时想到了tw提出的正交设计。 1.1 根据业务的边界来确定服务的边界那就出现了一个问题，业务的辩解确定服务的边界，但是不可避免有时候领域的对象涉及很广很复杂。一个微服务应该可以在两周内完全重写，这个经验法则在他所处的特定上下文中是有效的。这个时候请遵守上述的原则,可能有的时候很有用。 使用的服务越小，独立性带来的好处就越多。但是管理大量服务也会越复杂。 微服务好处 弹性工程学的一个关键概念是舱壁。如果系统中的一个组件不可用了，但并没有导致级联故障，那么系统的其他部分还可以正常运行。服务边界就是一个很显然的舱壁。庞大的单块服务只能作为一个整体进行扩展，微服务只需要把某个服务配置多个就可以啦。 与组织结构相匹配康威定律小型代码库上工作的小团队更加高效 可组合性桌面网站或者移动应用程序的时代已经过去了，现在我们需要考虑的应用程序种类包括 Web、原生应用、移动端 Web、平板应用及可穿戴设备等，针对每一种都应该考虑如何对已有功能进行组合来实现这些应用 可替代性的优化面向服务的架构SOA（Service-Oriented Architecture，面向服务的架构）是一种设计方法，其中包含多个服务，而服务之间通过配合最终会提供一系列功能。一个服务通常以独立的形式存在于操作系统进程中。服务之间通过网络调用，而非采用进程内调用的方式进行通信实施 SOA 时会遇到这些问题：通信协议（例如 SOAP）如何选择、第三方中间件如何选择、服务粒度如何确定等，目前也存在一些关于如何划分系统的指导性原则，但其中有很多都是错误的。微服务架构是 SOA 的一种特定方法！ 其他分解技术共享库]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
       </tags>
   </entry>
   <entry>
@@ -403,7 +397,7 @@
   </entry>
   <entry>
     <title><![CDATA[一分钟了解负载均衡]]></title>
-    <url>%2F2016%2F09%2F21%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E4%B8%80%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%2F</url>
+    <url>%2F2016%2F09%2F21%2FJAVA%E6%80%BB%E7%BA%B2%2F%E6%9E%B6%E6%9E%84%E7%90%86%E5%BF%B5%2F%E4%B8%80%E5%88%86%E9%92%9F%E4%BA%86%E8%A7%A3%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%2F</url>
     <content type="text"><![CDATA[转载 维信架构师之路 什么是负载均衡 负载均衡（Load Balance）是分布式系统架构设计中必须考虑的因素之一，它通常是指，将请求/数据【均匀】分摊到多个操作单元上执行，负载均衡的关键在于【均匀】。 常见互联网分布式架构如上，分为客户端层、反向代理nginx层、站点层、服务层、数据层。可以看到，每一个下游都有多个上游调用，只需要做到，每一个上游都均匀访问每一个下游，就能实现“将请求/数据【均匀】分摊到多个操作单元上执行”。 【客户端层-&gt;反向代理层】的负载均衡 【客户端层】到【反向代理层】的负载均衡，是通过“DNS轮询”实现的：DNS-server对于一个域名配置了多个解析ip，每次DNS解析请求来访问DNS-server，会轮询返回这些ip，保证每个ip的解析概率是相同的。这些ip就是nginx的外网ip，以做到每台nginx的请求分配也是均衡的。 【反向代理层-&gt;站点层】的负载均衡 【反向代理层】到【站点层】的负载均衡，是通过“nginx”实现的。通过修改nginx.conf，可以实现多种负载均衡策略： 1）请求轮询：和DNS轮询类似，请求依次路由到各个web-server 2）最少连接路由：哪个web-server的连接少，路由到哪个web-server 3）ip哈希：按照访问用户的ip哈希值来路由web-server，只要用户的ip分布是均匀的，请求理论上也是均匀的，ip哈希均衡方法可以做到，同一个用户的请求固定落到同一台web-server上，此策略适合有状态服务，例如session（58沈剑备注：可以这么做，但强烈不建议这么做，站点层无状态是分布式架构设计的基本原则之一，session最好放到数据层存储） 4）… 【站点层-&gt;服务层】的负载均衡 【站点层】到【服务层】的负载均衡，是通过“服务连接池”实现的。 上游连接池会建立与下游服务多个连接，每次请求会“随机”选取连接来访问下游服务。 上一篇文章《RPC-client实现细节》中有详细的负载均衡、故障转移、超时处理的细节描述，欢迎点击link查阅，此处不再展开。 【数据层】的负载均衡 在数据量很大的情况下，由于数据层（db，cache）涉及数据的水平切分，所以数据层的负载均衡更为复杂一些，它分为“数据的均衡”，与“请求的均衡”。 数据的均衡是指：水平切分后的每个服务（db，cache），数据量是差不多的。 请求的均衡是指：水平切分后的每个服务（db，cache），请求量是差不多的。 业内常见的水平切分方式有这么几种： 一、按照range水平切分 每一个数据服务，存储一定范围的数据，上图为例： user0服务，存储uid范围1-1kw user1服务，存储uid范围1kw-2kw 这个方案的好处是： （1）规则简单，service只需判断一下uid范围就能路由到对应的存储服务 （2）数据均衡性较好 （3）比较容易扩展，可以随时加一个uid[2kw,3kw]的数据服务 不足是： （1）请求的负载不一定均衡，一般来说，新注册的用户会比老用户更活跃，大range的服务请求压力会更大 二、按照id哈希水平切分 每一个数据服务，存储某个key值hash后的部分数据，上图为例： user0服务，存储偶数uid数据 user1服务，存储奇数uid数据 这个方案的好处是： （1）规则简单，service只需对uid进行hash能路由到对应的存储服务 （2）数据均衡性较好 （3）请求均匀性较好 不足是： （1）不容易扩展，扩展一个数据服务，hash方法改变时候，可能需要进行数据迁移 总结 负载均衡（Load Balance）是分布式系统架构设计中必须考虑的因素之一，它通常是指，将请求/数据【均匀】分摊到多个操作单元上执行，负载均衡的关键在于【均匀】。 （1）【客户端层】到【反向代理层】的负载均衡，是通过“DNS轮询”实现的 （2）【反向代理层】到【站点层】的负载均衡，是通过“nginx”实现的 （3）【站点层】到【服务层】的负载均衡，是通过“服务连接池”实现的 （4）【数据层】的负载均衡，要考虑“数据的均衡”与“请求的均衡”两个点，常见的方式有“按照范围水平切分”与“hash水平切分”]]></content>
       <categories>
         <category>编程</category>
@@ -411,29 +405,13 @@
   </entry>
   <entry>
     <title><![CDATA[Days 1/21 口语训练]]></title>
-    <url>%2F2016%2F09%2F20%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E7%AC%AC%E4%B8%80%E5%A4%A9%E5%8F%A3%E8%AF%AD%E7%BB%83%E4%B9%A0%2F</url>
+    <url>%2F2016%2F09%2F20%2F%E8%8B%B1%E6%96%87%2F%E7%AC%AC%E4%B8%80%E5%A4%A9%E5%8F%A3%E8%AF%AD%E7%BB%83%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[Perhaps we see a part of ourselves in our friends. Maybe seeing the good in them helps us to see the good in us as well.** 或许我们能从朋友身上看到自己的影子，或许看到他们闪光处也能帮助我们！]]></content>
       <categories>
         <category>英语</category>
       </categories>
       <tags>
         <tag>english</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>%2F2016%2F09%2F17%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Flnmp%2F</url>
-    <content type="text"><![CDATA[centos下设置语言123# echo &apos;LANG=zh_CN.utf8&apos; &gt;&gt;/etc/profile# source /etc/profile# su -l ##安装redis12345678910111213141516171819202122232425yum install gcc-c++yum install -y tclyum install wgetwget http://download.redis.io/releases/redis-2.8.13.tar.gztar -xzvf redis-2.8.19.tar.gzmv redis-2.8.19 /usr/local/rediscd /usr/local/redismakemake installmkdir -p /etc/rediscp redis.conf/etc/redisvi /etc/redis/redis.conf仅修改： daemonize yes （no--&gt;yes）/usr/local/bin/redis-server /etc/redis/redis.confps -ef | grep redis redis-cli&gt;set name davidOK&gt;get name&quot;david&quot;11.关闭客户端redis-cli shutdownecho &quot;/usr/local/bin/redis-server /etc/redis/redis.conf &amp;&quot; &gt;&gt; /etc/rc.local rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm步骤 2—安装 Nginx现在，Nginx的资源库已安装在服务器上，使用以下yum command安装Nginx的： sudo yum install nginx当你回答Y，Nginx的将完成安装虚拟专用服务器（VPS）上。 步骤 3—开启 NginxNginx的不会自动启动。为了让Nginx的运行，键入： sudo systemctl start nginx.service server { listen 80; server_name localhost; #charset koi8-r; #access_log /var/log/nginx/log/host.access.log main; root /home/www/public/; location / { try_files $uri $uri/ /index.php$is_args$args; ## root /home/www/ss-panel/public/; ## index index.html index.htm; } #error_page 404 /404.html; # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; location = /50x.html { root /usr/share/nginx/html; } # proxy the PHP scripts to Apache listening on 127.0.0.1:80 # # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 # location ~ \.php$ { root html; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name; include fastcgi_params; }]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[spring boot 学习(第二篇)]]></title>
-    <url>%2F2016%2F09%2F11%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fspring-boot%20lesson2%2F</url>
-    <content type="text"><![CDATA[Banner设置 通过在classpath下添加一个banner.txt或设置banner.location来指定相应的文件可以改变启动过程中打印的banner。如果这个 文件有特殊的编码,你可以使用banner.encoding设置它(默认为UTF-8) 编程式SpringBootApplication.setBanner(…)方法。使用 org.springframework.boot.Banner接口,实现你自己的printBanner()方法12345变量 | 描述$&#123;application.version&#125; | MANIFEST.MF中声明的应用版本号,例如1.0$&#123;application.formatted- version&#125;|MANIFEST.MF中声明的被格式化后的应用版本号(被括号包裹且以v作为前缀),用于显 示,例如(v1.0)$&#123;spring-boot.version&#125;|正在使用的Spring Boot版本号,例如1.2.2.BUILD-SNAPSHOT$&#123;spring- boot.formatted-version&#125;|正在使用的Spring Boot被格式化后的版本号(被括号包裹且以v作为前缀), 用于显示,例 如(v1.2.2.BUILD-SNAPSHOT) 上下文设置 你需要创建一个分层的ApplicationContext(多个具有父子关系的上下文),或你只是喜欢使用流畅的构建API,你可以 使用SpringApplicationBuilder。SpringApplicationBuilder允许你以链式方式调用多个方法,包括可以创建层次结构的parent 和child方法。12345new SpringApplicationBuilder() .showBanner(false).sources(Parent.class).child(Application.class).run(args); 注:创建ApplicationContext层次时有些限制,比如,Web组件(components)必须包含在子上下文(child context)中,且相同 的Environment即用于父上下文也用于子上下文中。 Application事件和监听器你可以使用多种方式注册事件监听器,最普通的是使用SpringApplication.addListeners(…)方法。在你的应用运行时,应用事 件会以下面的次序发送: 在运行开始,但除了监听器注册和初始化以外的任何处理之前,会发送一个ApplicationStartedEvent。 在Environment将被用于已知的上下文,但在上下文被创建前,会发送一个ApplicationEnvironmentPreparedEvent。 在refresh开始前,但在bean定义已被加载后,会发送一个ApplicationPreparedEvent。 启动过程中如果出现异常,会发送一个ApplicationFailedEvent。 还有一个常用的ContextRefreshedEvent注:你通常不需要使用应用程序事件,但知道它们的存在会很方便(在某些场合可能会使用到)。 Web环境 一个SpringApplication将尝试为你创建正确类型的ApplicationContext。在默认情况下,使用 AnnotationConfigApplicationContext或AnnotationConfigEmbeddedWebApplicationContext取决于你正在开发的是否是web 应用。 用于确定一个web环境的算法相当简单(基于是否存在某些类)。如果需要覆盖默认行为,你可以使用 setWebEnvironment(boolean webEnvironment)。通过调用setApplicationContextClass(…),你可以完全控制 ApplicationContext的类型。 注:当JUnit测试里使用SpringApplication时,调用setWebEnvironment(false)是可取的. 命令行启动器 如果你想获取原始的命令行参数,或一旦SpringApplication启动,你需要运行一些特定的代码,你可以实现 CommandLineRunner接口。在所有实现该接口的Spring beans上将调用run(String… args)方法。12345678import org.springframework.boot.* import org.springframework.stereotype.*@Component public class MyBean implements CommandLineRunner &#123; public void run(String... args) &#123; // Do something... &#125;&#125; 如果一些CommandLineRunner beans被定义必须以特定的次序调用,你可以额外实现org.springframework.core.Ordered接 口或使用org.springframework.core.annotation.Order注解。 Application退出 每个SpringApplication在退出时为了确保ApplicationContext被优雅的关闭,将会注册一个JVM的shutdown钩子。所有标准的 Spring生命周期回调(比如,DisposableBean接口或@PreDestroy注解)都能使用。 此外,如果beans想在应用结束时返回一个特定的退出码(exit code),可以实现 org.springframework.boot.ExitCodeGenerator接口。]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>springboot</tag>
       </tags>
   </entry>
   <entry>
@@ -449,7 +427,7 @@
   </entry>
   <entry>
     <title><![CDATA[spring boot 学习(第一篇)]]></title>
-    <url>%2F2016%2F09%2F10%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fsping-boot%20lesson1%2F</url>
+    <url>%2F2016%2F09%2F10%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%88%86%E5%B8%83%E5%BC%8F%2FSpringBoot%26SpringCloud%2Fsping-boot%20lesson1%2F</url>
     <content type="text"><![CDATA[Spring-boot 学习第一节 Installation and Getting Started你可以访问 http://start.spring.io，使用过maven的小伙伴相信都可以掌控!点击generate project ，有一个zip包。解压导入到你的IDE即可!如果你也是intellij idea 或者是sts 的小伙伴，new project 你就可以看到有一个spring Initializr 图标，之后和maven项目一样，也可以选择你要的模块。可以自行参考官方的guide 文档! 项目结构1234567891011com +- example +- myproject +- Application.java | +- domain | +- Customer.java | +- CustomerRepository.java | +- service | +- CustomerService.java | +- web +- CustomerController.java 这时你应该发现root下的Application.java 文件将声明 main 方法,还有基本的一些配置。只有一个注解@SpringBootApplication 注解等价于以默认属性使用 @Configuration, @EnableAutoConfiguration 和 @ComponentScan，你也可以点击注解的源码看看。@ComponentScan 组件的扫描 不用多说@Configuration 配置 如果你非需要使用基于XML的配置,我们建议你仍旧从一个 @Configuration 类开始。你可以使用附加的 @ImportResource 注 解加载XML配置文件。@EnableAutoConfiguration 使能自动配置或者叫可以自动配置 Spring Boot自动配置(auto-configuration)尝试根据你添加的jar依赖自动配置你的Spring应用。例如,如果你的classpath下 存在 HSQLDB ,并且你没有手动配置任何数据库连接beans,那么我们将自动配置一个内存型(in-memory)数据库。 你可以通过将 @EnableAutoConfiguration 或 @SpringBootApplication 注解添加到一个 @Configuration 类上来选择自动配置。注:你只需要添加一个 @EnableAutoConfiguration 注解。我们建议你将它添加到主 @Configuration 类上。 @SpringBootApplication 注解，由于频繁的使用以上三个注解，固新增加这个注解用于替代。去启动下你的应用吧! 还有很多细节就不一一讲述啦，强烈建议去读下官方guide 。]]></content>
       <categories>
         <category>编程</category>
@@ -460,24 +438,13 @@
   </entry>
   <entry>
     <title><![CDATA[centos7 安装jdk，zk]]></title>
-    <url>%2F2016%2F09%2F09%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fcentos7%2F</url>
+    <url>%2F2016%2F09%2F09%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2FLinux%2Fcentos7%2F</url>
     <content type="text"><![CDATA[1.首先安装jdk 不知道为啥连接上谷歌云之后安装了lrszs但是不能上传文件，所以只能在线安装咯!123456789101112sudo wget sudo wget http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-linux-x64.rpm?AuthParam=1473427907_0a66fbbc67a2e41e94a759a6c7da1526 mv jdk-8u101-linux-x64.rpm\?AuthParam\=1473427907_0a66fbbc67a2e41e94a759a6c7da1526 jdk-8u101-linux-x64.rpmsudo yum -y install jdk-8u101-linux-x64.rpm[alonecong@lancecong ~]$ sudo alternatives --config java共有 1 个提供“java”的程序。 选项 命令-----------------------------------------------*+ 1 /usr/java/jdk1.8.0_101/jre/bin/java按 Enter 保留当前选项[+]，或者键入选项编号： 之后就是配置你的环境变量啦，12345sudo vim /etc/profile export JAVA_HOME=/usr/java/jdk1.8.0_101export JAVA_HOME=/usr/java/jdk1.8.0_101export JRE_HOME=/usr/java/jdk1.8.0_101/jreexport PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin 1sudo wget http://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz 1 .单机模式(Standalone mode) 单机模式在开发和调试阶段很有用。 下载，解压123cd ~ wget http://archive.apache.org/dist/zookeeper/stable/zookeeper-3.4.6.tar.gztar zxf zookeeper-3.4.6.tar.gz 启动 默认就是单机模式，12mv conf/zoo_sample.cfg conf/zoo.cfg./bin/zkServer.sh start 使用java 客户端连接ZooKeeper1./bin/zkCli.sh -server 127.0.0.1:2181 然后就可以使用各种命令了，跟文件操作命令很类似，输入help可以看到所有命令。 关闭1./bin/zdServer.sh stop ##2. 分布式模式(Replicated mode) 在生产环境中，要配置成分布式模式，才能发挥威力。ZooKeeper集群一般被称为ZooKeeper ensemble，或者 quorum 2.1 准备3台机器假设有三台机器，hostname和ip对应关系是：192.168.10.80 zk01192.168.10.81 zk02192.168.10.82 zk03ZooKeeper不存在明显的master/slave关系，各个节点都是服务器，leader挂了，会立马从follower中选举一个出来作为leader.由于没有主从关系，也不用配置SSH无密码登录了，各个zk服务器是自己启动的，互相之间通过TCP端口来交换数据。 2.2 修改配置文件conf/zoo.cfgdataDir=/opt/zookeeper/datadataLogDir=/opt/zookeeper/logsclientPort=2181tickTime=2000initLimit=5syncLimit=2server.1=zk01:2888:3888server.2=zk02:2888:3888server.3=zk03:2888:3888 注： dataDir：数据目录 dataLogDir：日志目录 clientPort：客户端连接端口 tickTime：Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。 initLimit：Zookeeper的Leader 接受客户端（Follower）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 5个心跳的 时间（也就是tickTime）长度后 Zookeeper 服务器还没有收到客户端的返回信息，那么表明这个 客户端连接失败。总的时间长度就是 52000=10 秒 syncLimit：表示 Leader 与 Follower 之间发送消息时请求和应答时间长度，最长不能超过多少 个tickTime 的时间长度，总的时间长度就是 22000=4 秒。 server.A=B：C：D：其中A 是一个数字，表示这个是第几号服务器；B 是这个服务器的 ip 地址； C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来 执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。2.3 myid文件要在每台机器的dataDir下，新建一个myid文件，里面存放一个数字，用来标识当前主机。echo “1” &gt;&gt; /opt/zookeeper/data/myidecho “2” &gt;&gt; /opt/zookeeper/data/myidecho “3” &gt;&gt; /opt/zookeeper/data/myid 2.4 启动每台机器zookeeper-3.4.6/bin/zkServer.sh startzookeeper-3.4.6/bin/zkServer.sh startzookeeper-3.4.6/bin/zkServer.sh start 2.5 查看状态zookeeper-3.4.6/bin/zkServer.sh status 3.使用java客户端连接ZooKeeper集群./bin/zkCli.sh -server zk01:2181./bin/zkCli.sh -server zk01:2181./bin/zkCli.sh -server zk01:2181./zkCli.sh -server 127.0.0.1 2181Connecting to 127.0.0.12015-12-03 16:42:31,452 [myid:] - INFO [main:Environment@100] -[zk: 127.0.0.1:2181(CONNECTED) 0] ls / 显示当前数据[test1, zookeeper]1) 创建节点 格式:create [-s] [-e] path data acl 其中”-s”表示创建一个”有序”节点,”-e”表示创建一个临时节点.默认为持久性节点 -&gt;create -s /test null-&gt;create /test null 如下为包括ACL的例子: -&gt;create -s /test null digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 创建一个path为”/test”的节点,值为”null”,ACL授权方式为”digest”,其中授权的用户名:密码为”test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=”,ACL的权限列表为”r””w””c””d””a”. “digest”授权方式表示client方位此节点数据,需要指定用户名和密码,可以参考zookeeper中DigestAuthenticationProvider.generateDigest(StringipName)方法;通过向此方法指定原始的用户名和密码即可获得”digest”之后的字符串,比如传入”test:test”,将会得到”test:V28q/NynI4JI3Rk54h0r8O5kMug=”,其内部原理是将”密码”部分进行MD5 +sha1操作.再zkCli.sh指令上你需要传递digest之后的字符串. 其中ACL的授权方式有很多种,你可以在ZooDefs类中找到更多的信息. 最后一个参数为权限列表,r表示”read”,w表示”write”,c表示”create”,d表示”delete”,a表示”admin” 2) 获取节点数据 格式:get path -&gt; get /test-ecZxid = 0x5bctime = Mon Sep 16 14:14:06 CST 2013mZxid = 0x5bmtime = Mon Sep 16 14:14:06 CST 2013pZxid = 0x67cversion = 7dataVersion = 0aclVersion = 0ephemeralOwner = 0x0dataLength = 2numChildren = 5 你可以从结果列表中,获得所有的节点信息. 3) 查看子节点列表 指令: ls /path4) 设置节点值 格式: set path data [version] -&gt; set /test 1313131 -1 其中值需要为字符串,版本号可以通过2)中的指令获取,如果版本号为”-1”表示更新时忽略版本校验. 5) 删除所有节点 格式: rmr path -&gt; rmr /test 将会删除”/test”以及其下的所有子节点. 6) 设置ACL 格式: setAcl path acl -&gt; setAcl /test digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 和create指令非常相似. 7) 删除节点 格式: delete path [version] -&gt; delete /test -1 需要注意的是,如果此path下还有子节点,将导致删除失败.这是和”rmr”指令的区别. 8) 添加授权信息 格式: addauth schema auth -&gt; addauth digest test:test 只有授权之后,才能够访问那些具有ACL控制的节点数据.注意”auth”信息为原始的用户名和密码,而不是经过DigestAuthenticationProvider签名之后的. 如果使用了错误的授权信息,可能导致”Authentication isnot valid : “.]]></content>
       <categories>
         <category>编程</category>
       </categories>
       <tags>
         <tag>jdk</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[synchronized关键字]]></title>
-    <url>%2F2016%2F09%2F08%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2FSynchronized%2F</url>
-    <content type="text"><![CDATA[synchronized原理 在java中，每一个对象有且仅有一个同步锁。这也意味着，同步锁是依赖于对象而存在。 当我们调用某对象的synchronized方法时，就获取了该对象的同步锁 也就是监视器monitor 。例如，synchronized(obj)就获取了“obj这个对象”的同步锁。 不同线程对同步锁的访问是互斥的。也就是说，某时间点，对象的同步锁只能被一个线程获取到！通过同步锁，我们就能在多线程中，实现对“对象/方法”的互斥访问。 例如，现在有两个线程A和线程B，它们都会访问“对象obj的同步锁”。假设，在某一时刻，线程A获取到“obj的同步锁”并在执行一些操作；而此时，线程B也企图获取“obj的同步锁” —— 线程B会获取失败，它必须等待，直到线程A释放了“该对象的同步锁”之后线程B才能获取到“obj的同步锁”从而才可以运行。另外注意是runnable接口还是继承了Thread类！ synchronized基本规则 我们将synchronized的基本规则总结为下面3条，并通过实例对它们进行说明。 第一条: 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程对“该对象”的该“synchronized方法”或者“synchronized代码块”的访问将被阻塞。 第二条: 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程仍然可以访问“该对象”的非同步代码块。 第三条: 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程对“该对象”的其他的“synchronized方法”或者“synchronized代码块”的访问将被阻塞。实例锁 – 锁在某一个实例对象上。如果该类是单例，那么该锁也具有全局锁的概念。实例锁对应的就是synchronized关键字。全局锁 – 该锁针对的是类，无论实例多少个对象，那么线程都共享该锁。 全局锁对应的就是static synchronized（或者是锁在该类的class或者classloader对象上）。pulbic class Something {public synchronized void isSyncA(){}public synchronized void isSyncB(){}public static synchronized void cSyncA(){}public static synchronized void cSyncB(){}} 假设，Something有两个实例x和y。分析下面4组表达式获取的锁的情况。(01) x.isSyncA()与x.isSyncB() 不能同时访问(02) x.isSyncA()与y.isSyncA() 可以同时访问(03) x.cSyncA()与y.cSyncB() 不能同时访问(04) x.isSyncA()与Something.cSyncA() 可以同时访问]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -493,7 +460,7 @@
   </entry>
   <entry>
     <title><![CDATA[Days 2/21 口语训练]]></title>
-    <url>%2F2016%2F08%2F29%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E7%AC%AC%E4%BA%8C%E5%A4%A9%E5%8F%A3%E8%AF%AD%E7%BB%83%E4%B9%A0%2F</url>
+    <url>%2F2016%2F08%2F29%2F%E8%8B%B1%E6%96%87%2F%E7%AC%AC%E4%BA%8C%E5%A4%A9%E5%8F%A3%E8%AF%AD%E7%BB%83%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[The quickest way to receive love is to give it ;the fastest way to lose love is to hold it too tightly; and the best way to keep love is to give it wings.** 获得爱情最快的方式给予；失去爱情最快的爱情是握的太紧；给爱插上翅膀是保持爱情最好的方式。]]></content>
       <categories>
         <category>英语</category>
@@ -504,7 +471,7 @@
   </entry>
   <entry>
     <title><![CDATA[实用词汇 26th August 2016]]></title>
-    <url>%2F2016%2F08%2F29%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F26th%20August%E3%80%90%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E3%80%91%2F</url>
+    <url>%2F2016%2F08%2F29%2F%E8%8B%B1%E6%96%87%2F26th%20August%E3%80%90%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E3%80%91%2F</url>
     <content type="text"><![CDATA[[实用词汇] 26th august 2016 Topic : 和man相关的短语 1. a man of action 实干家，行动注意者 The one is a man of action ,he is inclined to act first and think later. 2. a man of deeds (行动，功绩) = a man of action A man of action really does things he is not contented to talk.实干家是真正做事情的人，不满足于空谈。 He is a man of action right from the start. 他从一开始就是实干家。 3.man to man 坦诚的，开诚布公的 和Frankly speaking意思相近 Let’s talk man to man about our problems 让我们诚挚的谈谈我们之间的问题 4. play the man 显示出男子汉气概 play it cool 保持冷静 ，抑制住情感 play 表现出….. whatever troubles come ,let’s play the man 。无论任何问题来临，都让我们坚守站稳….像个男子汉一样 you’d better play the man a little more .你应该多一点男子汉气概。 5. a man of parts 有才干的人，多才多艺的人 ` John was certainly a man of parts ，john真是一位才华出众的人。 The pianist is man of parts . 那位钢琴师才华横溢。 6. a man of affairs 见过大场面的人 (生意场上) 重要角色 He is a man of affairs and has wide experience. 他是见过大场面的人，经验丰富。 7. a man of (adj) character 有(什么样) 个性的人 8. a man in a thousand 千里挑一的人 9. family man/guy 居家男人 10. a man of men 杰出人物 11. a man about town 花花公子，执绔子弟]]></content>
       <categories>
         <category>英语</category>
@@ -515,24 +482,13 @@
   </entry>
   <entry>
     <title><![CDATA[实用词汇 25th August 2016]]></title>
-    <url>%2F2016%2F08%2F28%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E5%AE%9E%E7%94%A8%E8%AF%8D%E6%B1%8725th%2F</url>
+    <url>%2F2016%2F08%2F28%2F%E8%8B%B1%E6%96%87%2F%E5%AE%9E%E7%94%A8%E8%AF%8D%E6%B1%8725th%2F</url>
     <content type="text"><![CDATA[[实用词汇] 25th August 2016 课本中学不到的日常生活口语Tips: Screw up 拧紧螺丝，[口] 把事情搞砸 Screw n.螺丝 v. 拧紧(螺丝) if you screw something up that means you cause something to fail or be spolied screw something up (or) screw up something 搞砸某事 Get out ! Haven’t you screw things up enough already you idiot ? 难道你把事情弄得还不够糟糕，你个白痴？ i have a perfect chance but i screwed up. 我本有也一个很好的机会，但是搞砸了. 答应朋友做某事但是没做成Sorry，i screwed up.抱歉我搞砸了。 Fine line 表达两件事很相似(区别微小) fine adj.好；精小的，细小的 There is a fine line between helping you kids with their homework and doing it for them.帮助小孩子做作业和直接代劳差别不大。 There is a fine line between sth and sth There is a fine line between confidence and arrogance.自信与自负拆别细微 Go easy on me 手下留情，别太狠 go easy on 温和对待，有节制的消费 go easy on someone 对某人手下留情 go easy on sth 有节制的消费 Go easy on me i just started to learn it a month ago 手下留情，我才开始学一个月。 Go easy on that boy he didn’t know he was doing anything wrong . 对那个男孩宽容点，他不知道自己做错了什么。 Have a good party and go easy on that Marigarita 享受你的聚会，但是不要喝太多的玛格丽特(一种20多度的鸡尾酒cocktail) Go easy on afternoon coffee intake .下午不要喝太多咖啡. write by lancecong]]></content>
       <categories>
         <category>英语</category>
       </categories>
       <tags>
         <tag>实用词汇</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[建立索引的原则 - 以innodb为例]]></title>
-    <url>%2F2016%2F03%2F27%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E5%88%99-%E4%BB%A5innodb%E4%B8%BA%E4%BE%8B%2F</url>
-    <content type="text"><![CDATA[写在前面 随着开发、测试任务进入尾声，大家都在整理一些项目发布前的一些准备工作，其中一个重要的工作就是为之前写的一些sql语句建立索引，这高并发、高访问量的环境下是非常有必要的，建立一个好的索引能够极大地提高sql语句的查询效率，那么问题来了，到底什么是索引，怎样才能建立一个好… 一 索引定义 MySQL官方对索引的定义为： 索引(Index) 是帮助MySQL高效获取数据的数据结构。提取句子主干，就可以得到索引的本质：索引是数据结构。我们知道，数据库查询是数据库的最主要功能之一，例如下面的SQL语句：SELECT * FROM test_table WHERE id = 99；可以从表test_table中获得id为99的数据记录。我们都希望查询数据的速度能尽可能的快，因此数据库系统的设计者会从查询算法的角度进行优化。最基本的查询算法当然是顺序查找(linear search)，遍历test_table然后逐行匹配id的值是否是99，这种复杂度为O(n)的算法在数据量很大时显然是糟糕的，好在计算机科学的发展提供了很多更优秀的查找算法，例如二分查找(binary search)、二叉树查找(binary tree search)等。如果稍微分析一下会发现，每种查找算法都只能应用于特定的数据结构之上，例如二分查找要求被检索数据有序，而二叉树查找只能应用于二叉查找树上，但是数据本身的组织结构不可能完全满足各种数据结构(例如，理论上不可能同时将两列都按顺序进行组织)，所以，在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用(指向)数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。举上面的例子主要是为了简单说明地说明索引的作用，包括mysql Innodb在内的大部分数据库系统及文件系统并没有选择二叉树结构作为索引，而是采用了B-Tree或其变种B+Tree作为索引结构，这种索引结构可以最大限度地减少查找过程中磁盘I/O的存取次数，关于什么是B-Tree或B+Tree以及选择它们做数据库索引结构的原因，大家可以自行去学习。下面我们首先介绍下mysql Innodb引擎的两种B+Tree索引。 三、Mysql Innodb B+Tree索引 一种是主键索引，主键索引即聚集索引（Cluster Index），它不仅有主键，而且有主键所属的全部数据，所以在Innodb中，主键索引即数据；一种是列值为Key，主键位置为Value即 (列值, 主键位置) 的非主键索引（Secondary Index） 1 2 Innodb属于索引组织表，所有的数据全部挂在主键叶子节点下。所以如果不能保证主键的插入顺序，那么会发生大量的主键节点分裂，产生大量的I/O操作。另外Innodb规定单个索引字段的长度不得超过768字节，否则截断超出长度不放入索引。 Innodb的非主键索引全部都指向主键索引，查找非主键索引无法获得整行数据，需要通过叶子节点的指针查到其主键索引的位置才能获得整行数据，所以主键索引必须设计得尽可能小，否则非主键索引将会非常的大。四、建立索引的原则 下面我们看一下建立一个好的索引需要遵循的原则，并结合具体的例子来做说明； 最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配，比如a = 1and b = 2 and c &gt; 3 and d = 4如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。 =和in可以乱序，比如a = 1 and b = 2 and c = 3 建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式。 尽量选择区分度高的列作为索引,区分度的公式是count(distinct col)/count(*)，表示字段不重复的比例，比例越大我们扫描的记录数越少，唯一键的区分度是1，而一些状态、性别字段可能在大数据面前区分度就是0，那可能有人会问，这个比例有什么经验值吗？使用场景不同，这个值也很难确定，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条记录 索引列不能参与计算，保持列“干净”，比如from_unixtime(create_time) = ‘2015-08-14’就不能使用到索引，原因很简单，b+树中存的都是数据表中的字段值，但进行检索时，需要把所有元素都应用函数才能比较，显然成本太大。所以语句应该写成create_time= unix_timestamp(‘2015-08-14’)。 尽量的扩展索引，不要新建索引。比如表中已经有a的索引，现在要加(a,b)的索引，那么只需要修改原来的索引即可。 在order by或者group by子句中，如果想通过索引来进行排序，所建索引列的顺序必须与order by或者group by子句的顺序一致，并且所有列的排序方向（倒序或者正序）都一样；如果查询关联多张表，则只有order by子句引用的字段全部来自第一张表时，才能利用索引来排序；order by或者groupby语句与查询型语句的限制是一样的:需要满足索引的最左前缀原则；否则mysql就要执行排序操作，无法利用索引来排序；（有一种情况order by或者group by子句可以不满足最左前缀原则，就是其前导为常量的时候，如果where或者join对这些列指定了常量，就可以弥补索引的不足）。 五、举例 语句1： 语句2： 对于这两条语句，如果单独进行考虑的话，大家可能会建立两个索引；针对语句1建立(status,netting_batch_no,debtor_agent_member_id)；针对语句2建立(netting_batch_no,debtor_agent_member_id,transaction_currency)；如果综合考虑来看的话，其实一个索引就够了，即(netting_batch_no,debtor_agent_member_id)，这里没必要将status或者transaction_currency字段放到索引中，因为这两个字段的区分度太差；根据建立索引的原则2，语句1是可以走到这个索引的；根据建立索引的原则1，语句2也是可以走到这个索引的；索引不是越多越好，建立过多的索引会增加数据库内存或者磁盘的消耗，并且会影响到得插入、删除等操作的性能，索引在建立索引时要遵循索引建立的原则，通盘考虑；]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -548,7 +504,7 @@
   </entry>
   <entry>
     <title><![CDATA[mybaits问题]]></title>
-    <url>%2F2016%2F02%2F16%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fmybaits%E9%97%AE%E9%A2%98%2F</url>
+    <url>%2F2016%2F02%2F16%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2Fmybaits%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[Mybatis insert into tab1 select column from tab2 命令未正常结束 因为我们是使用的oracle数据库，oracle是不支持自增的主键的， mybatis mapper 配置如下 1234&lt;insert id="insert" parameterType="com.xx" &gt; insert into tab1 (ID, CREATEDATE, STATUS) (select ID, CREATEDATE, STATUS from tab2) &lt;/insert&gt; 程序运行起来mybatis报了一个异常sqlException 说命令未正确结束！查询了mybatis文档说明 useGeneratedKeys 允许 JDBC 支持自动生成主键，需要驱动兼容。 如果设置为 true则这个设置强制使用自动生成主键，尽管一些驱动不能兼容但仍可正常工作（比如 Derby）。 true | false False 最后修改成了问题解决，但是有一点疑惑为啥默认这个就是false,为啥还要指定为false才可以呢？1234&lt;insert id="insert" parameterType="com.xx" useGeneratedKeys="false"&gt; insert into tab1 (ID, CREATEDATE, STATUS) (select ID, CREATEDATE, STATUS from tab2) &lt;/insert&gt;]]></content>
       <categories>
         <category>编程</category>
@@ -559,7 +515,7 @@
   </entry>
   <entry>
     <title><![CDATA[数组在内存中结构]]></title>
-    <url>%2F2016%2F02%2F16%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2F%E6%95%B0%E7%BB%84%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%BB%93%E6%9E%84%2F</url>
+    <url>%2F2016%2F02%2F16%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2F%E6%95%B0%E7%BB%84%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%BB%93%E6%9E%84%2F</url>
     <content type="text"><![CDATA[文章来自于群里铁锚 ava中的数组存储两类事物： 原始值(int,char,…),或者引用(对象指针). 当一个对象通过 new创建,那么将在堆内存中分配一段空间,并且返回其引用(指针). 对于数组，也是同样的方式. 一维数组1int arr[] = new int[3]; int[] arr 指向 包含3个整数的数组. 假设创建的是包含10个整数的数组,也是同样的用法 ——分配指定大小的内存,并返回数组的引用。 二维数组 二维数组又有什么区别呢?实际上,在Java中只有一维数组。二维数组本质上也是一维数组,只是数组中的每一个元素都指向了另一个一维数组而已。1234int[ ][ ] arr = new int[3][ ];arr[0] = new int[3];arr[1] = new int[5];arr[2] = new int[4]; 数组分配在内存的哪个区域? Java中的数组,也是对象(继承Object),因此数组所在的区域和对象是一样的. 我们知道, JVM 运行时数据区 包括 JVM栈,堆内存,以及其他区域. 看下面的关于对象的简单示例,我们一起来了解数组如何分配,以及引用保存在哪里. 123456789101112class A &#123; int x; int y;&#125;...public void m1() &#123; int i = 0; m2();&#125;public void m2() &#123; A a = new A();&#125; 当 m1 被调用时,一个新的栈帧(Frame-1)被压入JVM栈中,当然,相关的局部变量也在 Frame-1中创建，比如 i;然后m1调用m2,,又有一个新的栈帧(Frame-2)被压入到JVM栈中; m2方法在堆内存中创建了A类的一个对象,此对象的引用保存在Frame-2的局部变量 a 中. 此时,堆内存和栈内存看起来如下所示:]]></content>
       <categories>
         <category>编程</category>
@@ -581,7 +537,7 @@
   </entry>
   <entry>
     <title><![CDATA[Java中的多态性理解（注意与C++区分）]]></title>
-    <url>%2F2016%2F02%2F15%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fjava%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
+    <url>%2F2016%2F02%2F15%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2Fjava%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
     <content type="text"><![CDATA[Java中除了static方法和final方法（private方法本质上属于final方法，因为不能被子类访问）之外，其它所有的方法都是动态绑定，这意味着通常情况下，我们不必判定是否应该进行动态绑定—它会自动发生。 final方法会使编译器生成更有效的代码，这也是为什么说声明为final方法能在一定程度上提高性能（效果不明显）。 如果某个方法是静态的，它的行为就不具有多态性： 1234567891011121314151617181920212223242526272829 class StaticSuper &#123; public static String staticGet() &#123; return "Base staticGet()"; &#125; public String dynamicGet() &#123; return "Base dynamicGet()"; &#125;&#125;class StaticSub extends StaticSuper &#123; public static String staticGet() &#123; return "Derived staticGet()"; &#125; public String dynamicGet() &#123; return "Derived dynamicGet()"; &#125;&#125;public class StaticPolymorphism &#123; public static void main(String[] args) &#123; StaticSuper sup = new StaticSub(); System.out.println(sup.staticGet()); System.out.println(sup.dynamicGet()); &#125;&#125; 输出 Base staticGet() Derived dynamicGet() 构造函数并不具有多态性，它们实际上是static方法，只不过该static声明是隐式的。因此，构造函数不能够被override。 在父类构造函数内部调用具有多态行为的函数将导致无法预测的结果，因为此时子类对象还没初始化，此时调用子类方法不会得到我们想要的结果。 1234567891011121314151617181920212223242526272829303132class Glyph &#123; void draw() &#123; System.out.println("Glyph.draw()"); &#125; Glyph() &#123; System.out.println("Glyph() before draw()"); draw(); System.out.println("Glyph() after draw()"); &#125;&#125;class RoundGlyph extends Glyph &#123; private int radius = 1; RoundGlyph(int r) &#123; radius = r; System.out.println("RoundGlyph.RoundGlyph(). radius = " + radius); &#125; void draw() &#123; System.out.println("RoundGlyph.draw(). radius = " + radius); &#125;&#125;public class PolyConstructors &#123; public static void main(String[] args) &#123; new RoundGlyph(5); &#125;&#125; 输出 Glyph() before draw() RoundGlyph.draw(). radius = 0 Glyph() after draw() RoundGlyph.RoundGlyph(). radius = 5 为什么会这样输出？这就要明确掌握Java中构造函数的调用顺序： 1. 在其他任何事物发生之前，将分配给对象的存储空间初始化成二进制0； 2. 调用基类构造函数。从根开始递归下去，因为多态性此时调用子类覆盖后的draw()方法（要在调用RoundGlyph构造函数之前调用），由于步骤1的缘故，我们此时会发现radius的值为0； 3. 按声明顺序调用成员的初始化方法； 4. 最后调用子类的构造函数。 只有非private方法才可以被覆盖，但是还需要密切注意覆盖private方法的现象，这时虽然编译器不会报错，但是也不会按照我们所期望的来执行，即覆盖private方法对子类来说是一个新的方法而非重载方法。因此，在子类中，新方法名最好不要与基类的private方法采取同一名字（虽然没关系，但容易误解，以为能够覆盖基类的private方法）。 Java类中属性域的访问操作都由编译器解析，因此不是多态的。父类和子类的同名属性都会分配不同的存储空间，如下： 12345678910111213141516171819202122232425262728293031// Direct field access is determined at compile time.class Super &#123; public int field = 0; public int getField() &#123; return field; &#125;&#125;class Sub extends Super &#123; public int field = 1; public int getField() &#123; return field; &#125; public int getSuperField() &#123; return super.field; &#125;&#125;public class FieldAccess &#123; public static void main(String[] args) &#123; Super sup = new Sub(); System.out.println("sup.filed = " + sup.field + ", sup.getField() = " + sup.getField()); Sub sub = new Sub(); System.out.println("sub.filed = " + sub.field + ", sub.getField() = " + sub.getField() + ", sub.getSuperField() = " + sub.getSuperField()); &#125;&#125; 输出：sup.filed = 0, sup.getField() = 1 sub.filed = 1, sub.getField() = 1, sub.getSuperField() = 0Sub子类实际上包含了两个称为field的域，然而在引用Sub中的field时所产生的默认域并非Super版本的field域，因此为了得到Super.field，必须显式地指明super.field。]]></content>
       <categories>
         <category>编程</category>
@@ -589,7 +545,7 @@
   </entry>
   <entry>
     <title><![CDATA[Timer TimerTask 问题]]></title>
-    <url>%2F2016%2F01%2F27%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2FTimer-TimerTask-%E9%97%AE%E9%A2%98%2F</url>
+    <url>%2F2016%2F01%2F27%2FJAVA%E6%80%BB%E7%BA%B2%2F%E5%B7%A5%E4%BD%9C%2FTimer-TimerTask-%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[Timer在执行所有定时任务时只会创建一个线程。如果某个任务的执行时间过长，那么将破坏其他TimerTask的定时精确性。例如周期每10ms跑一次的TimerTask，而另外一个需要执行40ms，那么这个周期任务或者在40ms任务执行完成连续调用4次，要不就是丢失4次调用（取决于它是基于固定速率来调度还是基于固定延时来调度）。Timer的另外一个问题是，如果TimerTask抛出一个未检查的异常，那么Timer线程并不捕获异常，因此当TimerTask抛出未检查的异常时将终止定时线程。这种情况下，Timer也不会恢复线程的执行，而是会错误地认为整个Timer都被取消了。因此已经被调度但未执行的TimerTask将不会再执行，新的任务也不能调度。这个问题称为“线程泄漏” 【Thread Leakage】]]></content>
       <categories>
         <category>编程</category>
@@ -597,7 +553,7 @@
   </entry>
   <entry>
     <title><![CDATA[java内存区域划分]]></title>
-    <url>%2F2016%2F01%2F20%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fjava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86%2F</url>
+    <url>%2F2016%2F01%2F20%2FJAVA%E6%80%BB%E7%BA%B2%2Fjava%E5%9F%BA%E7%A1%80%2Fjava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86%2F</url>
     <content type="text"><![CDATA[JVM内存区域划分 文章来源 一点咨询 前言Java程序的运行是通过 “Java虚拟机” 来实现的。通过类加载器将class字节码文件加载进JVM，然后根据预定的规则执行。Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些内存区域被统一叫做运行时数据区。Java运行时数据区大致可以划分为5个部分。如下图所示。在这里要特别指出，我们现在说的JVM内存划分是概念模型。具体到每个JVM的具体实现可能会有所不同。具体JVM的实现我只会提到HotSpot虚拟机的实现细节。 程序计数器程序计数器是一块较小的内存空间，它可以看成是当前线程所执行的字节码的行号指示器。程序计数器记录线程当前要执行的下一条字节码指令的地址。由于Java是多线程的，所以为了多线程之间的切换与恢复，每一个线程都需要单独的程序计数器，各线程之间互不影响。这类内存区域被称为“线程私有”的内存区域。 由于程序计数器只存储一个字节码指令地址，故此内存区域没有规定任何OutOfMemoryError情况。虚拟机栈Java虚拟机栈也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行时都会创建一个栈帧（Stack Frame）用于存储局部变量表、操作数栈、动态链接、方法出口等信息。 一个栈帧就代表了一个方法执行的内存模型，虚拟机栈中存储的就是当前执行的所有方法的栈帧（包括正在执行的和等待执行的）。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机中入栈到出栈的过程。我们平时所说的“局部变量存储在栈中”就是指方法中的局部变量存储在代表该方法的栈帧的局部变量表中。而方法的执行正是从局部变量表中获取数据，放至操作数栈上，然后在操作数栈上进行运算，再将运算结果放入局部变量表中，最后将操作数栈顶的数据返回给方法的调用者的过程。（关于栈帧和基于栈的方法执行，我会在之后写两篇文章专门介绍。敬请期待☺） 虚拟机栈可能出现两种异常：由线程请求的栈深度过大超出虚拟机所允许的深度而引起的StackOverflowError异常；以及由虚拟机栈无法提供足够的内存而引起的OutOfMemoryError异常。本地方法栈本地方法栈与虚拟机栈类似，他们的区别在于：本地方法栈用于执行本地方法（Native方法）；虚拟机栈用于执行普通的Java方法。在HotSpot虚拟机中，就将本地方法栈与虚拟机栈做在了一起。 本地方法栈可能抛出的异常同虚拟机栈一样。堆Java堆是Java虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例：所有的对象实例以及数组都要在堆上分配（The heap is the runtime data area from which memory for all class instances and arrays is allocated）。但Class对象比较特殊，它虽然是对象，但是存放在方法区里。在下面的方法区一节会介绍。Java堆是垃圾收集器（GC）管理的主要区域。现在的收集器基本都采用分代收集算法：新生代和老年代。而对于不同的”代“采用的垃圾回收算法也不一样。一般新生代使用复制算法；老年代使用标记整理算法。对于不同的”代“，一般使用不同的垃圾收集器，新生代垃圾收集器和老年代垃圾收集器配合工作。(关于垃圾收集算法、垃圾收集器以及堆中具体的分代等知识，我之后会专门写几篇博客来介绍。再次敬请期待☺) Java堆可以是物理上不连续的内存空间，只要逻辑上连续即可。Java堆可能抛出OutOfMemoryError异常。方法区方法区与Java堆一样，是各个线程共享的内存区域。它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。 所有的字节码被加载之后，字节码中的信息：类信息、类中的方法信息、常量信息、类中的静态变量等都会存放在方法区。正如其名字一样：方法区中存放的就是类和方法的所有信息。此外，如果一个类被加载了，就会在方法去生成一个代表该类的Class对象（唯一一种不在堆上生成的对象实例）该对象将作为程序访问方法区中该类的信息的外部接口。有了该对象的存在，才有了反射的实现。 在Java7之前，HotSpot虚拟机中将GC分代收集扩展到了方法区，使用永久代来实现了方法区。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。但是在之后的HotSpot虚拟机实现中，逐渐开始将方法区从永久代移除。Java7中已经将运行时常量池从永久代移除，在Java 堆（Heap）中开辟了一块区域存放运行时常量池。而在Java8中，已经彻底没有了永久代，将方法区直接放在一个与堆不相连的本地内存区域，这个区域被叫做元空间。运行时常量池运行时常量池是方法区的一部分，关于运行时常量池的介绍，请参考我的 直接内存JDK1.4中引用了NIO，并引用了Channel与Buffer，可以使用Native函数库直接分配堆外内存，并通过一个存储在Java堆里面的DirectByteBuffer对象作为这块内存的引用进行操作。 如上文介绍的：Java8以及之后的版本中方法区已经从原来的JVM运行时数据区中被开辟到了一个元空间的直接内存区域。]]></content>
       <categories>
         <category>编程</category>
@@ -605,22 +561,6 @@
       <tags>
         <tag>java虚拟机</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[markdown语法]]></title>
-    <url>%2F2016%2F01%2F19%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fmarkdown%E8%AF%AD%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[标题 标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。记住标题一共就6级，意味着你最多写六个#号哦！example ： LevelLevelLevel列表熟悉 HTML 的同学肯定知道有序列表与无序列表的区别，在 Markdown 下，列表的显示只需要在文字前加上 - 或 * 即可变为无序列表，有序列表则直接在文字前加1. 2. 3. 符号要和文字之间加上一个字符的空格。 无序列表 1 2 3 有序列表 文字 文字 文字 引用 如果你需要引用一小段别处的句子，用大于号 开头就可以了 图片与链接插入链接与插入图片的语法很像，区别在一个 !号 图片 ““ 链接为： baidu. 粗体与斜体用* 包含一段文本就是粗体的语法，用一个 包含一段文本就是斜体的语法。 hello hello 分割线 分割线的语法只需要三个 * 号 代码写法public static void main (String [] args){ System.out.println(&quot;hello lance&quot;); } 12java coding... 1javascript document.getElementById("id");]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[spring源码分析]]></title>
-    <url>%2F2016%2F01%2F19%2F%E6%9A%82%E6%9C%AA%E6%95%B4%E7%90%86%2Fspring%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%9001%2F</url>
-    <content type="text"><![CDATA[大家都知道创建一个javaweb项目都需要从web.xml开始配置，那么项目中要使用spring，spring容器是怎么启动的呢，需要在web.xml中进行配置， eaglemvc org.springframework.web.servlet.DispatcherServlet contextConfigLocation classpath:spring/eagle-servlet.xml 1 也就是DispatcherServlet 看起，从名字上就能看出来他也是一个servlet,那么他必须有init(),doGet(),doPost(),destory()方法。我们肯定从init方法开始，发现没有init方法呢？这个时候看这个DispatcherServlet 类，ctrl+H 查看下类继承的关系，发现他有父类，frameworkServlet，HttpServletBean，HttpServlet .发现 HttpServletBean 中有init方法，其中代码如下12345678910111213141516171819202122232425262728@Override public final void init() throws ServletException &#123; if (logger.isDebugEnabled()) &#123; logger.debug("Initializing servlet '" + getServletName() + "'"); &#125; // Set bean properties from init parameters. try &#123; PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties); BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(this); ResourceLoader resourceLoader = new ServletContextResourceLoader(getServletContext()); bw.registerCustomEditor(Resource.class, new ResourceEditor(resourceLoader, getEnvironment())); initBeanWrapper(bw); bw.setPropertyValues(pvs, true); &#125; catch (BeansException ex) &#123; logger.error("Failed to set bean properties on servlet '" + getServletName() + "'", ex); throw ex; &#125; // Let subclasses do whatever initialization they like. initServletBean(); //注意这里人家写注释了，发现调用初始化Bean的对象了，但是方法是空的，那就是让子类去实现了呗。 if (logger.isDebugEnabled()) &#123; logger.debug("Servlet '" + getServletName() + "' configured successfully"); &#125; &#125;]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
   </entry>
   <entry>
     <title><![CDATA[spring源码分析]]></title>
