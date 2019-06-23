@@ -378,7 +378,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/undefined.html" itemprop="url">linux复习</a></h1>
+                <a class="post-title-link" href="/undefined.html" itemprop="url">java 多线程梳理</a></h1>
         
 
         <div class="post-meta">
@@ -441,7 +441,7 @@
 
           
           
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="linux复习">
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="java 多线程梳理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -468,7 +468,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  267
+                  837
                 </span>
               
 
@@ -494,21 +494,12 @@
 
       
         
-          <h1 id="linux复习"><a href="#linux复习" class="headerlink" title="linux复习"></a>linux复习</h1><ol>
-<li># 自动标记这一次的 commit 为上一个 commit 的 fix</li>
-<li>$ git commit –fixup <commit></commit></li>
-<li>git rebase -i —autosquash 自动组织合并两个 commit</li>
-</ol>
-<p>内核空间，用户空间</p>
-<p>ls -S1 从大到小排序</p>
-<p>ls-Slr 从小到大排序</p>
-<p>ls-lt 从新到旧</p>
-<p>ls-lrt 从旧到新</p>
-<p>find / -name ‘target.xxx’ </p>
-<p>find ~ -iname ‘ddd*‘ 忽略大小写查找文件</p>
-<p>grep ‘moo’   target* 查找所有target开头的文件中含有moo字符的文件</p>
-<p>Awk ‘{print $1,$2}’ xx.xx </p>
-<p>Awk  ‘$1==”tcp” &amp; $2==0 {print $0}’  xx.xx<br>
+          <h1 id="java-多线程梳理"><a href="#java-多线程梳理" class="headerlink" title="java 多线程梳理"></a>java 多线程梳理</h1><p>start和run方法区别，start 方法开启一个新的线程区执行，run是当前线程发起。可以看jvm.cpp有一个jvm_startThread 的方法。</p>
+<p>runnable 接口和thread 关系，runnable就是一个有run方法的接口而已。</p>
+<p>线程的6个状态，new ，runnable，waiting ，timed-wating ，blocked，terminated</p>
+<p>sleep只会让出cpu，wait会让出cpu和锁。 sleep只能和synchronized 结合使用。 </p>
+<p>wait 和while经常一起使用为什么？不是wait 和if </p>
+<p>构造一个固定大小的同步容器怎么实现？<br>
         
 
 
@@ -590,7 +581,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/undefined.html" itemprop="url">架构理念</a></h1>
+                <a class="post-title-link" href="/undefined.html" itemprop="url">java 内存模型如何解决可见性和有序性问题</a></h1>
         
 
         <div class="post-meta">
@@ -653,7 +644,7 @@
 
           
           
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="架构理念">
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="java 内存模型如何解决可见性和有序性问题">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -680,7 +671,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7.1k
+                  671
                 </span>
               
 
@@ -706,12 +697,1303 @@
 
       
         
-          <h2 id="架构学习"><a href="#架构学习" class="headerlink" title="架构学习"></a>架构学习</h2><p>系统分解多个系统业务模块好处？（微服务）</p>
+          <h1 id="java-内存模型如何解决可见性和有序性问题"><a href="#java-内存模型如何解决可见性和有序性问题" class="headerlink" title="java 内存模型如何解决可见性和有序性问题"></a>java 内存模型如何解决可见性和有序性问题</h1><h2 id="看标题联想"><a href="#看标题联想" class="headerlink" title="看标题联想"></a>看标题联想</h2><ol>
+<li>happen before 原则</li>
+<li>之后就是并发编程实战中的图形 cmp等命令</li>
+<li>内存模型 又想到什么？</li>
+<li>导致可见性就是因为cup的缓存，有序性就用volatile关键字呗<br><strong>按需禁用缓存以及编译优化</strong><br>java 内存模型很复杂，synchronized ，volatile ，final  还有happen-before 6个原则<br>volatile 在1.5版本才解决的可见性问题，因为加入了happen-before原则。<br><strong>前一个操作的结果对后续操作是可见的</strong>，这个是happen-before的原则。</li>
+</ol>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/undefined.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/undefined.html" itemprop="url">算法复习</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/undefined.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="算法复习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  99
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="算法复习"><a href="#算法复习" class="headerlink" title="算法复习"></a>算法复习</h1><p>堆排序， 把数组理解为完全二叉树形式。<br>二叉树，满二叉树，完全二叉树 理解<br>完全二叉树，左叶子节点 是 i乘以2+1   右节点是 i乘以2 +2，父节点是 i-1除以2<br>堆就是完全二叉树，<br>大根堆<br>任何这棵树最大值都在树的顶部所形成的结构。<br>小根堆</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/undefined.html" itemprop="url">RabbitMq</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/undefined.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="RabbitMq">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  531
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="RabbitMq"><a href="#RabbitMq" class="headerlink" title="RabbitMq"></a>RabbitMq</h2><p><strong>Amqp 消息协议</strong></p>
+<p>Routingkey 路由健  连接生产者消息和exchage之间纽带。routingkey需要和交换机类型和绑定健bingdingkey联合才能最终生效。</p>
+<p>Binding  通过绑定exchage和队列关联起来。绑定时候指定一个bindingkey。</p>
+<p>exchange 路由交换机</p>
+<p>交换机类型 fanout，direct，topic ，headers </p>
+<p>fanout是广播形式，</p>
+<blockquote>
+<p>无视routingkey，它会把所有发送到该交换器的消息路由到所有与该交换器绑定的队列中    </p>
+</blockquote>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/undefined.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/undefined.html" itemprop="url">Dubbo服务治理</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/undefined.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="Dubbo服务治理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  629
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Dubbo服务治理"><a href="#Dubbo服务治理" class="headerlink" title="Dubbo服务治理"></a>Dubbo服务治理</h2><h2 id="dubbo-config-模块-源码理解"><a href="#dubbo-config-模块-源码理解" class="headerlink" title="dubbo-config 模块 源码理解"></a>dubbo-config 模块 源码理解</h2><p><img src="./_image/2019-03-24-12-27-06.png" alt></p>
+<p>dubbo的配置优先级别：<br><img src="./_image/2019-03-24-12-56-32.png" alt></p>
+<blockquote>
+<p>三大核心能力</p>
+</blockquote>
+<ol>
+<li>面向接口的远程方法调用</li>
+<li>服务容错和负载均衡</li>
+<li>服务自动注册和发现</li>
+</ol>
+<blockquote>
+<p>服务治理的功能</p>
+</blockquote>
+<ol>
+<li>服务提供者注册服务</li>
+<li>消费者获取服务，并通过负载均衡策略选择服务提供者</li>
+<li>动态增减服务提供者和消费者</li>
+<li>服务监控</li>
+<li>服务限流  服务之间</li>
+<li>服务降级</li>
+</ol>
+<blockquote>
+<p>dubbo 服务应用名</p>
+<p>指定zk地址</p>
+<p>指定消费者或提供者 协议和端口  </p>
+<p>&lt;dubbo:reference interface =”” id=”提供者service”&gt;</p>
+<p>&lt;dubbo:service =”” id=””&gt;</p>
+<p>定义提供的beans ，包括接口和实现</p>
+</blockquote>
+<h2 id="异步化消息服务"><a href="#异步化消息服务" class="headerlink" title="异步化消息服务"></a>异步化消息服务</h2><p>不阻塞原来业务</p>
+<p>服务调用解耦</p>
+<h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><p>任务：task 完成一系列的事情</p>
+<p>调度 ： 执行任务的智慧，处罚，规则程序</p>
+<blockquote>
+<p> 应用场景</p>
+</blockquote>
 <ul>
-<li>简单的系统更容易做到高性能，因为在单体应用中，提高了A业务效率有可能会降低其他的业务效率。</li>
-<li>分解之后更容易看到系统的瓶颈所在，可以对单个业务进行扩展，有针对性的优化比如代码或者增加服务解决，其他服务可以保持不变。</li>
-<li>分解的业务模块越多，网络的开销也就越大，调用的业务链路也长，排查问题越不方便。</li>
-<li>
+<li>业务跑批轮训等待处理</li>
+<li>失败异常重试</li>
+<li>定时处理任务</li>
+</ul>
+<blockquote>
+<p>单机调度机制：</p>
+</blockquote>
+<p>Timer定时器</p>
+<p>time 类  内存里TaskList  </p>
+<p>timerTask 类 本质上一个thread </p>
+<blockquote>
+<p>所有任务都是一个线程调度，同一时间只能有一个任务执行</p>
+</blockquote>
+<p>​ScheduledExcutor</p>
+<p>​Quartz  missfire 机制</p>
+<p>elastic job 分片的机制  如何分片</p>
+<h2 id="池化技术"><a href="#池化技术" class="headerlink" title="池化技术"></a>池化技术</h2><h3 id="连接池（数据库，redis等）"><a href="#连接池（数据库，redis等）" class="headerlink" title="连接池（数据库，redis等）"></a>连接池（数据库，redis等）</h3><ul>
+<li>核心连接数</li>
+<li>最大连接数</li>
+<li>连接等待时间</li>
+<li>数据读取时间</li>
+<li>等待释放时间</li>
+<li>validate</li>
+</ul>
+<p>tomcat 线程池</p>
+<p>连接池存储clientSocket连接   ，io线程池 ，worker线程池</p>
+<p>io线程获取clientsocket，recv ，之后交给worker线程处理</p>
+<h2 id="缓存技术"><a href="#缓存技术" class="headerlink" title="缓存技术"></a>缓存技术</h2><h3 id="快速访问"><a href="#快速访问" class="headerlink" title="快速访问"></a>快速访问</h3><p>千万级别数据</p>
+<p>主键1ms以内</p>
+<p>唯一索引 10ms</p>
+<p>非唯一查询 100ms</p>
+<p>全表扫描 s+</p>
+<p>qps&lt; 10000</p>
+<p>模型不能聚合</p>
+<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>将数据写入/读取速度最快的存储</li>
+<li>将数据缓存到应用最近的位置</li>
+<li>将数据离用户最近的位置</li>
+</ul>
+<h5 id="缓存分类"><a href="#缓存分类" class="headerlink" title="缓存分类"></a>缓存分类</h5><ul>
+<li>CDN缓存</li>
+<li>反向代理缓存</li>
+<li>分布式Cache</li>
+<li>本地应用缓存。guava 本地缓存</li>
+</ul>
+<h5 id="如何缓存"><a href="#如何缓存" class="headerlink" title="如何缓存"></a>如何缓存</h5><ul>
+<li><p>实时写入</p>
+</li>
+<li><p>异步写入</p>
+</li>
+<li><p>读取时实时写入</p>
+</li>
+<li><p>读取时异步写入</p>
+<h4 id="缓存失效"><a href="#缓存失效" class="headerlink" title="缓存失效"></a>缓存失效</h4></li>
+<li><p>固定时间   redis是惰性删除+定时失效</p>
+</li>
+<li><p>相对时间</p>
+</li>
+</ul>
+<h3 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h3><ul>
+<li>cdn缓存 静态资源</li>
+<li>nginx 代理缓存 （接入层 ，ng的proxy cache）</li>
+<li>nginx lua share dic  （应用层的ng 内存字典）</li>
+<li>nginx lua redis （应用层的lua脚本）</li>
+<li>tomcat 本地缓存</li>
+<li>redis服务器</li>
+<li>数据库</li>
+</ul>
+<h3 id="缓存不一致性"><a href="#缓存不一致性" class="headerlink" title="缓存不一致性"></a>缓存不一致性</h3><p>数据容忍性</p>
+<p>异步更新机制</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/undefined.html" itemprop="url">EalsticSearch</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/undefined.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="EalsticSearch">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  80
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="EalsticSearch"><a href="#EalsticSearch" class="headerlink" title="EalsticSearch"></a>EalsticSearch</h1><ul>
+<li>index 相当于数据库</li>
+<li>type 相当于 表</li>
+<li>document 字段filed </li>
+<li>mapping 相当于schema</li>
+<li>indexed 倒序索引</li>
+</ul>
+<h3 id="curl命令"><a href="#curl命令" class="headerlink" title="curl命令"></a>curl命令</h3><p>支持restful 风格的api</p>
+<p>Curl  - i 显示相应头信息</p>
+<p>-x get/post/delete </p>
+<p>-o xx.html 输出到xx.html中</p>
+<p>-v 显示通讯过程</p>
+<p>进入es/conf 中修改network.host = 远程机器的ip </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/undefined.html" itemprop="url">openresty nginx</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/undefined.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="openresty nginx">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  149
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="安装openresty-nginx"><a href="#安装openresty-nginx" class="headerlink" title="安装openresty nginx"></a>安装openresty nginx</h3><p>命令<figure class="highlight plain"><figcaption><span>install openresty/brew/openresty```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">之后当前目录下创建`mkdir ~/work cd ~/work  mkdir logs/ conf/`</span><br><span class="line"></span><br><span class="line">在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 </span><br><span class="line"></span><br><span class="line">`nginx -s reload  nginx -h nginx -p  nginx -c `</span><br><span class="line"></span><br><span class="line">nginx.conf 配置文件内容</span><br><span class="line"></span><br><span class="line"> 配置这个反向服务代理要代理的服务器集群</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"></span><br><span class="line">``` shell</span><br><span class="line">upstream  backend_server &#123;</span><br><span class="line">	server localhost:8080 weight=1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">	listen 7777;</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://backend_server ;</span><br><span class="line">	&#125;</span><br><span class="line">	#当用户访问这个目录下文件，即认为在访问静态资源</span><br><span class="line">	location /resources &#123;</span><br><span class="line">      alias //usr/local/opt/openresty/nginx/html;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/undefined.html" itemprop="url">分布式解决方案</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/undefined.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="分布式解决方案">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  424
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>#分布式解决方案 </p>
+<h2 id="Fescar"><a href="#Fescar" class="headerlink" title="Fescar"></a>Fescar</h2><p><a href="https://github.com/alibaba/fescar/wiki/%E6%A6%82%E8%A7%88" target="_blank" rel="noopener">Fescar github 地址</a><br><em>传统的解决无侵入的方案为XA，但是XA 有一定的局限性，比如要求mysql版本高于5.7</em><br>其他都是在业务上采用如下解决方案：</p>
+<ul>
+<li>基于可靠消息解决</li>
+<li>TCC</li>
+<li>Saga
         
 
 
@@ -991,7 +2273,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/undefined.html" itemprop="url">微服务</a></h1>
+                <a class="post-title-link" href="/undefined.html" itemprop="url">linux复习</a></h1>
         
 
         <div class="post-meta">
@@ -1004,7 +2286,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:30:11+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:32:32+08:00">
                 2019-03-31
               </time>
             
@@ -1054,7 +2336,7 @@
 
           
           
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="微服务">
+             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="linux复习">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1081,7 +2363,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  990
+                  267
                 </span>
               
 
@@ -1107,601 +2389,21 @@
 
       
         
-          <h2 id="微服务架构学习"><a href="#微服务架构学习" class="headerlink" title="微服务架构学习"></a>微服务架构学习</h2><h2 id="服务描述"><a href="#服务描述" class="headerlink" title="服务描述"></a>服务描述</h2><h4 id="三种类型"><a href="#三种类型" class="headerlink" title="三种类型"></a>三种类型</h4><h6 id="RESTful-Api-（springcloud），XML配置（dubbo）以及IDL文件（grpc）"><a href="#RESTful-Api-（springcloud），XML配置（dubbo）以及IDL文件（grpc）" class="headerlink" title="RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）"></a>RESTful Api （springcloud），XML配置（dubbo）以及IDL文件（grpc）</h6><p>restful和grpc 都是跨语言平台的</p>
-<h3 id="如何注册和发现服务"><a href="#如何注册和发现服务" class="headerlink" title="如何注册和发现服务"></a>如何注册和发现服务</h3><p>注册中心原理</p>
-<p><a href="https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc" target="_blank" rel="noopener">https://www.processon.com/diagraming/5c2991a0e4b04eb4e36747fc</a></p>
-<p>注册中心Api</p>
-<p>服务注册及反注册 ：</p>
-<p>服务提供者提供至少有服务地址，端口等信息。</p>
-<p>心跳汇报：及时反馈是否存活</p>
-<p>服务订阅： 通过服务订阅提供服务地址列表，并变更时通知</p>
-<p>服务变更查询</p>
-<p>服务查询</p>
-<p>服务修改</p>
-<p>集群部署<br>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/undefined.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/undefined.html" itemprop="url">让命令飞起来 命令操作</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-13T20:49:40+08:00">
-                2016-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/undefined.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="让命令飞起来 命令操作">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  214
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="categories-编程-命令小纪"><a href="#categories-编程-命令小纪" class="headerlink" title="categories: 编程 # 命令小纪        "></a>categories: 编程 # 命令小纪        </h2><p>#让命令飞起来<br>CTRL + A  行首<br>ctrl +e 行尾<br>alt +b 后单词<br>alt +f  前单词<br>CTRL  alt + F  前一个字母<br>ctrl +  alt + b 后一个字母<br>ctrl + c 结束命令<br>ctrl  +u 删掉命令<br>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/undefined.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/undefined.html" itemprop="url">spring4 +cxf 排错</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-18T21:28:54+08:00">
-                2016-10-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/undefined.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="spring4 +cxf 排错">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  411
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>##排查依赖错误<br>由于项目用到cxf 需要调用第三方的接口，需要写一个客户端。这个貌似没啥问题，记得之前写过的cxf 现在好久不用了，apache的官网已经更新到了3.1.7 。<br>自从用maven以来还真很少遇到过冲突，但是群里大婶说的一句话很好，maven已经较少了依赖关系的冲突，但是不代表就不存在。<br>项目有用gradle的，也有用maven的。<br>首先你的jvm可以加上参数 -XX:+TraceClassLoading  这个主要是看你的classtrace的。<br>mvn dependency:tree   和 gradle的 dependencies 命令很重要。<br>主要还是看报错控制台的信息，我的错误为 java.lang.NoSuchFileldError ： REFLECTION<br>这就很明显了是冲突，之后看具体的出错的 class —&gt; RuntimeModelBuilder </p>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/undefined.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/undefined.html" itemprop="url">微服务</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-23T10:51:30+08:00">
-                2016-09-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/undefined.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="微服务">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  827
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><ul>
-<li>Eric Evans 的《领域驱动设计》</li>
-<li>Alistair Cockburn 的六边形架构理论<br>Netflix 分享了构建大型反脆弱系统的经验  github ： <a href="https://github.com/Netflix" target="_blank" rel="noopener">https://github.com/Netflix</a><h2 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a>什么是微服务</h2><blockquote>
-<p>微服务就是一些协同工作的小而自治的服务</p>
-</blockquote>
-</li>
-<li><ol>
-<li>很小，专注于做好一件事<br>在一个单块系统内，通常会创建一些抽象层或者模块来保证代码的内聚性，从而避免上述问题。<br>内聚性是指将相关代码放在一起，在考虑使用微服务的时候，内聚性这一概念<br>很重要。Robert C. Martin 有一个对单一职责原则（Single Responsibility Principle，http://<br>programmer.97things.oreilly.com/wiki/index.php/The_Single_Responsibility_Principle）的论述：<br>“把因相同原因而变化的东西聚合到一起，而把因不同原因而变化的东西分离开来。 ”该论<br>述很好地强调了内聚性这一概念。 也让我同时想到了tw提出的正交设计。</li>
+          <h1 id="linux复习"><a href="#linux复习" class="headerlink" title="linux复习"></a>linux复习</h1><ol>
+<li># 自动标记这一次的 commit 为上一个 commit 的 fix</li>
+<li>$ git commit –fixup <commit></commit></li>
+<li>git rebase -i —autosquash 自动组织合并两个 commit</li>
 </ol>
-</li>
-<li>1.1 根据业务的边界来确定服务的边界<br>那就出现了一个问题，业务的辩解确定服务的边界，但是不可避免有时候领域的对象涉及很广很复杂。<br><strong>一个微服务应该可以在两周内完全重写，这个经验法则在他所处的特定上下文中是有效的。</strong><br>这个时候请遵守上述的原则,可能有的时候很有用。<br><strong> 使用的服务越小，独立性带来的好处就越多。但是管理大量服务也会越复杂。</strong></li>
-</ul>
+<p>内核空间，用户空间</p>
+<p>ls -S1 从大到小排序</p>
+<p>ls-Slr 从小到大排序</p>
+<p>ls-lt 从新到旧</p>
+<p>ls-lrt 从旧到新</p>
+<p>find / -name ‘target.xxx’ </p>
+<p>find ~ -iname ‘ddd*‘ 忽略大小写查找文件</p>
+<p>grep ‘moo’   target* 查找所有target开头的文件中含有moo字符的文件</p>
+<p>Awk ‘{print $1,$2}’ xx.xx </p>
+<p>Awk  ‘$1==”tcp” &amp; $2==0 {print $0}’  xx.xx<br>
         
 
 
@@ -1714,610 +2416,7 @@
           <!--/noindex-->
         
       
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/undefined.html" itemprop="url">一分钟了解负载均衡</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-21T14:01:48+08:00">
-                2016-09-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/undefined.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="一分钟了解负载均衡">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>转载 维信架构师之路</p>
-<h1 id="什么是负载均衡"><a href="#什么是负载均衡" class="headerlink" title="什么是负载均衡"></a>什么是负载均衡</h1><ul>
-<li>负载均衡（Load Balance）是分布式系统架构设计中必须考虑的因素之一，它通常是指，将请求/数据【均匀】分摊到多个操作单元上执行，负载均衡的关键在于【均匀】。</li>
-</ul>
-<p><img src="./_image/getimg.png" alt></p>
-<ul>
-<li><p>常见互联网分布式架构如上，分为客户端层、反向代理nginx层、站点层、服务层、数据层。可以看到，每一个下游都有多个上游调用，只需要做到，每一个上游都均匀访问每一个下游，就能实现“将请求/数据【均匀】分摊到多个操作单元上执行”。</p>
-</li>
-<li><p>【客户端层-&gt;反向代理层】的负载均衡</p>
-</li>
-</ul>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/undefined.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/undefined.html" itemprop="url">Days 1/21 口语训练</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-20T17:36:26+08:00">
-                2016-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/英语/" itemprop="url" rel="index">
-                    <span itemprop="name">英语</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/undefined.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="Days 1/21 口语训练">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  58
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Perhaps-we-see-a-part-of-ourselves-in-our-friends-Maybe-seeing-the-good-in-them-helps-us-to-see-the-good-in-us-as-well"><a href="#Perhaps-we-see-a-part-of-ourselves-in-our-friends-Maybe-seeing-the-good-in-them-helps-us-to-see-the-good-in-us-as-well" class="headerlink" title="Perhaps we see a part of ourselves in our friends. Maybe seeing the  good in them helps us to see the good in us as well."></a>Perhaps we see a part of ourselves in our friends. Maybe seeing the  good in them helps us to see the good in us as well.</h2><p>** 或许我们能从朋友身上看到自己的影子，或许看到他们闪光处也能帮助我们！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/undefined.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/undefined.html" itemprop="url">spring boot 学习(第二篇)</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-11T10:49:21+08:00">
-                2016-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/undefined.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/undefined.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/undefined.html" class="leancloud_visitors" data-flag-title="spring boot 学习(第二篇)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  898
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Banner设置"><a href="#Banner设置" class="headerlink" title="Banner设置"></a>Banner设置</h3><blockquote>
-<p>通过在classpath下添加一个banner.txt或设置banner.location来指定相应的文件可以改变启动过程中打印的banner。如果这个 文件有特殊的编码,你可以使用banner.encoding设置它(默认为UTF-8)</p>
-<ul>
-<li>编程式<br><strong>SpringBootApplication.setBanner(…)方法。使用 org.springframework.boot.Banner接口,实现你自己的printBanner()方法</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">变量 | 描述</span><br><span class="line">$&#123;application.version&#125; | MANIFEST.MF中声明的应用版本号,例如1.0</span><br><span class="line">$&#123;application.formatted- version&#125;|MANIFEST.MF中声明的被格式化后的应用版本号(被括号包裹且以v作为前缀),用于显 示,例如(v1.0)</span><br><span class="line">$&#123;spring-boot.version&#125;|正在使用的Spring Boot版本号,例如1.2.2.BUILD-SNAPSHOT</span><br><span class="line">$&#123;spring- boot.formatted-version&#125;|正在使用的Spring Boot被格式化后的版本号(被括号包裹且以v作为前缀), 用于显示,例 如(v1.2.2.BUILD-SNAPSHOT)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/undefined.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
+    </p></div>
     
     
     
@@ -2358,7 +2457,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2408,7 +2507,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2419,7 +2518,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2430,7 +2529,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
