@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[kafka 复习系列-1]]></title>
+    <url>%2Fkafka.html</url>
+    <content type="text"><![CDATA[kafka的每个分区partition 默认都有多个副本,这个副本的数量是根据broker 中配置default.replication.factor（默认大小为 1）.也可以在创建 topic 的时候通过 –replication-factor ${num} 显式指定副本的数量（副本因子）前期在配置了auto.create.topic.enable 为 true 的时候 ## ## ## 本文欢迎转载，但是希望注明出处并给出原文链接。如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 alonecong@126.com 告诉我你的想法，你的建议对我非常重要。本文作者： lancecong联系方式： alonecong@126.com版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！]]></content>
+      <categories>
+        <category>消息中间键</category>
+      </categories>
+      <tags>
+        <tag>mq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[lambda java-8]]></title>
+    <url>%2Fjdk8-lambda.html</url>
+    <content type="text"><![CDATA[JEP126 &amp; JSR335&gt; JSR 335=lambda 表达式 + 接口改进（默认方法）+ 批量数据操作- 外部迭代VS 内部迭代 - foreach 方法的使用- Stream API - 中间与终点 接口与抽象类到底有哪些不同?相同点 都是抽象类型； 都可以有实现方法（以前接口不行）； 都可以不需要实现类或者继承者去实现所有方法，（以前不行，现在接口中默认方法不需要实现者实现）不同点 抽象类不可以多重继承，接口可以（无论是多重类型继承还是多重行为继承）； 抽象类和接口所反映出的设计理念不同。其实抽象类表示的是 “is-a” 关系，接口表示的是 “like-a” 关系； 接口中定义的变量默认是 public static final 型，且必须给其初值，所以实现类中不能改变其值；抽象类中的变量默认是 friendly 型，其值可以在子类中重新定义，也可以重新赋值。 多重继承从而产生冲突的问题.例如 A 接口有一个hello方法,B接口也有一个hello方法 并都有默认的实现.C类 实现了A和B 接口,那么C如果想使用A中的hello方法需要override ,并指定A.super.hello(); ## ## ##]]></content>
+      <tags>
+        <tag>lambda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用 maven 必知必会]]></title>
+    <url>%2Fmaven_study.html</url>
+    <content type="text"><![CDATA[maven的scope依赖范围 complies 适用于所有阶段（开发、测试、部署、运行），本 jar 会一直存在所有阶段。 默认值 provided 开发编译阶段 runtime 运行时 数据库驱动 test 测试阶段 system 类似于provided ,需要显式提供包含依赖的 jar，Maven 不会在 Repository 中查找它。maven的传递性最短路径原则,例如A依赖B,B依赖C , c中有一个1版本的jar ,B中1版本的jar排除,并增加了2版本的jar ,那么A中依赖的是2版本的jar路径相同,先声明优先引用. A依赖B和C ,那么B和C 中都有一个jar 版本分别为1和2,那么需要看A 先声明引用了哪个,如果是B那么jar版本就是1,否则为2. ## ## ## 本文欢迎转载，但是希望注明出处并给出原文链接。如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 alonecong@126.com 告诉我你的想法，你的建议对我非常重要。本文作者： lancecong联系方式： alonecong@126.com版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！]]></content>
+      <categories>
+        <category>maven</category>
+      </categories>
+      <tags>
+        <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[centos 环境配置]]></title>
+    <url>%2Fcentos.html</url>
+    <content type="text"><![CDATA[首先换阿里的yum 源centos7 修改 yum 源为阿里源，某下网络下速度比较快 首先是到 yum 源设置文件夹里cd /etc/yum.repos.d接着备份旧的配置文件sudo mv CentOS-Base.repo CentOS-Base.repo.bak下载阿里源的文件 sudo wget -O CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo清理缓存yum clean all重新生成缓存yum makecache scp /home/tmp.log root@host_ip:/root/tmp.log /home/tmp.log 表示本地上准备上传文件的路径和文件名； :/root/tmp.log 表示保存在远程服务器上目录和文件名； 4、将本地目录上传到服务器上 scp -P 2222 -r /home/tmp/ root@host_ip:/root/tmp/ /home/tmp/ 表示准备要上传的目录；5、可能有用的几个参数 : -v 和大多数 linux 命令中的 - v 意思一样，用来显示进度，可以用来查看连接，认证，或是配置错误； -C 使能压缩选项； -4 强行使用 IPV4 地址； -6 强行使用 IPV6 地址； -P 选择端口，注意 - p 已经被 rcp 使用；-r 递归查找；所以在传输文件夹的时候，要使用 scp -r folder_dir user@host:folder_dir 来传输！！！ export JAVA_HOME=/usr/local/jdk1.8.0_211export JRE_HOME=/usr/local/jdk1.8.0_211/jreexport MAVEN_HOME=/data/share-vm/maven3export PATH=${JAVA_HOME}/bin:$PATHexport PATH=${MAVEN_HOME}/bin:$PATH 安装完毕基本东西,uname-ryum install dockerservice docker startdocker versionsysctl enable docker docker rm $(docker ps -q -f status=exited) 安装 docker-compose 需要先安装企业版 linux 附加包（epel) $ yum -y install epel-release 安装 pip $ yum -y install python-pip 更新 pip $ pip install –upgrade pip //国内原加速 $ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple –upgrade pip 安装 docker-compose $ pip install docker-compose//国内原加速 $ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple docker-compose 查看 docker-compose 版本信息 $ docker-compose –version mysql的compose 文件1234567891011121314151617181920212223version: &apos;3.1&apos;services: db: image: mysql restart: always environment: MYSQL_ROOT_PASSWORD: 123456 command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --explicit_defaults_for_timestamp=true --lower_case_table_names=1 ports: - 3306:3306 volumes: - ./data:/var/lib/mysql adminer: image: adminer restart: always ports: - 8080:8080 ## ## ## 本文欢迎转载，但是希望注明出处并给出原文链接。如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 alonecong@126.com 告诉我你的想法，你的建议对我非常重要。本文作者： lancecong联系方式： alonecong@126.com版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[01环境搭建]]></title>
     <url>%2Fubuntu.html</url>
     <content type="text"><![CDATA[环境搭建更换成国内的源首先修改 /etc/apt/sources.list 文件,在文件开头增加 ##中科大源123456789101112131415161718192021222324252627282930313233//科大deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse//阿里deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse//清华deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse 之后别忘记执行12sudo apt-get updatesudo apt-get upgrade “Linux Uprising” 团队维护一个 PPA 存储库，其中包含适用于所有当前 Ubuntu 版本的 Oracle Java 10 安装程序。请注意，由于授权，PPA 不包含 Java 二进制文件。 PPA 中的包自动从 Oracle Web 服务器下载并安装 Oracle JDK11 通过 Ctrl + Alt + T 或通过从应用启动器搜索 “终端” 打开终端。 打开时，运行命令添加 PPA：123456789101112131415sudo add-apt-repository ppa:linuxuprising/javasudo apt-get install oracle-java10-installer``` 配置环境变量: ``` shellsudo gedit ~/.bashrcsudo vim ~/.bashrc export JAVA_HOME=/usr/lib/jvm/java-8-oracleexport JRE_HOME=/usr/lib/jvm/java-8-oracle/jreexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATHsource ~/.bashrcsudo vim /etc /soduers//修改成和root一样的权限 ALL=(ALL:ALL) ALL export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin]]></content>
@@ -189,9 +230,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[java内存gc相关复习]]></title>
-    <url>%2Fjc4.html</url>
-    <content type="text"><![CDATA[java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true bootstrapclassloader extclassloader appclassloader ##为什么有双亲委派机制？ ​ 避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。 class.forname 是完成初始化的 classloader.loadclass 为未完成初始化的 元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。 metaspace优势于永久代的几点： 字符串常量池存储在永久代中容易出现性能问题和内存溢出 类的方法和信息大小难易确认给永久代带来困难 永久代给gc 带来复杂度提升 hotspot 和 jrockit 可能要合并 ##java堆 对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间 jvm三大调优参数 -Xms 堆初始大小 -Xmx 堆能达到的最大值 -Xss 规定每个虚拟机栈的大小（堆栈） ##java内存中堆和栈的区别-内存分配的策略 ​ 静态存储：编译时确定每个数据目标在运行时的存储空间 ​ 栈式存储：数据区在编译时未知，运行时模块入口前确认 ​ 堆式存储：编译时或运行时模块前都无法确认，动态分配 联系 ：引用对象、数组时，栈里定义变量保存堆中目标的首地址。 例如调用Person p = new Person 这个对象时，在栈中存储p这个变量，这个变量的引用地址为堆中这个对象的指针。 栈是自动释放，堆需要gc回收 空间大小栈比堆小 栈碎片小于堆 分配方式堆只有动态分配，栈可以是静态和动态 栈的效率比堆高 jdk 6 和jdk6+ 之后 string 的intern 方法区别？ ​ 6+以后不仅仅在字符串常量池中创建对象，而且还会在堆中创建一份。 ## 垃圾回收机制 判断对象是否进行引用了 引用计数法，可达分析算法 可做为gc Root对象 虚拟机栈中引用的对象 方法区中常量引用的对象 方法区中静态变量引用的对象 本地方法栈中jni引用的对象 活跃线程引用的对象 垃圾回收的算法标记-清除 从根集合进行扫描，对存活对象进行标记 对堆内存进行线性遍历，回收不可达的对象 碎片化严重，后续如果遇到大对象需要连续内存则触发垃圾回收 复制算法 分二块区域，存活的对象复制到to区域，之后from区域全部清除，适合生命周期短的对象。年轻代算法。 标记-整理 从根集合进行扫描，对存活对象进行标记 移动所有存活对象且按照内存地址一次排序，然后将内存地址末端进行回收。 分代垃圾回收算法 针对不同的区域进行不同的垃圾回收机制，年轻代用复制算法，老年代和永久代用标记整理或者标记清除算法，1.8以后没有永久代。 Eden survivors 区 比例8:1:1 young占1/3 堆内存 ，老年代2/3 内存 -XX:MaxTenuringThreshold 参数是经过多少次minor gc 进入 老年代。 默认值15次 -XX:pertennuerSizeThreshold 控制大对象的大小 -XX:survivorRatio eden和survivor 的比值 默认8:1:1 -XX:NewRatio 年轻代和老年代比值 。2 触发full gc 条件 老年代空间不足 7之前版本 永久代空间不足 minor gc 晋升到老年代的空间大于老年代的剩余空间 rmi 来进行rpc的java应用默认会一个小时执行一次full gc 垃圾收集器-XX:UseParNewGC 这个是减少时间停顿 多线程手机其他serial 收集器一样，复制算法 能于cms 一起配合工作 年轻代使用的垃圾收集器 默认是吞吐量-XX:UseParallelGC CMS -XX: UseconcMarkSweepGC 标记清除 减少停顿 初始标记，并发标记，重新标记，清除。会有stop the world 空间碎片问题 -XX:UseG1GC 用于年轻和老年代的垃圾回收器 复制+标记-整理 将整个堆划分成独立多个region区域 强引用，软引用，弱引用，虚引用强引用必须收到设置为null，并且jvm认可抛出oom也不会回收的对象 软引用 高速缓存，没有足够空间是垃圾回收 softReference 虚引用，]]></content>
+    <title><![CDATA[网络编程相关复习]]></title>
+    <url>%2Fjc5.html</url>
+    <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -211,9 +252,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[网络编程相关复习]]></title>
-    <url>%2Fjc5.html</url>
-    <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
+    <title><![CDATA[java内存gc相关复习]]></title>
+    <url>%2Fjc4.html</url>
+    <content type="text"><![CDATA[java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true bootstrapclassloader extclassloader appclassloader ##为什么有双亲委派机制？ ​ 避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。 class.forname 是完成初始化的 classloader.loadclass 为未完成初始化的 元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。 metaspace优势于永久代的几点： 字符串常量池存储在永久代中容易出现性能问题和内存溢出 类的方法和信息大小难易确认给永久代带来困难 永久代给gc 带来复杂度提升 hotspot 和 jrockit 可能要合并 ##java堆 对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间 jvm三大调优参数 -Xms 堆初始大小 -Xmx 堆能达到的最大值 -Xss 规定每个虚拟机栈的大小（堆栈） ##java内存中堆和栈的区别-内存分配的策略 ​ 静态存储：编译时确定每个数据目标在运行时的存储空间 ​ 栈式存储：数据区在编译时未知，运行时模块入口前确认 ​ 堆式存储：编译时或运行时模块前都无法确认，动态分配 联系 ：引用对象、数组时，栈里定义变量保存堆中目标的首地址。 例如调用Person p = new Person 这个对象时，在栈中存储p这个变量，这个变量的引用地址为堆中这个对象的指针。 栈是自动释放，堆需要gc回收 空间大小栈比堆小 栈碎片小于堆 分配方式堆只有动态分配，栈可以是静态和动态 栈的效率比堆高 jdk 6 和jdk6+ 之后 string 的intern 方法区别？ ​ 6+以后不仅仅在字符串常量池中创建对象，而且还会在堆中创建一份。 ## 垃圾回收机制 判断对象是否进行引用了 引用计数法，可达分析算法 可做为gc Root对象 虚拟机栈中引用的对象 方法区中常量引用的对象 方法区中静态变量引用的对象 本地方法栈中jni引用的对象 活跃线程引用的对象 垃圾回收的算法标记-清除 从根集合进行扫描，对存活对象进行标记 对堆内存进行线性遍历，回收不可达的对象 碎片化严重，后续如果遇到大对象需要连续内存则触发垃圾回收 复制算法 分二块区域，存活的对象复制到to区域，之后from区域全部清除，适合生命周期短的对象。年轻代算法。 标记-整理 从根集合进行扫描，对存活对象进行标记 移动所有存活对象且按照内存地址一次排序，然后将内存地址末端进行回收。 分代垃圾回收算法 针对不同的区域进行不同的垃圾回收机制，年轻代用复制算法，老年代和永久代用标记整理或者标记清除算法，1.8以后没有永久代。 Eden survivors 区 比例8:1:1 young占1/3 堆内存 ，老年代2/3 内存 -XX:MaxTenuringThreshold 参数是经过多少次minor gc 进入 老年代。 默认值15次 -XX:pertennuerSizeThreshold 控制大对象的大小 -XX:survivorRatio eden和survivor 的比值 默认8:1:1 -XX:NewRatio 年轻代和老年代比值 。2 触发full gc 条件 老年代空间不足 7之前版本 永久代空间不足 minor gc 晋升到老年代的空间大于老年代的剩余空间 rmi 来进行rpc的java应用默认会一个小时执行一次full gc 垃圾收集器-XX:UseParNewGC 这个是减少时间停顿 多线程手机其他serial 收集器一样，复制算法 能于cms 一起配合工作 年轻代使用的垃圾收集器 默认是吞吐量-XX:UseParallelGC CMS -XX: UseconcMarkSweepGC 标记清除 减少停顿 初始标记，并发标记，重新标记，清除。会有stop the world 空间碎片问题 -XX:UseG1GC 用于年轻和老年代的垃圾回收器 复制+标记-整理 将整个堆划分成独立多个region区域 强引用，软引用，弱引用，虚引用强引用必须收到设置为null，并且jvm认可抛出oom也不会回收的对象 软引用 高速缓存，没有足够空间是垃圾回收 softReference 虚引用，]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -233,9 +274,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据库的四大特效和隔离级别]]></title>
-    <url>%2Fmysql1.html</url>
-    <content type="text"><![CDATA[数据库的四大特效和隔离级别四大特性ACID，原子性，一致性，隔离性，持久性。隔离级别： 读未提交 readuncommit 读已提交 read commit 可重复读 read repeat 读未提交:别人改数据的事务尚未提交，我在我的事务中也能读到。 读已提交:别人改数据的事务已经提交，我在我的事务中才能读到。 可重复读:别人改数据的事务已经提交，我在我的事务中也不去读。 串行:我的事务尚未提交，别人就别想改数据。 这4种隔离级别，并行性能依次降低，安全性依次提高。可重复读是mysql默认的级别，使用多版本控制去实现的，底层在开启一个事务的时候创建视图，所以能保证前后读取都是一致的。 序列化避免客户端的长链接，mysql5.5 回滚事务的日志存储ibdata ，回滚日志来源于数据发生一次变动的时候，就会创建也就会有多个版本，]]></content>
+    <title><![CDATA[一条更新语句是如何执行的]]></title>
+    <url>%2Fmysql2.html</url>
+    <content type="text"><![CDATA[一条更新语句是如何执行的？复习之前学过的内容，分析器，解析器，优化器，执行器 。更新流程和查询不一样，会涉及到2个重要的日志，一个redo log ，一个是bin log 。 Redo Log redo log 属于innodb 引擎的日志 mysql中的WAL 技术，全称 write-ahead-loging ，关键点，先写内存后写磁盘，更新到内存更新就算完成了，innodb会在系统空闲时候去做写入磁盘操作。 redo log 是固定大小的，比如配置4个大小为1G的文件，从头开始写，写到3的末尾结束。 write pos 和 check point 中间的位置是可以写入的内容，2个pos 都是向前推进的，当write 追上check的位置时，不能执行更新，需要check 往前进行推进。即使数据库发生异常，mysql 也能保证之前提交的记录保存下来，这个机制叫做crash-safe 。 Bin log binlog 属于server层的日志 ，binlog 有二种模式，一种是statement 另外是row ，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更 新前和更新后都有。注： mysql 其实就2块，一块server层 另外一块是引擎层 。 redo log 和 binlog 的不同点 redo log 属于引擎层，binlog 属于server层。 redo log 记录是的物理的日志，例如 “某个数据项上进行了修改”，binlog 是逻辑日志，记录这个语句的原始逻辑，例如 给id 为2 的c字段加一。 redo log 可以循环写，空间固定会用完，binlog 进行追加写，写到固定大小后，换另外一块写，不会覆盖。 分析下一个sql 更新的过程 例如更新一个表中id=2 的数据 首先执行器先找出id=2 的记录，id 是索引，通过索引树查询这条记录，判断如果在当前数据页中，直接返回给执行器，如果不是要从磁盘读取到内容，之后返回给执行器。 之后这行c 的值进行加一操作，写入到新行中。 新行数据写入到内存中，之后写入redolog 这个时候redo log处于 prepare 准备阶段。 mysql 写入binlog ，提交事务处于commit 状态，提交完成。 二阶段提交 这里写入日志分为prepare 和 commit 二个阶段，这就属于2阶段提交。首先数据库要根据自己的业务每天或者是2天进行一次全量的备份，可以编写定时脚本取做，cornb ？所谓的二阶段提交就是保证redo log 和 bin log 保持逻辑上的一致。 思考 如果先写redo log 后写 binlog 不使用二阶段提交会出什么问题？ 如果写bin log 后 redo log 有什么样的问题发生？不仅仅是mysql 崩溃时候 出现数据不一致，还有可能在数据扩容的时候发生不一致的情况，如果不采用二阶段提交。小结redo log 有一个参数 innodb-flush-log-at-trx-commit 设置成1 ，表示每次事务的redo 日志都持久化到磁盘，这样mysql 异常重启之后数据不会丢失。binlog 参数 sync-binlog 设置成1 ，表示每次事务binlog 都写入磁盘，mysql重启数据不会丢失。]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -255,9 +296,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一条更新语句是如何执行的]]></title>
-    <url>%2Fmysql2.html</url>
-    <content type="text"><![CDATA[一条更新语句是如何执行的？复习之前学过的内容，分析器，解析器，优化器，执行器 。更新流程和查询不一样，会涉及到2个重要的日志，一个redo log ，一个是bin log 。 Redo Log redo log 属于innodb 引擎的日志 mysql中的WAL 技术，全称 write-ahead-loging ，关键点，先写内存后写磁盘，更新到内存更新就算完成了，innodb会在系统空闲时候去做写入磁盘操作。 redo log 是固定大小的，比如配置4个大小为1G的文件，从头开始写，写到3的末尾结束。 write pos 和 check point 中间的位置是可以写入的内容，2个pos 都是向前推进的，当write 追上check的位置时，不能执行更新，需要check 往前进行推进。即使数据库发生异常，mysql 也能保证之前提交的记录保存下来，这个机制叫做crash-safe 。 Bin log binlog 属于server层的日志 ，binlog 有二种模式，一种是statement 另外是row ，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更 新前和更新后都有。注： mysql 其实就2块，一块server层 另外一块是引擎层 。 redo log 和 binlog 的不同点 redo log 属于引擎层，binlog 属于server层。 redo log 记录是的物理的日志，例如 “某个数据项上进行了修改”，binlog 是逻辑日志，记录这个语句的原始逻辑，例如 给id 为2 的c字段加一。 redo log 可以循环写，空间固定会用完，binlog 进行追加写，写到固定大小后，换另外一块写，不会覆盖。 分析下一个sql 更新的过程 例如更新一个表中id=2 的数据 首先执行器先找出id=2 的记录，id 是索引，通过索引树查询这条记录，判断如果在当前数据页中，直接返回给执行器，如果不是要从磁盘读取到内容，之后返回给执行器。 之后这行c 的值进行加一操作，写入到新行中。 新行数据写入到内存中，之后写入redolog 这个时候redo log处于 prepare 准备阶段。 mysql 写入binlog ，提交事务处于commit 状态，提交完成。 二阶段提交 这里写入日志分为prepare 和 commit 二个阶段，这就属于2阶段提交。首先数据库要根据自己的业务每天或者是2天进行一次全量的备份，可以编写定时脚本取做，cornb ？所谓的二阶段提交就是保证redo log 和 bin log 保持逻辑上的一致。 思考 如果先写redo log 后写 binlog 不使用二阶段提交会出什么问题？ 如果写bin log 后 redo log 有什么样的问题发生？不仅仅是mysql 崩溃时候 出现数据不一致，还有可能在数据扩容的时候发生不一致的情况，如果不采用二阶段提交。小结redo log 有一个参数 innodb-flush-log-at-trx-commit 设置成1 ，表示每次事务的redo 日志都持久化到磁盘，这样mysql 异常重启之后数据不会丢失。binlog 参数 sync-binlog 设置成1 ，表示每次事务binlog 都写入磁盘，mysql重启数据不会丢失。]]></content>
+    <title><![CDATA[数据库的四大特效和隔离级别]]></title>
+    <url>%2Fmysql1.html</url>
+    <content type="text"><![CDATA[数据库的四大特效和隔离级别四大特性ACID，原子性，一致性，隔离性，持久性。隔离级别： 读未提交 readuncommit 读已提交 read commit 可重复读 read repeat 读未提交:别人改数据的事务尚未提交，我在我的事务中也能读到。 读已提交:别人改数据的事务已经提交，我在我的事务中才能读到。 可重复读:别人改数据的事务已经提交，我在我的事务中也不去读。 串行:我的事务尚未提交，别人就别想改数据。 这4种隔离级别，并行性能依次降低，安全性依次提高。可重复读是mysql默认的级别，使用多版本控制去实现的，底层在开启一个事务的时候创建视图，所以能保证前后读取都是一致的。 序列化避免客户端的长链接，mysql5.5 回滚事务的日志存储ibdata ，回滚日志来源于数据发生一次变动的时候，就会创建也就会有多个版本，]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -299,9 +340,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[java 内存模型如何解决可见性和有序性问题]]></title>
-    <url>%2Fbf1.html</url>
-    <content type="text"><![CDATA[java 内存模型如何解决可见性和有序性问题看标题联想 happen before 原则 之后就是并发编程实战中的图形 cmp等命令 内存模型 又想到什么？ 导致可见性就是因为cup的缓存，有序性就用volatile关键字呗按需禁用缓存以及编译优化java 内存模型很复杂，synchronized ，volatile ，final 还有happen-before 6个原则volatile 在1.5版本才解决的可见性问题，因为加入了happen-before原则。前一个操作的结果对后续操作是可见的，这个是happen-before的原则。 程序顺序规则 指的是在一个线程中前边的代码happen-before后边任意的操作 volatile 变量规则 这条规则是指对一个 volatile 变量的写操作， Happens-Before 于后续对这个 volatile变量的读操作,需要结合第三条传递性看 传递性 A于B 操作前，B于C 操作前，那么A 必然于C 前简单分析：A x=42 在v=true 之前 这是A的规则，B v=true 于 读变量x 前，那么最后的结果是x =42 ，这就是传递性 最终B能读取到A的变量 x =42 管程中锁的规则 管程在java 里就是synchronized 的实现 ，指的是一个管程的解锁于后续对这个锁的加锁前。 // todo没太理解，例子就是synchronized 加锁 解锁是jvm 底层用ACC-synchronized 的命令实现，而且是自动加锁和释放锁 线程 start() 规则 比如A中启动一个线程B ，B能看到A 启动B 之前的操作 ，在A调用b.start()前 所有的操作Happens-Before 于线程 B 中的任意操作 线程 join() 规则 主线程调用B线程中的join 方法，那么等B线程执行完毕，那么B线程中的操作happen-before于A 调用B的join操作的返回，也就是主线程能看到join之后b线程的操作。 被忽略的final 关键字 用final 修饰的关键字，认为是不可变的，但是要防止逸出小结： 其实happen-before的规则在java 语义中就是可见性，如果A happen-before B ，那么A事件对B事件就是可见的，不论发生在一个或者多个线程里。线程中断规则:对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事 件的发生，可以通过Thread.interrupted()方法检测到是否有中断发生。对象终结规则:一个对象的初始化完成(构造函数执行结束)先行发生于它的finalize()方法 的开始]]></content>
+    <title><![CDATA[算法复习]]></title>
+    <url>%2Fsf1.html</url>
+    <content type="text"><![CDATA[算法复习堆排序， 把数组理解为完全二叉树形式。二叉树，满二叉树，完全二叉树 理解完全二叉树，左叶子节点 是 i乘以2+1 右节点是 i乘以2 +2，父节点是 i-1除以2堆就是完全二叉树，大根堆任何这棵树最大值都在树的顶部所形成的结构。小根堆]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -310,9 +351,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[算法复习]]></title>
-    <url>%2Fsf1.html</url>
-    <content type="text"><![CDATA[算法复习堆排序， 把数组理解为完全二叉树形式。二叉树，满二叉树，完全二叉树 理解完全二叉树，左叶子节点 是 i乘以2+1 右节点是 i乘以2 +2，父节点是 i-1除以2堆就是完全二叉树，大根堆任何这棵树最大值都在树的顶部所形成的结构。小根堆]]></content>
+    <title><![CDATA[java 内存模型如何解决可见性和有序性问题]]></title>
+    <url>%2Fbf1.html</url>
+    <content type="text"><![CDATA[java 内存模型如何解决可见性和有序性问题看标题联想 happen before 原则 之后就是并发编程实战中的图形 cmp等命令 内存模型 又想到什么？ 导致可见性就是因为cup的缓存，有序性就用volatile关键字呗按需禁用缓存以及编译优化java 内存模型很复杂，synchronized ，volatile ，final 还有happen-before 6个原则volatile 在1.5版本才解决的可见性问题，因为加入了happen-before原则。前一个操作的结果对后续操作是可见的，这个是happen-before的原则。 程序顺序规则 指的是在一个线程中前边的代码happen-before后边任意的操作 volatile 变量规则 这条规则是指对一个 volatile 变量的写操作， Happens-Before 于后续对这个 volatile变量的读操作,需要结合第三条传递性看 传递性 A于B 操作前，B于C 操作前，那么A 必然于C 前简单分析：A x=42 在v=true 之前 这是A的规则，B v=true 于 读变量x 前，那么最后的结果是x =42 ，这就是传递性 最终B能读取到A的变量 x =42 管程中锁的规则 管程在java 里就是synchronized 的实现 ，指的是一个管程的解锁于后续对这个锁的加锁前。 // todo没太理解，例子就是synchronized 加锁 解锁是jvm 底层用ACC-synchronized 的命令实现，而且是自动加锁和释放锁 线程 start() 规则 比如A中启动一个线程B ，B能看到A 启动B 之前的操作 ，在A调用b.start()前 所有的操作Happens-Before 于线程 B 中的任意操作 线程 join() 规则 主线程调用B线程中的join 方法，那么等B线程执行完毕，那么B线程中的操作happen-before于A 调用B的join操作的返回，也就是主线程能看到join之后b线程的操作。 被忽略的final 关键字 用final 修饰的关键字，认为是不可变的，但是要防止逸出小结： 其实happen-before的规则在java 语义中就是可见性，如果A happen-before B ，那么A事件对B事件就是可见的，不论发生在一个或者多个线程里。线程中断规则:对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事 件的发生，可以通过Thread.interrupted()方法检测到是否有中断发生。对象终结规则:一个对象的初始化完成(构造函数执行结束)先行发生于它的finalize()方法 的开始]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -332,31 +373,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Dubbo服务治理]]></title>
-    <url>%2Fdubbo.html</url>
-    <content type="text"><![CDATA[Dubbo服务治理dubbo-config 模块 源码理解 dubbo的配置优先级别： 三大核心能力 面向接口的远程方法调用 服务容错和负载均衡 服务自动注册和发现 服务治理的功能 服务提供者注册服务 消费者获取服务，并通过负载均衡策略选择服务提供者 动态增减服务提供者和消费者 服务监控 服务限流 服务之间 服务降级 dubbo 服务应用名 指定zk地址 指定消费者或提供者 协议和端口 &lt;dubbo:reference interface =”” id=”提供者service”&gt; &lt;dubbo:service =”” id=””&gt; 定义提供的beans ，包括接口和实现 异步化消息服务不阻塞原来业务 服务调用解耦 任务调度任务：task 完成一系列的事情 调度 ： 执行任务的智慧，处罚，规则程序 应用场景 业务跑批轮训等待处理 失败异常重试 定时处理任务 单机调度机制： Timer定时器 time 类 内存里TaskList timerTask 类 本质上一个thread 所有任务都是一个线程调度，同一时间只能有一个任务执行 ​ScheduledExcutor ​Quartz missfire 机制 elastic job 分片的机制 如何分片 池化技术连接池（数据库，redis等） 核心连接数 最大连接数 连接等待时间 数据读取时间 等待释放时间 validate tomcat 线程池 连接池存储clientSocket连接 ，io线程池 ，worker线程池 io线程获取clientsocket，recv ，之后交给worker线程处理 缓存技术快速访问千万级别数据 主键1ms以内 唯一索引 10ms 非唯一查询 100ms 全表扫描 s+ qps&lt; 10000 模型不能聚合 设计原则 将数据写入/读取速度最快的存储 将数据缓存到应用最近的位置 将数据离用户最近的位置 缓存分类 CDN缓存 反向代理缓存 分布式Cache 本地应用缓存。guava 本地缓存 如何缓存 实时写入 异步写入 读取时实时写入 读取时异步写入 缓存失效 固定时间 redis是惰性删除+定时失效 相对时间 多级缓存 cdn缓存 静态资源 nginx 代理缓存 （接入层 ，ng的proxy cache） nginx lua share dic （应用层的ng 内存字典） nginx lua redis （应用层的lua脚本） tomcat 本地缓存 redis服务器 数据库 缓存不一致性数据容忍性 异步更新机制]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[EalsticSearch]]></title>
     <url>%2Fes.html</url>
     <content type="text"><![CDATA[EalsticSearch index 相当于数据库 type 相当于 表 document 字段filed mapping 相当于schema indexed 倒序索引 curl命令支持restful 风格的api Curl - i 显示相应头信息 -x get/post/delete -o xx.html 输出到xx.html中 -v 显示通讯过程 进入es/conf 中修改network.host = 远程机器的ip]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[openresty nginx]]></title>
-    <url>%2Fng.html</url>
-    <content type="text"><![CDATA[安装openresty nginx命令install openresty/brew/openresty```123456789101112131415161718192021222324252627之后当前目录下创建`mkdir ~/work cd ~/work mkdir logs/ conf/`在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 `nginx -s reload nginx -h nginx -p nginx -c `nginx.conf 配置文件内容 配置这个反向服务代理要代理的服务器集群&lt;!-- more --&gt;``` shellupstream backend_server &#123; server localhost:8080 weight=1;&#125;server&#123; listen 7777; location / &#123; proxy_pass http://backend_server ; &#125; #当用户访问这个目录下文件，即认为在访问静态资源 location /resources &#123; alias //usr/local/opt/openresty/nginx/html; &#125;&#125;]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -376,9 +395,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux复习]]></title>
-    <url>%2Fundefined.html</url>
-    <content type="text"><![CDATA[linux复习 # 自动标记这一次的 commit 为上一个 commit 的 fix $ git commit –fixup git rebase -i —autosquash 自动组织合并两个 commit 内核空间，用户空间 ls -S1 从大到小排序 ls-Slr 从小到大排序 ls-lt 从新到旧 ls-lrt 从旧到新 find / -name ‘target.xxx’ find ~ -iname ‘ddd*‘ 忽略大小写查找文件 grep ‘moo’ target* 查找所有target开头的文件中含有moo字符的文件 Awk ‘{print $1,$2}’ xx.xx Awk ‘$1==”tcp” &amp; $2==0 {print $0}’ xx.xx Awk ‘($1==”tcp” &amp; $2==0 ) || NR=1 {print $0}’ xx.xx nr=1 代表表头第一行 awk 默认是按照空格进行分割的， awk -F “,” ‘{print $0}’ log.log 自定义按照逗号分隔 sed ‘s/s/^Str/String ‘ a.java 替换a.java 文件中字符串类型并把Str开头的字符串替换成String sed -i 是表示更改 sed -i ‘s/\.$/\.;/‘ a.java 把a.java 文件中以. 结尾的替换成；结尾 /s（操作类型）/str（替换的字符串）/String （想替换的字符串）/g （表示全文替换） sed -i ‘/^ *.$’/d’ a.java 删除空行]]></content>
+    <title><![CDATA[Dubbo服务治理]]></title>
+    <url>%2Fdubbo.html</url>
+    <content type="text"><![CDATA[Dubbo服务治理dubbo-config 模块 源码理解 dubbo的配置优先级别： 三大核心能力 面向接口的远程方法调用 服务容错和负载均衡 服务自动注册和发现 服务治理的功能 服务提供者注册服务 消费者获取服务，并通过负载均衡策略选择服务提供者 动态增减服务提供者和消费者 服务监控 服务限流 服务之间 服务降级 dubbo 服务应用名 指定zk地址 指定消费者或提供者 协议和端口 &lt;dubbo:reference interface =”” id=”提供者service”&gt; &lt;dubbo:service =”” id=””&gt; 定义提供的beans ，包括接口和实现 异步化消息服务不阻塞原来业务 服务调用解耦 任务调度任务：task 完成一系列的事情 调度 ： 执行任务的智慧，处罚，规则程序 应用场景 业务跑批轮训等待处理 失败异常重试 定时处理任务 单机调度机制： Timer定时器 time 类 内存里TaskList timerTask 类 本质上一个thread 所有任务都是一个线程调度，同一时间只能有一个任务执行 ​ScheduledExcutor ​Quartz missfire 机制 elastic job 分片的机制 如何分片 池化技术连接池（数据库，redis等） 核心连接数 最大连接数 连接等待时间 数据读取时间 等待释放时间 validate tomcat 线程池 连接池存储clientSocket连接 ，io线程池 ，worker线程池 io线程获取clientsocket，recv ，之后交给worker线程处理 缓存技术快速访问千万级别数据 主键1ms以内 唯一索引 10ms 非唯一查询 100ms 全表扫描 s+ qps&lt; 10000 模型不能聚合 设计原则 将数据写入/读取速度最快的存储 将数据缓存到应用最近的位置 将数据离用户最近的位置 缓存分类 CDN缓存 反向代理缓存 分布式Cache 本地应用缓存。guava 本地缓存 如何缓存 实时写入 异步写入 读取时实时写入 读取时异步写入 缓存失效 固定时间 redis是惰性删除+定时失效 相对时间 多级缓存 cdn缓存 静态资源 nginx 代理缓存 （接入层 ，ng的proxy cache） nginx lua share dic （应用层的ng 内存字典） nginx lua redis （应用层的lua脚本） tomcat 本地缓存 redis服务器 数据库 缓存不一致性数据容忍性 异步更新机制]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[openresty nginx]]></title>
+    <url>%2Fng.html</url>
+    <content type="text"><![CDATA[安装openresty nginx命令install openresty/brew/openresty```123456789101112131415161718192021222324252627之后当前目录下创建`mkdir ~/work cd ~/work mkdir logs/ conf/`在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 `nginx -s reload nginx -h nginx -p nginx -c `nginx.conf 配置文件内容 配置这个反向服务代理要代理的服务器集群&lt;!-- more --&gt;``` shellupstream backend_server &#123; server localhost:8080 weight=1;&#125;server&#123; listen 7777; location / &#123; proxy_pass http://backend_server ; &#125; #当用户访问这个目录下文件，即认为在访问静态资源 location /resources &#123; alias //usr/local/opt/openresty/nginx/html; &#125;&#125;]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -390,6 +420,17 @@
     <title><![CDATA[分布式解决方案]]></title>
     <url>%2Ftranscation_slotion.html</url>
     <content type="text"><![CDATA[#分布式解决方案 FescarFescar github 地址传统的解决无侵入的方案为XA，但是XA 有一定的局限性，比如要求mysql版本高于5.7其他都是在业务上采用如下解决方案： 基于可靠消息解决 TCC Saga 什么是分布式事务？分布式事务就是一个包含了若干个分支事务的全局事务。全局事务就是协调包含的分支事务从而达成一致，要么全部成功，否则全部失败。分支事务就是本地的事务ACID，这与XA的理念是一样的。下图就是基本的分布式事务的过程 Transaction Coordinator (TC)： 事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚。 Transaction Manager (TM)： 控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议。 Resource Manager (RM)： 控制分支事务，负责分支注册、状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚。 TM向TC 首先申请开启一个全局事务，全局事务创建成功并返回一个XID(全局事务id） XID 必须要在全局事务中进行传播，如果没有xid那么不能判断出属于哪一个全局事务啦！ RM 向 TC 注册分支事务，将其纳入 XID 对应全局事务的管辖。 TM 向 TC 发起针对 XID 的全局提交或回滚决议。 TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux复习]]></title>
+    <url>%2Fundefined.html</url>
+    <content type="text"><![CDATA[linux复习 # 自动标记这一次的 commit 为上一个 commit 的 fix $ git commit –fixup git rebase -i —autosquash 自动组织合并两个 commit docker ps -a | awk ‘{print $1}’ | tail -12 | xargs docker rm 删除容器倒数12个 对应的 last -n 内核空间，用户空间 ls -S1 从大到小排序 ls-Slr 从小到大排序 ls-lt 从新到旧 ls-lrt 从旧到新 find / -name ‘target.xxx’ find ~ -iname ‘ddd*‘ 忽略大小写查找文件 grep ‘moo’ target* 查找所有target开头的文件中含有moo字符的文件 Awk ‘{print $1,$2}’ xx.xx Awk ‘$1==”tcp” &amp; $2==0 {print $0}’ xx.xx Awk ‘($1==”tcp” &amp; $2==0 ) || NR=1 {print $0}’ xx.xx nr=1 代表表头第一行 awk 默认是按照空格进行分割的， awk -F “,” ‘{print $0}’ log.log 自定义按照逗号分隔 sed ‘s/s/^Str/String ‘ a.java 替换a.java 文件中字符串类型并把Str开头的字符串替换成String sed -i 是表示更改 sed -i ‘s/\.$/\.;/‘ a.java 把a.java 文件中以. 结尾的替换成；结尾 /s（操作类型）/str（替换的字符串）/String （想替换的字符串）/g （表示全文替换） sed -i ‘/^ *.$’/d’ a.java 删除空行]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -482,7 +523,7 @@
   <entry>
     <title><![CDATA[centos7 安装jdk，zk]]></title>
     <url>%2Fundefined.html</url>
-    <content type="text"><![CDATA[1.首先安装jdk 不知道为啥连接上谷歌云之后安装了lrszs但是不能上传文件，所以只能在线安装咯!123456789101112sudo wget sudo wget http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-linux-x64.rpm?AuthParam=1473427907_0a66fbbc67a2e41e94a759a6c7da1526 mv jdk-8u101-linux-x64.rpm\?AuthParam\=1473427907_0a66fbbc67a2e41e94a759a6c7da1526 jdk-8u101-linux-x64.rpmsudo yum -y install jdk-8u101-linux-x64.rpm[alonecong@lancecong ~]$ sudo alternatives --config java共有 1 个提供“java”的程序。 选项 命令-----------------------------------------------*+ 1 /usr/java/jdk1.8.0_101/jre/bin/java按 Enter 保留当前选项[+]，或者键入选项编号： 之后就是配置你的环境变量啦，12345sudo vim /etc/profile export JAVA_HOME=/usr/java/jdk1.8.0_101export JAVA_HOME=/usr/java/jdk1.8.0_101export JRE_HOME=/usr/java/jdk1.8.0_101/jreexport PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin 1sudo wget http://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz 1 .单机模式(Standalone mode) 单机模式在开发和调试阶段很有用。 下载，解压123cd ~ wget http://archive.apache.org/dist/zookeeper/stable/zookeeper-3.4.6.tar.gztar zxf zookeeper-3.4.6.tar.gz 启动 默认就是单机模式，12mv conf/zoo_sample.cfg conf/zoo.cfg./bin/zkServer.sh start 使用java 客户端连接ZooKeeper1./bin/zkCli.sh -server 127.0.0.1:2181 然后就可以使用各种命令了，跟文件操作命令很类似，输入help可以看到所有命令。 关闭1./bin/zdServer.sh stop ##2. 分布式模式(Replicated mode) 在生产环境中，要配置成分布式模式，才能发挥威力。ZooKeeper集群一般被称为ZooKeeper ensemble，或者 quorum 2.1 准备3台机器假设有三台机器，hostname和ip对应关系是：192.168.10.80 zk01192.168.10.81 zk02192.168.10.82 zk03ZooKeeper不存在明显的master/slave关系，各个节点都是服务器，leader挂了，会立马从follower中选举一个出来作为leader.由于没有主从关系，也不用配置SSH无密码登录了，各个zk服务器是自己启动的，互相之间通过TCP端口来交换数据。 2.2 修改配置文件conf/zoo.cfgdataDir=/opt/zookeeper/datadataLogDir=/opt/zookeeper/logsclientPort=2181tickTime=2000initLimit=5syncLimit=2server.1=zk01:2888:3888server.2=zk02:2888:3888server.3=zk03:2888:3888 注： dataDir：数据目录 dataLogDir：日志目录 clientPort：客户端连接端口 tickTime：Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。 initLimit：Zookeeper的Leader 接受客户端（Follower）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 5个心跳的 时间（也就是tickTime）长度后 Zookeeper 服务器还没有收到客户端的返回信息，那么表明这个 客户端连接失败。总的时间长度就是 52000=10 秒 syncLimit：表示 Leader 与 Follower 之间发送消息时请求和应答时间长度，最长不能超过多少 个tickTime 的时间长度，总的时间长度就是 22000=4 秒。 server.A=B：C：D：其中A 是一个数字，表示这个是第几号服务器；B 是这个服务器的 ip 地址； C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来 执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。2.3 myid文件要在每台机器的dataDir下，新建一个myid文件，里面存放一个数字，用来标识当前主机。echo “1” &gt;&gt; /opt/zookeeper/data/myidecho “2” &gt;&gt; /opt/zookeeper/data/myidecho “3” &gt;&gt; /opt/zookeeper/data/myid 2.4 启动每台机器zookeeper-3.4.6/bin/zkServer.sh startzookeeper-3.4.6/bin/zkServer.sh startzookeeper-3.4.6/bin/zkServer.sh start 2.5 查看状态zookeeper-3.4.6/bin/zkServer.sh status 3.使用java客户端连接ZooKeeper集群./bin/zkCli.sh -server zk01:2181./bin/zkCli.sh -server zk01:2181./bin/zkCli.sh -server zk01:2181./zkCli.sh -server 127.0.0.1 2181Connecting to 127.0.0.12015-12-03 16:42:31,452 [myid:] - INFO [main:Environment@100] -[zk: 127.0.0.1:2181(CONNECTED) 0] ls / 显示当前数据[test1, zookeeper]1) 创建节点 格式:create [-s] [-e] path data acl 其中”-s”表示创建一个”有序”节点,”-e”表示创建一个临时节点.默认为持久性节点 -&gt;create -s /test null-&gt;create /test null 如下为包括ACL的例子: -&gt;create -s /test null digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 创建一个path为”/test”的节点,值为”null”,ACL授权方式为”digest”,其中授权的用户名:密码为”test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=”,ACL的权限列表为”r””w””c””d””a”. “digest”授权方式表示client方位此节点数据,需要指定用户名和密码,可以参考zookeeper中DigestAuthenticationProvider.generateDigest(StringipName)方法;通过向此方法指定原始的用户名和密码即可获得”digest”之后的字符串,比如传入”test:test”,将会得到”test:V28q/NynI4JI3Rk54h0r8O5kMug=”,其内部原理是将”密码”部分进行MD5 +sha1操作.再zkCli.sh指令上你需要传递digest之后的字符串. 其中ACL的授权方式有很多种,你可以在ZooDefs类中找到更多的信息. 最后一个参数为权限列表,r表示”read”,w表示”write”,c表示”create”,d表示”delete”,a表示”admin” 2) 获取节点数据 格式:get path -&gt; get /test-ecZxid = 0x5bctime = Mon Sep 16 14:14:06 CST 2013mZxid = 0x5bmtime = Mon Sep 16 14:14:06 CST 2013pZxid = 0x67cversion = 7dataVersion = 0aclVersion = 0ephemeralOwner = 0x0dataLength = 2numChildren = 5 你可以从结果列表中,获得所有的节点信息. 3) 查看子节点列表 指令: ls /path4) 设置节点值 格式: set path data [version] -&gt; set /test 1313131 -1 其中值需要为字符串,版本号可以通过2)中的指令获取,如果版本号为”-1”表示更新时忽略版本校验. 5) 删除所有节点 格式: rmr path -&gt; rmr /test 将会删除”/test”以及其下的所有子节点. 6) 设置ACL 格式: setAcl path acl -&gt; setAcl /test digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 和create指令非常相似. 7) 删除节点 格式: delete path [version] -&gt; delete /test -1 需要注意的是,如果此path下还有子节点,将导致删除失败.这是和”rmr”指令的区别. 8) 添加授权信息 格式: addauth schema auth -&gt; addauth digest test:test 只有授权之后,才能够访问那些具有ACL控制的节点数据.注意”auth”信息为原始的用户名和密码,而不是经过DigestAuthenticationProvider签名之后的. 如果使用了错误的授权信息,可能导致”Authentication isnot valid : “.]]></content>
+    <content type="text"><![CDATA[1.首先安装jdk 不知道为啥连接上谷歌云之后安装了lrszs但是不能上传文件，所以只能在线安装咯!123456789101112 wget http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-linux-x64.rpm?AuthParam=1473427907_0a66fbbc67a2e41e94a759a6c7da1526 mv jdk-8u101-linux-x64.rpm\?AuthParam\=1473427907_0a66fbbc67a2e41e94a759a6c7da1526 jdk-8u101-linux-x64.rpmsudo yum -y install jdk-8u101-linux-x64.rpm[alonecong@lancecong ~]$ sudo alternatives --config java共有 1 个提供“java”的程序。 选项 命令-----------------------------------------------*+ 1 /usr/java/jdk1.8.0_101/jre/bin/java按 Enter 保留当前选项[+]，或者键入选项编号： 之后就是配置你的环境变量啦，12345sudo vim /etc/profile export JAVA_HOME=/usr/java/jdk1.8.0_101export JAVA_HOME=/usr/java/jdk1.8.0_101export JRE_HOME=/usr/java/jdk1.8.0_101/jreexport PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin 1sudo wget http://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz 1 .单机模式(Standalone mode) 单机模式在开发和调试阶段很有用。 下载，解压123cd ~ wget http://archive.apache.org/dist/zookeeper/stable/zookeeper-3.4.6.tar.gztar zxf zookeeper-3.4.6.tar.gz 启动 默认就是单机模式，12mv conf/zoo_sample.cfg conf/zoo.cfg./bin/zkServer.sh start 使用java 客户端连接ZooKeeper1./bin/zkCli.sh -server 127.0.0.1:2181 然后就可以使用各种命令了，跟文件操作命令很类似，输入help可以看到所有命令。 关闭1./bin/zdServer.sh stop ##2. 分布式模式(Replicated mode) 在生产环境中，要配置成分布式模式，才能发挥威力。ZooKeeper集群一般被称为ZooKeeper ensemble，或者 quorum 2.1 准备3台机器假设有三台机器，hostname和ip对应关系是：192.168.10.80 zk01192.168.10.81 zk02192.168.10.82 zk03ZooKeeper不存在明显的master/slave关系，各个节点都是服务器，leader挂了，会立马从follower中选举一个出来作为leader.由于没有主从关系，也不用配置SSH无密码登录了，各个zk服务器是自己启动的，互相之间通过TCP端口来交换数据。 2.2 修改配置文件conf/zoo.cfgdataDir=/opt/zookeeper/datadataLogDir=/opt/zookeeper/logsclientPort=2181tickTime=2000initLimit=5syncLimit=2server.1=zk01:2888:3888server.2=zk02:2888:3888server.3=zk03:2888:3888 注： dataDir：数据目录 dataLogDir：日志目录 clientPort：客户端连接端口 tickTime：Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。 initLimit：Zookeeper的Leader 接受客户端（Follower）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 5个心跳的 时间（也就是tickTime）长度后 Zookeeper 服务器还没有收到客户端的返回信息，那么表明这个 客户端连接失败。总的时间长度就是 52000=10 秒 syncLimit：表示 Leader 与 Follower 之间发送消息时请求和应答时间长度，最长不能超过多少 个tickTime 的时间长度，总的时间长度就是 22000=4 秒。 server.A=B：C：D：其中A 是一个数字，表示这个是第几号服务器；B 是这个服务器的 ip 地址； C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来 执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。2.3 myid文件要在每台机器的dataDir下，新建一个myid文件，里面存放一个数字，用来标识当前主机。echo “1” &gt;&gt; /opt/zookeeper/data/myidecho “2” &gt;&gt; /opt/zookeeper/data/myidecho “3” &gt;&gt; /opt/zookeeper/data/myid 2.4 启动每台机器zookeeper-3.4.6/bin/zkServer.sh startzookeeper-3.4.6/bin/zkServer.sh startzookeeper-3.4.6/bin/zkServer.sh start 2.5 查看状态zookeeper-3.4.6/bin/zkServer.sh status 3.使用java客户端连接ZooKeeper集群./bin/zkCli.sh -server zk01:2181./bin/zkCli.sh -server zk01:2181./bin/zkCli.sh -server zk01:2181./zkCli.sh -server 127.0.0.1 2181Connecting to 127.0.0.12015-12-03 16:42:31,452 [myid:] - INFO [main:Environment@100] -[zk: 127.0.0.1:2181(CONNECTED) 0] ls / 显示当前数据[test1, zookeeper]1) 创建节点 格式:create [-s] [-e] path data acl 其中”-s”表示创建一个”有序”节点,”-e”表示创建一个临时节点.默认为持久性节点 -&gt;create -s /test null-&gt;create /test null 如下为包括ACL的例子: -&gt;create -s /test null digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 创建一个path为”/test”的节点,值为”null”,ACL授权方式为”digest”,其中授权的用户名:密码为”test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=”,ACL的权限列表为”r””w””c””d””a”. “digest”授权方式表示client方位此节点数据,需要指定用户名和密码,可以参考zookeeper中DigestAuthenticationProvider.generateDigest(StringipName)方法;通过向此方法指定原始的用户名和密码即可获得”digest”之后的字符串,比如传入”test:test”,将会得到”test:V28q/NynI4JI3Rk54h0r8O5kMug=”,其内部原理是将”密码”部分进行MD5 +sha1操作.再zkCli.sh指令上你需要传递digest之后的字符串. 其中ACL的授权方式有很多种,你可以在ZooDefs类中找到更多的信息. 最后一个参数为权限列表,r表示”read”,w表示”write”,c表示”create”,d表示”delete”,a表示”admin” 2) 获取节点数据 格式:get path -&gt; get /test-ecZxid = 0x5bctime = Mon Sep 16 14:14:06 CST 2013mZxid = 0x5bmtime = Mon Sep 16 14:14:06 CST 2013pZxid = 0x67cversion = 7dataVersion = 0aclVersion = 0ephemeralOwner = 0x0dataLength = 2numChildren = 5 你可以从结果列表中,获得所有的节点信息. 3) 查看子节点列表 指令: ls /path4) 设置节点值 格式: set path data [version] -&gt; set /test 1313131 -1 其中值需要为字符串,版本号可以通过2)中的指令获取,如果版本号为”-1”表示更新时忽略版本校验. 5) 删除所有节点 格式: rmr path -&gt; rmr /test 将会删除”/test”以及其下的所有子节点. 6) 设置ACL 格式: setAcl path acl -&gt; setAcl /test digest:test:Kk3Nr5X06NH+XdlGMyOrULgK/mo=:rwcda 和create指令非常相似. 7) 删除节点 格式: delete path [version] -&gt; delete /test -1 需要注意的是,如果此path下还有子节点,将导致删除失败.这是和”rmr”指令的区别. 8) 添加授权信息 格式: addauth schema auth -&gt; addauth digest test:test 只有授权之后,才能够访问那些具有ACL控制的节点数据.注意”auth”信息为原始的用户名和密码,而不是经过DigestAuthenticationProvider签名之后的. 如果使用了错误的授权信息,可能导致”Authentication isnot valid : “.]]></content>
       <categories>
         <category>编程</category>
       </categories>
