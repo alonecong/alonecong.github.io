@@ -144,7 +144,7 @@
 <meta property="og:site_name" content="雨正来【一路奔跑的人】">
 <meta property="og:description" content="java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface  java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classfor">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-23T06:40:42.344Z">
+<meta property="og:updated_time" content="2019-08-09T06:15:05.952Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java内存gc相关复习">
 <meta name="twitter:description" content="java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface  java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classfor">
@@ -470,7 +470,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  1.4k
                 </span>
               
 
@@ -511,10 +511,19 @@
 <li>类的方法和信息大小难易确认给永久代带来困难</li>
 <li>永久代给gc 带来复杂度提升</li>
 <li>hotspot 和 jrockit 可能要合并<a id="more"></a>
-</li>
+<h2 id="有哪些会触发类初始化"><a href="#有哪些会触发类初始化" class="headerlink" title="有哪些会触发类初始化?"></a>有哪些会触发类初始化?</h2></li>
 </ol>
 </li>
 </ol>
+<ul>
+<li>当虚拟机启动,初始化用户指定的主类.</li>
+<li>new 操作实例化目标类 会触发类的初始化</li>
+<li>静态方法的调用,触发方法所在的静态类</li>
+<li>静态变量引用,触发静态变量所在的静态类</li>
+<li>如果接口 定义了default 方法,那么直接实现或者间接实现接口类的初始化,会触发初始化接口.</li>
+<li>使用反射API 对应某类调用时,会触发该类的初始化操作.</li>
+<li></li>
+</ul>
 <p>##java堆</p>
 <p>对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间</p>
 <p>jvm三大调优参数 </p>
@@ -668,8 +677,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/jc6.html" rel="next" title="JAVA 基础">
-                <i class="fa fa-chevron-left"></i> JAVA 基础
+              <a href="/jc5.html" rel="next" title="网络编程相关复习">
+                <i class="fa fa-chevron-left"></i> 网络编程相关复习
               </a>
             
           </div>
@@ -678,8 +687,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/mysql3.html" rel="prev" title="一条SQL查询语句是如何执行的">
-                一条SQL查询语句是如何执行的 <i class="fa fa-chevron-right"></i>
+              <a href="/mysql2.html" rel="prev" title="一条更新语句是如何执行的">
+                一条更新语句是如何执行的 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -764,7 +773,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -775,7 +784,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -786,7 +795,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -845,7 +854,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java内存gc相关复习"><span class="nav-number">1.</span> <span class="nav-text">java内存gc相关复习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可做为gc-Root对象"><span class="nav-number">1.0.1.</span> <span class="nav-text">可做为gc Root对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收的算法"><span class="nav-number">1.0.2.</span> <span class="nav-text">垃圾回收的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">1.1.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用，软引用，弱引用，虚引用"><span class="nav-number">1.1.1.</span> <span class="nav-text">强引用，软引用，弱引用，虚引用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java内存gc相关复习"><span class="nav-number">1.</span> <span class="nav-text">java内存gc相关复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有哪些会触发类初始化"><span class="nav-number">1.1.</span> <span class="nav-text">有哪些会触发类初始化?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可做为gc-Root对象"><span class="nav-number">1.1.1.</span> <span class="nav-text">可做为gc Root对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收的算法"><span class="nav-number">1.1.2.</span> <span class="nav-text">垃圾回收的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">1.2.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用，软引用，弱引用，虚引用"><span class="nav-number">1.2.1.</span> <span class="nav-text">强引用，软引用，弱引用，虚引用</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -865,7 +874,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

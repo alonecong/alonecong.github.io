@@ -136,17 +136,17 @@
 
 
 
-<meta name="description" content="大家都知道创建一个javaweb项目都需要从web.xml开始配置，那么项目中要使用spring，spring容器是怎么启动的呢，需要在web.xml中进行配置，             eaglemvc            org.springframework.web.servlet.DispatcherServlet                              context">
+<meta name="description" content="Spring Ioc 依赖查找&amp;amp;注入Spring Ioc 依赖查找&amp;amp;注入根据bean 名称进行查找 实时查找    beanFactory.getBean(Striing); 延时查找    ObjectFactory  根据bean类型进行查找 单个bean对象   beanFactory.getBean(Person.class); 集合bean对象  根据bean名称+类型查">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring源码分析">
+<meta property="og:title" content="spring复习">
 <meta property="og:url" content="http://alonecong.github.io/spring1.html">
 <meta property="og:site_name" content="雨正来【一路奔跑的人】">
-<meta property="og:description" content="大家都知道创建一个javaweb项目都需要从web.xml开始配置，那么项目中要使用spring，spring容器是怎么启动的呢，需要在web.xml中进行配置，             eaglemvc            org.springframework.web.servlet.DispatcherServlet                              context">
+<meta property="og:description" content="Spring Ioc 依赖查找&amp;amp;注入Spring Ioc 依赖查找&amp;amp;注入根据bean 名称进行查找 实时查找    beanFactory.getBean(Striing); 延时查找    ObjectFactory  根据bean类型进行查找 单个bean对象   beanFactory.getBean(Person.class); 集合bean对象  根据bean名称+类型查">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-23T06:40:03.576Z">
+<meta property="og:updated_time" content="2020-03-09T03:42:45.793Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring源码分析">
-<meta name="twitter:description" content="大家都知道创建一个javaweb项目都需要从web.xml开始配置，那么项目中要使用spring，spring容器是怎么启动的呢，需要在web.xml中进行配置，             eaglemvc            org.springframework.web.servlet.DispatcherServlet                              context">
+<meta name="twitter:title" content="spring复习">
+<meta name="twitter:description" content="Spring Ioc 依赖查找&amp;amp;注入Spring Ioc 依赖查找&amp;amp;注入根据bean 名称进行查找 实时查找    beanFactory.getBean(Striing); 延时查找    ObjectFactory  根据bean类型进行查找 单个bean对象   beanFactory.getBean(Person.class); 集合bean对象  根据bean名称+类型查">
 
 
 
@@ -182,7 +182,7 @@
 
 
 
-  <title>spring源码分析 | 雨正来【一路奔跑的人】</title>
+  <title>spring复习 | 雨正来【一路奔跑的人】</title>
   
 
 
@@ -379,7 +379,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">spring源码分析</h1>
+          <h1 class="post-title" itemprop="name headline">spring复习</h1>
         
 
         <div class="post-meta">
@@ -442,7 +442,7 @@
 
           
           
-             <span id="/spring1.html" class="leancloud_visitors" data-flag-title="spring源码分析">
+             <span id="/spring1.html" class="leancloud_visitors" data-flag-title="spring复习">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -469,7 +469,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  294
+                  758
                 </span>
               
 
@@ -494,7 +494,147 @@
       
 
       
-        <p>大家都知道创建一个javaweb项目都需要从web.xml开始配置，那么项目中要使用spring，spring<br>容器是怎么启动的呢，需要在web.xml中进行配置，<br> <servlet><br>            <servlet-name>eaglemvc</servlet-name><br>            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class><br>            <init-param><br>                  <param-name>contextConfigLocation</param-name><br>                  <param-value>classpath:spring/eagle-servlet.xml</param-value><br>            </init-param><br>            <load-on-startup>1</load-on-startup><br>        </servlet></p>
+        <h2 id="Spring-Ioc-依赖查找-amp-注入"><a href="#Spring-Ioc-依赖查找-amp-注入" class="headerlink" title="Spring Ioc 依赖查找&amp;注入"></a>Spring Ioc 依赖查找&amp;注入</h2><h4 id="Spring-Ioc-依赖查找-amp-注入-1"><a href="#Spring-Ioc-依赖查找-amp-注入-1" class="headerlink" title="Spring Ioc 依赖查找&amp;注入"></a>Spring Ioc 依赖查找&amp;注入</h4><h5 id="根据bean-名称进行查找"><a href="#根据bean-名称进行查找" class="headerlink" title="根据bean 名称进行查找"></a>根据bean 名称进行查找</h5><ul>
+<li>实时查找    beanFactory.getBean(Striing);</li>
+<li>延时查找    ObjectFactory</li>
+</ul>
+<h5 id="根据bean类型进行查找"><a href="#根据bean类型进行查找" class="headerlink" title="根据bean类型进行查找"></a>根据bean类型进行查找</h5><ul>
+<li>单个bean对象   beanFactory.getBean(Person.class);</li>
+<li>集合bean对象</li>
+</ul>
+<h5 id="根据bean名称-类型查找"><a href="#根据bean名称-类型查找" class="headerlink" title="根据bean名称+类型查找"></a>根据bean名称+类型查找</h5><h5 id="根据java注解查找"><a href="#根据java注解查找" class="headerlink" title="根据java注解查找"></a>根据java注解查找</h5><ul>
+<li>单个bean对象    </li>
+<li>集合bean对象</li>
+</ul>
+<h5 id="根据bean名称注入"><a href="#根据bean名称注入" class="headerlink" title="根据bean名称注入"></a>根据bean名称注入</h5><h5 id="根据bean类型注入"><a href="#根据bean类型注入" class="headerlink" title="根据bean类型注入"></a>根据bean类型注入</h5><ul>
+<li>单个bean对象</li>
+<li>集合bean对象</li>
+</ul>
+<h5 id="注入容器内建Bean对象"><a href="#注入容器内建Bean对象" class="headerlink" title="注入容器内建Bean对象"></a>注入容器内建Bean对象</h5><h5 id="例如-Environment"><a href="#例如-Environment" class="headerlink" title="例如 Environment"></a>例如 Environment</h5><table>
+<thead>
+<tr>
+<th>bean名称</th>
+<th>bean实例</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Environment</td>
+<td>Environment对象</td>
+<td>外部化配置和profiles</td>
+</tr>
+<tr>
+<td>systemProperties</td>
+<td>java.util.properties对象</td>
+<td>java系统属性</td>
+</tr>
+<tr>
+<td>systemEnvironment</td>
+<td>java.util.Map 对象</td>
+<td>操作系统环境变量</td>
+</tr>
+<tr>
+<td>messageSource</td>
+<td>MessageSource对象</td>
+<td>国际化文案</td>
+</tr>
+<tr>
+<td>lifecycleProcessor</td>
+<td>lifecycleProcessor对象</td>
+<td>lifecycle bean 处理器</td>
+</tr>
+<tr>
+<td>applicationEventMulticast</td>
+<td>applicationEventMulticast</td>
+<td>spriing事件管理器</td>
+</tr>
+</tbody>
+</table>
+<h5 id="注入非Bean对象-beanFactory"><a href="#注入非Bean对象-beanFactory" class="headerlink" title="注入非Bean对象  beanFactory"></a>注入非Bean对象  beanFactory</h5><p>注入类型</p>
+<ul>
+<li>实时注入</li>
+<li>延迟注入</li>
+</ul>
+<h4 id="BeanFactory-和ApplicationContext-谁才是真正的ioc-容器"><a href="#BeanFactory-和ApplicationContext-谁才是真正的ioc-容器" class="headerlink" title="BeanFactory 和ApplicationContext 谁才是真正的ioc 容器?"></a>BeanFactory 和ApplicationContext 谁才是真正的ioc 容器?</h4><p>ApplicationContext 除了ioc 容器角色,还有</p>
+<ul>
+<li>面向切面aop</li>
+<li>配置元信息 configuration metadata</li>
+<li>资源管理 resources</li>
+<li>事件 events</li>
+<li>国际化i18n</li>
+<li>注解 annotations</li>
+<li>environment 抽象(environment abstraction)</li>
+</ul>
+<h5 id="Spring-bean"><a href="#Spring-bean" class="headerlink" title="Spring bean"></a>Spring bean</h5><p>BeanDefinition 元信息</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性 (Property)</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Class</td>
+<td style="text-align:center">bean全类名</td>
+</tr>
+<tr>
+<td style="text-align:center">Name</td>
+<td style="text-align:center">bean的名称或者Id</td>
+</tr>
+<tr>
+<td style="text-align:center">Scope</td>
+<td style="text-align:center">bean的作用域 (singleton,prototype)</td>
+</tr>
+<tr>
+<td style="text-align:center">constructor arguments</td>
+<td style="text-align:center">bean构造器参数(用于依赖注入)</td>
+</tr>
+<tr>
+<td style="text-align:center">properties</td>
+<td style="text-align:center">bean 属性设置(用于依赖注入)</td>
+</tr>
+<tr>
+<td style="text-align:center">autowring mode</td>
+<td style="text-align:center">自动绑定模式(byName、byType)</td>
+</tr>
+<tr>
+<td style="text-align:center">Lazy initialization mode</td>
+<td style="text-align:center">延迟初始化模块(延迟、非延迟)</td>
+</tr>
+<tr>
+<td style="text-align:center">initialization method</td>
+<td style="text-align:center">bean初始化回调方法</td>
+</tr>
+<tr>
+<td style="text-align:center">Destruction method</td>
+<td style="text-align:center">bean 销毁回调方法</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BeanDefinition-构建"><a href="#BeanDefinition-构建" class="headerlink" title="BeanDefinition 构建"></a>BeanDefinition 构建</h5><ul>
+<li><h5 id="通过BeandefiniationBulider-构建"><a href="#通过BeandefiniationBulider-构建" class="headerlink" title="通过BeandefiniationBulider 构建"></a>通过BeandefiniationBulider 构建</h5></li>
+<li><h5 id="通过AbstractBeanDefinition-以及派生类"><a href="#通过AbstractBeanDefinition-以及派生类" class="headerlink" title="通过AbstractBeanDefinition 以及派生类"></a>通过AbstractBeanDefinition 以及派生类</h5></li>
+</ul>
+<h4 id="实例化springbean"><a href="#实例化springbean" class="headerlink" title="实例化springbean"></a>实例化springbean</h4><ul>
+<li>通过serverLoaderFactoryBean</li>
+<li>通过AutowireCapableBeanFactory#createBean(java.lang.class,int boolean)</li>
+<li>通过BeanDefinitionRegistry#registerBeanDefinition(String,BeanDefinition)</li>
+</ul>
+<h4 id="初始化SpringBean"><a href="#初始化SpringBean" class="headerlink" title="初始化SpringBean"></a>初始化SpringBean</h4><ul>
+<li>@PostConstruct 标注方法</li>
+<li>实现InitializingBean 接口的afterPropertiesSet()方法</li>
+<li>自定义初始化方法<ul>
+<li>xml配置 <bean init-method="init" ...></bean></li>
+<li>Java 注解 @Bean(init-method=”init”)</li>
+<li>Java Api   AbstractBeanDefinition#setInitMethodName(String);</li>
+</ul>
+</li>
+</ul>
+<p>[^这三种实现顺序为: postContruct  —&gt;iinitializing—&gt;自定义方法]: </p>
+<hr>
+<p>大家都知道创建一个javaweb项目都需要从web.xml开始配置，那么项目中要使用spring，spring<br>容器是怎么启动的呢，需要在web.xml中进行配置，<br> <servlet><br>            <servlet-name>eaglemvc</servlet-name><br>            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class><br>            <init-param><br>                  <param-name>contextConfigLocation</param-name><br>                  <param-value>classpath:spring/eagle-servlet.xml</param-value><br>            </init-param><br>            <load-on-startup>1</load-on-startup><br>        </servlet></p>
 <p>也就是DispatcherServlet 看起，从名字上就能看出来他也是一个servlet,那么他必须有init<br>(),doGet(),doPost(),destory()方法。我们肯定从init方法开始，发现没有init方法呢？<br>这个时候看这个DispatcherServlet 类，ctrl+H 查看下类继承的关系，发现他有父类，<br>frameworkServlet，HttpServletBean，HttpServlet .<br><a id="more"></a><br>发现 HttpServletBean 中有init方法，其中代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">			logger.debug(<span class="string">"Initializing servlet '"</span> + getServletName() + <span class="string">"'"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Set bean properties from init parameters.</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			PropertyValues pvs = <span class="keyword">new</span> ServletConfigPropertyValues(getServletConfig(), <span class="keyword">this</span>.requiredProperties);</span><br><span class="line">			BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(<span class="keyword">this</span>);</span><br><span class="line">			ResourceLoader resourceLoader = <span class="keyword">new</span> ServletContextResourceLoader(getServletContext());</span><br><span class="line">			bw.registerCustomEditor(Resource.class, <span class="keyword">new</span> ResourceEditor(resourceLoader, getEnvironment()));</span><br><span class="line">			initBeanWrapper(bw);</span><br><span class="line">			bw.setPropertyValues(pvs, <span class="keyword">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">			logger.error(<span class="string">"Failed to set bean properties on servlet '"</span> + getServletName() + <span class="string">"'"</span>, ex);</span><br><span class="line">			<span class="keyword">throw</span> ex;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Let subclasses do whatever initialization they like.</span></span><br><span class="line">		initServletBean(); <span class="comment">//注意这里人家写注释了，发现调用初始化Bean的对象了，但是方法是空的，那就是让子类去实现了呗。</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">			logger.debug(<span class="string">"Servlet '"</span> + getServletName() + <span class="string">"' configured successfully"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 
       
@@ -531,7 +671,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://alonecong.github.io/spring1.html" title="spring源码分析">http://alonecong.github.io/spring1.html</a>
+    <a href="http://alonecong.github.io/spring1.html" title="spring复习">http://alonecong.github.io/spring1.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -635,8 +775,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -653,7 +802,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -664,7 +813,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -675,7 +824,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -725,6 +874,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Ioc-依赖查找-amp-注入"><span class="nav-number">1.</span> <span class="nav-text">Spring Ioc 依赖查找&amp;注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Ioc-依赖查找-amp-注入-1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Spring Ioc 依赖查找&amp;注入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#根据bean-名称进行查找"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">根据bean 名称进行查找</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据bean类型进行查找"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">根据bean类型进行查找</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据bean名称-类型查找"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">根据bean名称+类型查找</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据java注解查找"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">根据java注解查找</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据bean名称注入"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">根据bean名称注入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据bean类型注入"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">根据bean类型注入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注入容器内建Bean对象"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">注入容器内建Bean对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例如-Environment"><span class="nav-number">1.0.1.8.</span> <span class="nav-text">例如 Environment</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注入非Bean对象-beanFactory"><span class="nav-number">1.0.1.9.</span> <span class="nav-text">注入非Bean对象  beanFactory</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory-和ApplicationContext-谁才是真正的ioc-容器"><span class="nav-number">1.0.2.</span> <span class="nav-text">BeanFactory 和ApplicationContext 谁才是真正的ioc 容器?</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Spring-bean"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">Spring bean</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BeanDefinition-构建"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">BeanDefinition 构建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过BeandefiniationBulider-构建"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">通过BeandefiniationBulider 构建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过AbstractBeanDefinition-以及派生类"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">通过AbstractBeanDefinition 以及派生类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例化springbean"><span class="nav-number">1.0.3.</span> <span class="nav-text">实例化springbean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化SpringBean"><span class="nav-number">1.0.4.</span> <span class="nav-text">初始化SpringBean</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -738,7 +903,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

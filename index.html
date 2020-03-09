@@ -359,6 +359,1222 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/rpc.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/rpc.html" itemprop="url">RPC (Remote Procedur call ) 远程服务调用</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T11:49:20+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/rpc.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/rpc.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/rpc.html" class="leancloud_visitors" data-flag-title="RPC (Remote Procedur call ) 远程服务调用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p></p><p class="description"></p><p></p>
+<h4 id="RPC-Remote-Procedur-call-远程服务调用"><a href="#RPC-Remote-Procedur-call-远程服务调用" class="headerlink" title="RPC (Remote Procedur call ) 远程服务调用"></a>RPC (Remote Procedur call ) 远程服务调用</h4><h5 id="什么是rpc"><a href="#什么是rpc" class="headerlink" title="什么是rpc?"></a>什么是rpc?</h5><p>举个小河上的桥例子.</p>
+<h5 id="rpc的作用"><a href="#rpc的作用" class="headerlink" title="rpc的作用?"></a>rpc的作用?</h5><ul>
+<li>屏蔽远程调用和本地的区别,让我们感觉像本地调用</li>
+<li>隐藏底层网络通信的复杂性</li>
+</ul>
+<h5 id="联想网络通信本质是啥"><a href="#联想网络通信本质是啥" class="headerlink" title="联想网络通信本质是啥?"></a>联想网络通信本质是啥?</h5><p>netty 网络通信的框架</p>
+<h5 id="一个完整的rpc会涉及到哪些过程"><a href="#一个完整的rpc会涉及到哪些过程" class="headerlink" title="一个完整的rpc会涉及到哪些过程?"></a>一个完整的rpc会涉及到哪些过程?</h5><ul>
+<li><p>数据传输,保证其可靠性通常都是TCP来传输,常用的http协议就是在其基础之上</p>
+</li>
+<li><p>网络数据肯定是二进制数据,那么就会涉及到序列化和反序列化. 这里也会产生数据通信之间的协议.</p>
+<ul>
+<li><p>数据格式的约定内容叫协议.协议包括请求头和请求体.</p>
+<p>请求头: 一般用于身份识别、协议标识、数据大小、请求类型、序列化类型</p>
+<p>消息体 : 请求业务参数信息和扩展信息</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcnd14rk4dj314e0emgn2.jpg" alt></p>
+<h5 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h5><blockquote>
+<p>http 协议和rpc 协议都属于应用层协议.</p>
+</blockquote>
+<p>Rpc 数据请求通过网络,二进制格式传输,写入本地socket 通过网卡发到另外的设备上. </p>
+<p>数据也不是一次把数据全部传递过去,中间可能需要拆包,合并请求等(合并的前提是同一个tcp连接上的数据)</p>
+<p>这些取决于tcp的窗口大小,系统参数配置. </p>
+<p>协议 也是给请求一个参考边界. 例如数据大小,结尾格式等.可以联想到redis 的resp协议使用#key#value 这样的分割方式.</p>
+<h6 id="为啥还要rpc自己的协议-http协议不能满足要求吗-他们有什么样的区别"><a href="#为啥还要rpc自己的协议-http协议不能满足要求吗-他们有什么样的区别" class="headerlink" title="为啥还要rpc自己的协议? http协议不能满足要求吗? 他们有什么样的区别?"></a>为啥还要rpc自己的协议? http协议不能满足要求吗? 他们有什么样的区别?</h6><p>http协议属于无状态协议,而且协议本身有很多无用的内容,比如换行符、回车符、请求头导致数据多.</p>
+<p>无法实现请求跟响应关联,每次都需要重新建立连接,响应完成关闭连接.</p>
+<p><strong>rpc 是如果和实现请求和响应关联的呢?</strong></p>
+<p>dubbo 是消费者发出请求,Atomiclong 产生消息id,,之后底层IO是异步发送消息,dubbo发送请求后,需要阻塞等待消费者返回消息.消费者id存储在map结构里,服务提供者返回附带请求消息id,之后dubbo 通过消息id就能对应上请求和响应啦.</p>
+<h4 id="怎么完成自定义的协议呢"><a href="#怎么完成自定义的协议呢" class="headerlink" title="怎么完成自定义的协议呢?"></a>怎么完成自定义的协议呢?</h4><ul>
+<li><p>协议的边界</p>
+<blockquote>
+<p>给一个固定大小的长度表示数据长度,之后在根据数据的大小进行读取数据.</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>数据的序列化方式</p>
+<blockquote>
+<p>如果不指定序列化方式的话,那么也解析不出来数据的格式啊? </p>
+</blockquote>
+</li>
+</ul>
+<p>得出结论,数据大小,序列化的方式这些 固定下来的数据空间,我们可以放到协议头上,具体的请求内容放置在协议体.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">bit offset</th>
+<th style="text-align:center">0-15</th>
+<th style="text-align:center">16-47</th>
+<th style="text-align:center">48-63</th>
+<th style="text-align:center">64-71</th>
+<th style="text-align:center">72-79</th>
+<th style="text-align:center">80-87</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">魔术位</td>
+<td style="text-align:center">数据长度</td>
+<td style="text-align:center">消息id <strong>请求和响应关联</strong></td>
+<td style="text-align:center">协议版本</td>
+<td style="text-align:center">消息类型</td>
+<td style="text-align:center">序列化方式</td>
+</tr>
+<tr>
+<td style="text-align:center">协议体</td>
+<td style="text-align:center">请求接口</td>
+<td style="text-align:center">请求参数</td>
+<td style="text-align:center">可变长度</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>可扩展的协议?</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcngg8cu6vj31280c4wfy.jpg" alt></p>
+<h4 id="RPC序列化-方式"><a href="#RPC序列化-方式" class="headerlink" title="RPC序列化 方式"></a>RPC序列化 方式</h4><p><strong>protobuf —》protostuff   不支持null ,不支持单纯的Map List 对象集合需要放在对象里.</strong></p>
+<p>kryo、hessian </p>
+<p>序列化考虑参考图:</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcninc7xqpj312u09sdh4.jpg" alt></p>
+<p>序列化注意事项:</p>
+<ul>
+<li>对象要尽量简单，没有太多的依赖关系，属性不要太多，尽量高内聚；</li>
+<li>入参对象与返回值对象体积不要太大，更不要传太大的集合；</li>
+<li>尽量使用简单的、常用的、开发语言原生的对象，尤其是集合类；</li>
+<li>对象不要有复杂的继承关系，最好不要有父子类的情况。<br><img src="https://" alt style="width:100%"></li>
+</ul>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/rpc.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/mybatiis-review.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/mybatiis-review.html" itemprop="url">mybatis复习</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T11:44:56+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mybatiis-review.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/mybatiis-review.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/mybatiis-review.html" class="leancloud_visitors" data-flag-title="mybatis复习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  157
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p class="description"></p>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MapperScan --&gt; MapperScannerRegistrar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ClassPathMapperScanner</span><br><span class="line">org.mybatis.spring.mapper.ClassPathMapperScanner#setSqlSessionFactory</span><br><span class="line">org.mybatis.spring.mapper.ClassPathMapperScanner#setSqlSessionTemplate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.mybatis.spring.mapper.MapperScannerConfigurer#postProcessBeanDefinitionRegistry</span><br></pre></td></tr></table></figure>
+<p><img src="https://" alt style="width:100%"></p>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/mybatiis-review.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/mysql-youhua.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/mysql-youhua.html" itemprop="url">mysql的性能优化</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-10T10:16:44+08:00">
+                2020-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mysql-youhua.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-youhua.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/mysql-youhua.html" class="leancloud_visitors" data-flag-title="mysql的性能优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  528
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p class="description"></p>
+
+<p><img src="https://" alt style="width:100%"></p>
+<h2 id="mysql-优化查询"><a href="#mysql-优化查询" class="headerlink" title="mysql 优化查询"></a>mysql 优化查询</h2><blockquote>
+<p>show full processlist ;<br>关注下state 一般为query ，不排除有update 和delete 。 time 是查询时间 ，之后info 哪里会出现sql语句。<br>之后可以反复执行下这个sql语句看看是否因为业务代码中的锁产生的，排除偶然因素。之后就可以explain sql 看看</p>
+</blockquote>
+<blockquote>
+<p>explain select * from jiaofu7_cms_ic.cms_activity;<br>基本确认这个sql性能上是有问题的，或者说不太合格的sql。</p>
+<ul>
+<li>确认type=ALL</li>
+<li>key 是否使用索引</li>
+<li>rows 影响的行数</li>
+</ul>
+</blockquote>
+<p>一般情况下可以进行增加索引，但是alter table 表 add index（列）是阻塞操作的，对表的添加更新都进行阻塞操作了，这个时候要小心！<br>如果再次执行 explain sql </p>
+<ul>
+<li>type =ref </li>
+<li>key 和key-len 都有值</li>
+<li>ref =const   row=1<blockquote>
+<p> show create table 表<br>show table status like ‘表’ </p>
+</blockquote>
+</li>
+</ul>
+<p>show full processlist ;</p>
+<blockquote>
+<p> 关注下state 一般为query ，不排除有update 和delete 。 time 是查询时间 ，之后info 哪里会出现sql语句。<br>之后可以反复执行下这个sql语句看看是否因为业务代码中的锁产生的，排除偶然因素。之后就可以explain sql 看看</p>
+</blockquote>
+<p>explain select * from cms_activity;</p>
+<blockquote>
+<p> 基本确认这个sql性能上是有问题的，或者说不太合格的sql。<br> 1.确认type=ALL<br> 2 key 是否使用索引<br> 3 rows 影响的行数</p>
+</blockquote>
+<p> 一般情况下可以进行增加索引，但是alter table 表 add index（列）是阻塞操作的，对表的添加更新都进行阻塞操作了，这个时候要小心！<br>show create table cms_activity;</p>
+<p>show table status like ‘cms_activity’ ;</p>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/mysql-youhua.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/null.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/null.html" itemprop="url">rocketmq学习</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-12T13:31:15+08:00">
+                2019-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/null.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/null.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/null.html" class="leancloud_visitors" data-flag-title="rocketmq学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  149
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p class="description"></p>
+
+<p><img src="https://" alt style="width:100%"></p>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/null.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/juc-jmm.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/juc-jmm.html" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-24T19:48:38+08:00">
+                2019-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/juc-jmm.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/juc-jmm.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/juc-jmm.html" class="leancloud_visitors" data-flag-title>
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  591
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p></p><p class="description"></p><p></p>
+<p>#并发编程的bug源头</p>
+<h2 id="cpu-内存-磁盘"><a href="#cpu-内存-磁盘" class="headerlink" title="cpu 内存 磁盘"></a>cpu 内存 磁盘</h2><p><strong>核心矛盾就是三者的速度差别</strong> cpu &gt; 内存 &gt; 磁盘</p>
+<ul>
+<li>为了解决cpu 增加缓存</li>
+<li>操作系统增加进程，线程</li>
+<li>编译器优化计算机的指令<br>如果有2个线程同时访问cpu中的数据，在单核场景下A线程修改值，B就能发现，这就是<strong>可见性</strong>。但是要知道一个问题，cpu中是拿到的内存的缓存副本。<br><img src="./_image/2019-03-25-09-04-19.png" alt>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/juc-jmm.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ul></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/mysql-lock.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lancecong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨正来【一路奔跑的人】">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/mysql-lock.html" itemprop="url">mysql中的锁</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-23T13:47:05+08:00">
+                2019-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mysql-lock.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-lock.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/mysql-lock.html" class="leancloud_visitors" data-flag-title="mysql中的锁">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  632
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p></p><p class="description">mysql中的全局锁和表锁,行锁</p><br>mysql5.5版本后,表级的锁是 MDL(metadata lock)<br>虽然 MDL 锁是系统默认会加的,读写不冲突.给一个表加字段，或者修改字段，或者加索引，需要扫描全表的数据.<br>所以给表加字段时候要多加小心.information_schema 库的 innodb_trx 表中，你可以查到当前执行中的事务。如果你要 做 DDL 变更的表刚好有长事务在执行，要考虑先暂停 DDL，或者 kill 掉这个长事务.<br>如果是热点表,那么除非是mysql开源的alisql 或者MariaDB.<br>alert table table_name wait on N add column.<br><img src="https://" alt style="width:100%"><p></p>
+<p>在 InnoDB 中，innodb_lock_wait_timeout 的默认值是 50s,还有就是设置死锁检测innodb_deadlock_detect 默认值就是on<br>开启默认死锁检测的, 这样也会导致,大量并发的线程,每次都要进行检测,并发上不去的原因.cup使用率过高.</p>
+<p>热点表,关闭掉死锁的检测是业务有损的,另外一种就是控制并发度.如果没有中间件和修改源码的能力..<br>原理是  在同时修改一个表中的同一条记录时候,进行排队…<br>总之从减少修改同表同记录的次数..<br>
+        
+
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/mysql-lock.html" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+
+      
+
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/kafka.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1167,1213 +2383,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/ubuntu.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/ubuntu.html" itemprop="url">01环境搭建</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T11:55:54+08:00">
-                2019-06-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ubuntu18-04/" itemprop="url" rel="index">
-                    <span itemprop="name">ubuntu18.04</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/ubuntu.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/ubuntu.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/ubuntu.html" class="leancloud_visitors" data-flag-title="01环境搭建">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  602
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p></p><p class="description"></p><p></p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="更换成国内的源"><a href="#更换成国内的源" class="headerlink" title="更换成国内的源"></a>更换成国内的源</h3><p>首先修改 <strong>/etc/apt/sources.list </strong> 文件,在文件开头增加</p>
-<p>##中科大源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">//科大</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">//阿里</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">//清华</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure></p>
-<p>之后别忘记执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure></p>
-<p>“Linux Uprising” 团队维护一个 PPA 存储库，其中包含适用于所有当前 Ubuntu 版本的 Oracle Java 10 安装程序。<br>请注意，由于授权，PPA 不包含 Java 二进制文件。 PPA 中的包自动从 Oracle Web 服务器下载并安装 Oracle JDK11</p>
-<ol>
-<li>通过 Ctrl + Alt + T 或通过从应用启动器搜索 “终端” 打开终端。 打开时，运行命令添加 PPA：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:linuxuprising/java</span><br><span class="line">sudo apt-get install oracle-java10-installer</span><br><span class="line">```    </span><br><span class="line">配置环境变量: </span><br><span class="line"></span><br><span class="line">``` shell</span><br><span class="line">sudo gedit ~/.bashrc</span><br><span class="line">sudo   vim ~/.bashrc </span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-8-oracle</span><br><span class="line">export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre</span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH</span><br><span class="line">source  ~/.bashrc</span><br><span class="line">sudo vim /etc /soduers</span><br><span class="line">//修改成和root一样的权限 </span><br><span class="line">ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin</p>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/ubuntu.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/day.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/day.html" itemprop="url">工作日常</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-19T13:18:08+08:00">
-                2019-06-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/day.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/day.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/day.html" class="leancloud_visitors" data-flag-title="工作日常">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  400
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p></p><p class="description"></p><br>新版本代金券已经开始开发了，鉴于之前其他人就犯过导入数据的问题，所以一定要吸取他们教训。<br>今天在梳理怎么迁移数据时候，因为之前代金券使用的范围是多个分类，之前他们设计表结构时候是拿中间表去设计的，<br>但是新版中我们只是做成了一个text字段，那么迁移数据时候可能需要程序还要处理数据。今天突然看了下mysql是否有函数，可以把表中同一个代金券的所能使用的类别范围用一条sql查询出来。去查询mysql和google 发现可以实现，这样就不用在程序中进行处理了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GROUP_CONCAT(expr)</span><br><span class="line"></span><br><span class="line">This function returns a string result with the concatenated non-NULL values from a group. It returns NULL if there are no non-NULL values. The full syntax is as follows:</span><br><span class="line">GROUP_CONCAT([DISTINCT] expr [,expr ...]</span><br><span class="line">             [ORDER BY &#123;unsigned_integer | col_name | expr&#125;</span><br><span class="line">                 [ASC | DESC] [,col_name ...]]</span><br><span class="line">             [SEPARATOR str_val])</span><br><span class="line">mysql&gt; SELECT student_name,</span><br><span class="line">         GROUP_CONCAT(test_score)</span><br><span class="line">       FROM student</span><br><span class="line">       GROUP BY student_name;</span><br></pre></td></tr></table></figure><p></p>
-<p>默认的话是拿逗号进行分割的</p>
-<p><img src="https://" alt style="width:100%"></p>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/day.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/day2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/day2.html" itemprop="url">checkstyle 使用</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-14T16:42:52+08:00">
-                2019-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/day2.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/day2.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/day2.html" class="leancloud_visitors" data-flag-title="checkstyle 使用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p></p><p class="description">CheckStyle使用</p><br>pom.xml 配置 插件<p></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;version&gt;3.0.0&lt;/version&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;configLocation&gt;checkStyle.xml&lt;/configLocation&gt;</span><br><span class="line">					&lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">				&lt;executions&gt;</span><br><span class="line">					&lt;execution&gt;</span><br><span class="line">						&lt;id&gt;validate&lt;/id&gt;</span><br><span class="line">						&lt;phase&gt;validate&lt;/phase&gt;</span><br><span class="line">						&lt;configuration&gt;</span><br><span class="line">							&lt;consoleOutput&gt;true&lt;/consoleOutput&gt;</span><br><span class="line">							&lt;failsOnError&gt;true&lt;/failsOnError&gt;</span><br><span class="line">							&lt;includeTestSourceDirectory&gt;true&lt;/includeTestSourceDirectory&gt;</span><br><span class="line">						&lt;/configuration&gt;</span><br><span class="line">						&lt;goals&gt;</span><br><span class="line">							&lt;goal&gt;check&lt;/goal&gt;</span><br><span class="line">						&lt;/goals&gt;</span><br><span class="line">					&lt;/execution&gt;</span><br><span class="line">				&lt;/executions&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;reporting&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;version&gt;3.0.0&lt;/version&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">					&lt;configLocation&gt;checkstyle.xml&lt;/configLocation&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/reporting&gt;</span><br></pre></td></tr></table></figure>
-<p>   最后增加下checkstyle.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE module PUBLIC</span><br><span class="line">	&quot;-//Puppy Crawl//DTD Check Configuration 1.3//EN&quot;</span><br><span class="line">	&quot;http://www.puppycrawl.com/dtds/configuration_1_3.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;module name=&quot;Checker&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 检查文件是否以一个空行结束 --&gt;</span><br><span class="line">	&lt;module name=&quot;NewlineAtEndOfFile&quot;/&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 文件长度不超过1500行 --&gt;</span><br><span class="line">	&lt;module name=&quot;FileLength&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;max&quot; value=&quot;1500&quot;/&gt;</span><br><span class="line">	&lt;/module&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 每个java文件一个语法树 --&gt;</span><br><span class="line">	&lt;module name=&quot;TreeWalker&quot;&gt;</span><br><span class="line">		&lt;!-- import检查--&gt;</span><br><span class="line">		&lt;!-- 检查是否从非法的包中导入了类 --&gt;</span><br><span class="line">		&lt;module name=&quot;IllegalImport&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查是否导入了多余的包 --&gt;</span><br><span class="line">		&lt;module name=&quot;RedundantImport&quot;/&gt;</span><br><span class="line">		&lt;!-- 没用的import检查，比如：1.没有被用到2.重复的3.import java.lang的4.import 与该类在同一个package的 --&gt;</span><br><span class="line">		&lt;module name=&quot;UnusedImports&quot; /&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 注释检查 --&gt;</span><br><span class="line">		&lt;!-- 检查构造函数的javadoc --&gt;</span><br><span class="line">&lt;!--		&lt;module name=&quot;JavadocType&quot;&gt;--&gt;</span><br><span class="line">&lt;!--			&lt;property name=&quot;allowUnknownTags&quot; value=&quot;true&quot;/&gt;--&gt;</span><br><span class="line">&lt;!--			&lt;message key=&quot;javadoc.missing&quot; value=&quot;类注释：缺少Javadoc注释。&quot;/&gt;--&gt;</span><br><span class="line">&lt;!--		&lt;/module&gt;--&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 命名检查 --&gt;</span><br><span class="line">		&lt;!-- 局部的final变量，包括catch中的参数的检查 --&gt;</span><br><span class="line">		&lt;module name=&quot;LocalFinalVariableName&quot; /&gt;</span><br><span class="line">		&lt;!-- 局部的非final型的变量，包括catch中的参数的检查 --&gt;</span><br><span class="line">		&lt;module name=&quot;LocalVariableName&quot; /&gt;</span><br><span class="line">		&lt;!-- 包名的检查（只允许小写字母），默认^[a-z]+(\.[a-zA-Z_][a-zA-Z_0-9_]*)*$ --&gt;</span><br><span class="line">&lt;!--		&lt;module name=&quot;PackageName&quot;&gt;--&gt;</span><br><span class="line">&lt;!--			&lt;property name=&quot;format&quot; value=&quot;^[a-z]+(\.[a-z][a-z0-9]*)*$&quot; /&gt;--&gt;</span><br><span class="line">&lt;!--			&lt;message key=&quot;name.invalidPattern&quot; value=&quot;包名 &apos;&apos;&#123;0&#125;&apos;&apos; 要符合 &apos;&apos;&#123;1&#125;&apos;&apos;格式.&quot;/&gt;--&gt;</span><br><span class="line">&lt;!--		&lt;/module&gt;--&gt;</span><br><span class="line">		&lt;!-- 仅仅是static型的变量（不包括static final型）的检查 --&gt;</span><br><span class="line">		&lt;module name=&quot;StaticVariableName&quot; /&gt;</span><br><span class="line">		&lt;!-- Class或Interface名检查，默认^[A-Z][a-zA-Z0-9]*$--&gt;</span><br><span class="line">		&lt;module name=&quot;TypeName&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">			&lt;message key=&quot;name.invalidPattern&quot; value=&quot;名称 &apos;&apos;&#123;0&#125;&apos;&apos; 要符合 &apos;&apos;&#123;1&#125;&apos;&apos;格式.&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- 非static型变量的检查 --&gt;</span><br><span class="line">		&lt;module name=&quot;MemberName&quot; /&gt;</span><br><span class="line">		&lt;!-- 方法名的检查 --&gt;</span><br><span class="line">		&lt;module name=&quot;MethodName&quot; /&gt;</span><br><span class="line">		&lt;!-- 方法的参数名 --&gt;</span><br><span class="line">		&lt;module name=&quot;ParameterName &quot; /&gt;</span><br><span class="line">		&lt;!-- 常量名的检查（只允许大写），默认^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$ --&gt;</span><br><span class="line">		&lt;module name=&quot;ConstantName&quot; /&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 定义检查 --&gt;</span><br><span class="line">		&lt;!-- 检查数组类型定义的样式 --&gt;</span><br><span class="line">		&lt;module name=&quot;ArrayTypeStyle&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查long型定义是否有大写的“L” --&gt;</span><br><span class="line">		&lt;module name=&quot;UpperEll&quot;/&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 长度检查 --&gt;</span><br><span class="line">		&lt;!-- 每行不超过140个字符 --&gt;</span><br><span class="line">		&lt;module name=&quot;LineLength&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;140&quot; /&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- 方法不超过50行 --&gt;</span><br><span class="line">		&lt;module name=&quot;MethodLength&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot; /&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;50&quot; /&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- 方法的参数个数不超过5个。 并且不对构造方法进行检查--&gt;</span><br><span class="line">		&lt;module name=&quot;ParameterNumber&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;5&quot; /&gt;</span><br><span class="line">			&lt;property name=&quot;ignoreOverriddenMethods&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot; /&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 空格检查--&gt;</span><br><span class="line">		&lt;!-- 方法名后跟左圆括号&quot;(&quot; --&gt;</span><br><span class="line">		&lt;module name=&quot;MethodParamPad&quot; /&gt;</span><br><span class="line">		&lt;!-- 在类型转换时，不允许左圆括号右边有空格，也不允许与右圆括号左边有空格 --&gt;</span><br><span class="line">		&lt;module name=&quot;TypecastParenPad&quot; /&gt;</span><br><span class="line">		&lt;!-- 检查在某个特定关键字之后应保留空格 --&gt;</span><br><span class="line">		&lt;module name=&quot;NoWhitespaceAfter&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查在某个特定关键字之前应保留空格 --&gt;</span><br><span class="line">		&lt;module name=&quot;NoWhitespaceBefore&quot;/&gt;</span><br><span class="line">		&lt;!-- 操作符换行策略检查 --&gt;</span><br><span class="line">		&lt;module name=&quot;OperatorWrap&quot;/&gt;</span><br><span class="line">		&lt;!-- 圆括号空白 --&gt;</span><br><span class="line">		&lt;module name=&quot;ParenPad&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查分隔符是否在空白之后 --&gt;</span><br><span class="line">		&lt;module name=&quot;WhitespaceAfter&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查分隔符周围是否有空白 --&gt;</span><br><span class="line">		&lt;module name=&quot;WhitespaceAround&quot;/&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 修饰符检查 --&gt;</span><br><span class="line">		&lt;!-- 检查修饰符的顺序是否遵照java语言规范，默认public、protected、private、abstract、static、final、transient、volatile、synchronized、native、strictfp --&gt;</span><br><span class="line">		&lt;module name=&quot;ModifierOrder&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查接口和annotation中是否有多余修饰符，如接口方法不必使用public --&gt;</span><br><span class="line">		&lt;module name=&quot;RedundantModifier&quot;/&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 代码块检查 --&gt;</span><br><span class="line">		&lt;!-- 检查是否有嵌套代码块 --&gt;</span><br><span class="line">		&lt;module name=&quot;AvoidNestedBlocks&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查是否有空代码块 --&gt;</span><br><span class="line">		&lt;module name=&quot;EmptyBlock&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查左大括号位置 --&gt;</span><br><span class="line">		&lt;module name=&quot;LeftCurly&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查代码块是否缺失&#123;&#125; --&gt;</span><br><span class="line">		&lt;module name=&quot;NeedBraces&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查右大括号位置 --&gt;</span><br><span class="line">		&lt;module name=&quot;RightCurly&quot;/&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 代码检查 --&gt;</span><br><span class="line">		&lt;!-- 检查空的代码段 --&gt;</span><br><span class="line">		&lt;module name=&quot;EmptyStatement&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查在重写了equals方法后是否重写了hashCode方法 --&gt;</span><br><span class="line">		&lt;module name=&quot;EqualsHashCode&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查局部变量或参数是否隐藏了类中的变量 --&gt;</span><br><span class="line">		&lt;module name=&quot;HiddenField&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;tokens&quot; value=&quot;VARIABLE_DEF&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- 检查子表达式中是否有赋值操作 --&gt;</span><br><span class="line">		&lt;module name=&quot;InnerAssignment&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查switch语句是否有default --&gt;</span><br><span class="line">		&lt;module name=&quot;MissingSwitchDefault&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查是否有过度复杂的布尔表达式 --&gt;</span><br><span class="line">		&lt;module name=&quot;SimplifyBooleanExpression&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查是否有过于复杂的布尔返回代码段 --&gt;</span><br><span class="line">		&lt;module name=&quot;SimplifyBooleanReturn&quot;/&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 类设计检查 --&gt;</span><br><span class="line">		&lt;!-- 检查类是否为扩展设计l --&gt;</span><br><span class="line">		&lt;!-- 检查只有private构造函数的类是否声明为final --&gt;</span><br><span class="line">		&lt;module name=&quot;FinalClass&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查接口是否仅定义类型 --&gt;</span><br><span class="line">		&lt;module name=&quot;InterfaceIsType&quot;/&gt;</span><br><span class="line">		&lt;!-- 检查类成员的可见度 检查类成员的可见性。只有static final 成员是public的</span><br><span class="line">        除非在本检查的protectedAllowed和packagedAllowed属性中进行了设置--&gt;</span><br><span class="line">		&lt;module name=&quot;VisibilityModifier&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;packageAllowed&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;protectedAllowed&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!-- 语法 --&gt;</span><br><span class="line">		&lt;!-- String的比较不能用!= 和 == --&gt;</span><br><span class="line">		&lt;module name=&quot;StringLiteralEquality&quot;/&gt;</span><br><span class="line">		&lt;!-- 限制for循环最多嵌套2层 --&gt;</span><br><span class="line">		&lt;module name=&quot;NestedForDepth&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;2&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- if最多嵌套3层 --&gt;</span><br><span class="line">		&lt;module name=&quot;NestedIfDepth&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- 检查未被注释的main方法,排除以Appllication结尾命名的类 --&gt;</span><br><span class="line">&lt;!--		&lt;module name=&quot;UncommentedMain&quot;&gt;--&gt;</span><br><span class="line">&lt;!--			&lt;property name=&quot;excludedClasses&quot; value=&quot;.*[Application,Test]$&quot;/&gt;--&gt;</span><br><span class="line">&lt;!--		&lt;/module&gt;--&gt;</span><br><span class="line">		&lt;!-- 禁止使用System.out.println --&gt;</span><br><span class="line">		&lt;module name=&quot;Regexp&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;format&quot; value=&quot;System\.out\.println&quot;/&gt;</span><br><span class="line">			&lt;property name=&quot;illegalPattern&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- return个数 3个--&gt;</span><br><span class="line">		&lt;module name=&quot;ReturnCount&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!--try catch 异常处理数量 3--&gt;</span><br><span class="line">		&lt;module name=&quot;NestedTryDepth &quot;&gt;</span><br><span class="line">			&lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;</span><br><span class="line">		&lt;/module&gt;</span><br><span class="line">		&lt;!-- clone方法必须调用了super.clone() --&gt;</span><br><span class="line">		&lt;module name=&quot;SuperClone&quot; /&gt;</span><br><span class="line">		&lt;!-- finalize 必须调用了super.finalize() --&gt;</span><br><span class="line">		&lt;module name=&quot;SuperFinalize&quot; /&gt;</span><br><span class="line">	&lt;/module&gt;</span><br><span class="line">&lt;/module&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://" alt style="width:100%"><br>SonarQube 后续有机会再使用sonarQube ，checkstyle 都过不去，哎！<br>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/day2.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/es-study-1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/es-study-1.html" itemprop="url">[object Object]</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T08:36:41+08:00">
-                2019-05-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/es-study-1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/es-study-1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/es-study-1.html" class="leancloud_visitors" data-flag-title="[object Object]">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  702
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p class="description"></p>
-
-<p><img src="https://" alt style="width:100%"></p>
-<p>我建议 Elasticsearch 为第一优先级。需要掌握的内容如下。</p>
-<p>（1）掌握 Elasticsearch 的基本概念，主要包括：</p>
-<p>索引（index）</p>
-<p>类型（type）</p>
-<p>映射（mapping）</p>
-<p>文档（document）</p>
-<p>倒排索引原理</p>
-<p>文档打分机制</p>
-<p>集群（cluster）—— 单节点、集群安装与部署</p>
-<p>健康状态（red/yellow/green）</p>
-<p>数据存储</p>
-<p>数据类型（long/date/text、keyword/nested 等）</p>
-<p>数据展示（结合 Head 插件的基础可视化）</p>
-<p>……</p>
-<p>（2）掌握 Elasitcsearch 的基本操作，主要包括：</p>
-<p>新增（insert）</p>
-<p>删除（delete/deletebyquery）</p>
-<p>修改（update/updatebyquery）</p>
-<p>查找（search）</p>
-<p>精确匹配检索（term、terms、range、exists）</p>
-<p>模糊匹配检索（wildcard、prefix、negix 正则）</p>
-<p>分词全文检索（match/match_phrase 等）</p>
-<p>多条件 bool 检索（must/must_not/should 多重组合）</p>
-<p>分词（英文分词、拼音分词、中文分词）</p>
-<p>高亮</p>
-<p>分页查询</p>
-<p>指定关键词返回</p>
-<p>批量操作 bulk</p>
-<p>scroll 查询</p>
-<p>reindex 操作</p>
-<p>……</p>
-<p>（3）掌握 Elasticsearch 高级操作，主要包括：</p>
-<p>聚合统计（数量聚合、最大值、最小值、平均值、求和等聚合操作）</p>
-<p>图像化展示（hisgram 按照日期等聚合）</p>
-<p>聚合后分页</p>
-<p>父子文档</p>
-<p>数组类型</p>
-<p>nested 嵌套类型</p>
-<p>ES 插件错误排查（集群问题、检索问题、性能问题）</p>
-<p>ES 性能调优（配置调优、集群调优等）</p>
-<p>……</p>
-<p>（4）掌握 Elasticsearch Java/Python 等 API，主要包括：</p>
-<p>Elasticsearch 原生自带 API、JEST、Springboot 等 API 选型</p>
-<p>Elasticsearch 多条件 bool 复杂检索 API</p>
-<p>Elasticsearch 分页 API</p>
-<p>Elasticsearch 高亮 API</p>
-<p>Elasticsearch 聚合 API</p>
-<p>Elasticsearch 相关 JSON 数据解析</p>
-<p>……</p>
-<p>（5）Elasticsearch 结合场景开发实战，主要包括：</p>
-<p>数据可视化（Kibana、Grafana 等 其中 Grafana 比较适合监控类场景）</p>
-<p>通过 logstash/beats 等导入数据</p>
-<p>Elasticsearch 和 Kafka 结合的应用场景</p>
-<p>Elasticsearch 和 Mongo 结合的应用场景</p>
-<p>Elasticsearch 和 Hadoop 结合的应用场景</p>
-<p>结合业务需求的定制化应用场景（日志分析、文档检索、全文检索、金融等各行业检索）</p>
-<p>……</p>
-<p>建议的第二学习优先级为 Kibana。需要掌握的内容如下。</p>
-<p>Kibana 安装与部署</p>
-<p>ES 节点数据同步到 Kibana</p>
-<p>Kibana Dev Tools 开发工具熟练使用</p>
-<p>Kibana 图像化组合展示</p>
-<p>将 Kibana 图像化展示效果图应用到自己的开发环境中</p>
-<p>……</p>
-<p>第三学习优先级为 Logstash。需要掌握的内容如下。</p>
-<p>Logstash 的安装与部署</p>
-<p>Logstash 将本地文件导入 ES</p>
-<p>logstashinputjdbc 插件（5.X 后无需安装）将 MySQL/Oracle 等关系型数据库数据导入 ES，全量导入和增量导入实现。</p>
-<p>logstashinputmongo 插件将 Mongo 数据导入 ES</p>
-<p>logstashinputkafaka 插件将 Kafak 数据导入 ES</p>
-<p>logstashoutput* 插件将 ES 数据导入不同的数据库和实时数据流中</p>
-<p>……</p>
-<p>第四学习优先级为 Beats。需要掌握的内容如下。</p>
-<p>不同类型的 Beats 安装与部署</p>
-<p>将业务数据通过 Beats 导入 ES</p>
-<p>……<br>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/es-study-1.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/es-study.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/es-study.html" itemprop="url">[object Object]</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T23:20:10+08:00">
-                2019-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/es-study.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/es-study.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/es-study.html" class="leancloud_visitors" data-flag-title="[object Object]">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  420
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p class="description"></p>
-
-<p><img src="https://" alt style="width:100%"></p>
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/es-study.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://alonecong.github.io/redis_command.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lancecong">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雨正来【一路奔跑的人】">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/redis_command.html" itemprop="url">redis常用命令</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T16:41:01+08:00">
-                2019-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nosql-缓存-redis/" itemprop="url" rel="index">
-                    <span itemprop="name">nosql-缓存-redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/redis_command.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/redis_command.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/redis_command.html" class="leancloud_visitors" data-flag-title="redis常用命令">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.3k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="redis常用命令"><a href="#redis常用命令" class="headerlink" title="redis常用命令"></a>redis常用命令</h2><p><code>expire key second</code><br>应用场景：</p>
-<ul>
-<li>限时的相关的业务</li>
-<li>网站数据缓存</li>
-<li>手机验证码</li>
-<li>限制web访客的限制次数<br>redis 分配默认是预分配冗余空间的，例如len是字符串长度，实际分配为大于len ，字符串小于1m时候扩容是加倍空间，大于1m时候扩容是增加1m，最多存储512m .<br>最佳实践  项目中对key进行命名统一规范 user:name 或者 user:1:lucky    user:2: lee</li>
-</ul>
-<h3 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h3><p><code>set key value</code><br><code>setnx key value</code><br><code>get key value</code><br><code>getset key value</code><br><code>strlen key</code><br><code>incr key value</code><br><code>incrby key value</code><br><code>decr key value</code><br><code>decrby key value</code><br><code>setex key value</code> 设置key 并过期时间为秒<br><code>psetex key value</code>设置key 并过期时间为毫秒<br><code>mset key value1 key2 value2</code><br><code>mget key key2</code></p>
-<blockquote>
-<pre><code>应用场景 
-</code></pre><ol>
-<li>存储json字符串或者图片，因为string是二进制安全的不存在解码问题<ol start="2">
-<li>计数器</li>
-<li>incr 是原子性的操作，能保证多线程并发问题
-        
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/redis_command.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ol></li></ol></blockquote></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-
-      
-
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2428,7 +2437,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2439,7 +2448,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2450,7 +2459,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2513,7 +2522,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
