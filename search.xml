@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[RPC (Remote Procedur call ) 远程服务调用]]></title>
     <url>%2Frpc.html</url>
-    <content type="text"><![CDATA[RPC (Remote Procedur call ) 远程服务调用什么是rpc?举个小河上的桥例子. rpc的作用? 屏蔽远程调用和本地的区别,让我们感觉像本地调用 隐藏底层网络通信的复杂性 联想网络通信本质是啥?netty 网络通信的框架 一个完整的rpc会涉及到哪些过程? 数据传输,保证其可靠性通常都是TCP来传输,常用的http协议就是在其基础之上 网络数据肯定是二进制数据,那么就会涉及到序列化和反序列化. 这里也会产生数据通信之间的协议. 数据格式的约定内容叫协议.协议包括请求头和请求体. 请求头: 一般用于身份识别、协议标识、数据大小、请求类型、序列化类型 消息体 : 请求业务参数信息和扩展信息 协议 http 协议和rpc 协议都属于应用层协议. Rpc 数据请求通过网络,二进制格式传输,写入本地socket 通过网卡发到另外的设备上. 数据也不是一次把数据全部传递过去,中间可能需要拆包,合并请求等(合并的前提是同一个tcp连接上的数据) 这些取决于tcp的窗口大小,系统参数配置. 协议 也是给请求一个参考边界. 例如数据大小,结尾格式等.可以联想到redis 的resp协议使用#key#value 这样的分割方式. 为啥还要rpc自己的协议? http协议不能满足要求吗? 他们有什么样的区别?http协议属于无状态协议,而且协议本身有很多无用的内容,比如换行符、回车符、请求头导致数据多. 无法实现请求跟响应关联,每次都需要重新建立连接,响应完成关闭连接. rpc 是如果和实现请求和响应关联的呢? dubbo 是消费者发出请求,Atomiclong 产生消息id,,之后底层IO是异步发送消息,dubbo发送请求后,需要阻塞等待消费者返回消息.消费者id存储在map结构里,服务提供者返回附带请求消息id,之后dubbo 通过消息id就能对应上请求和响应啦. 怎么完成自定义的协议呢? 协议的边界 给一个固定大小的长度表示数据长度,之后在根据数据的大小进行读取数据. 数据的序列化方式 如果不指定序列化方式的话,那么也解析不出来数据的格式啊? 得出结论,数据大小,序列化的方式这些 固定下来的数据空间,我们可以放到协议头上,具体的请求内容放置在协议体. bit offset 0-15 16-47 48-63 64-71 72-79 80-87 0 魔术位 数据长度 消息id 请求和响应关联 协议版本 消息类型 序列化方式 协议体 请求接口 请求参数 可变长度 可扩展的协议? RPC序列化 方式protobuf —》protostuff 不支持null ,不支持单纯的Map List 对象集合需要放在对象里. kryo、hessian 序列化考虑参考图: 序列化注意事项: 对象要尽量简单，没有太多的依赖关系，属性不要太多，尽量高内聚； 入参对象与返回值对象体积不要太大，更不要传太大的集合； 尽量使用简单的、常用的、开发语言原生的对象，尤其是集合类； 对象不要有复杂的继承关系，最好不要有父子类的情况。 本文欢迎转载，但是希望注明出处并给出原文链接。如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 alonecong@126.com 告诉我你的想法，你的建议对我非常重要。本文作者： 不利索的阿瓜联系方式： alonecong@126.com版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！]]></content>
+    <content type="text"><![CDATA[RPC (Remote Procedur call ) 远程服务调用什么是rpc?举个小河上的桥例子. rpc的作用? 屏蔽远程调用和本地的区别,让我们感觉像本地调用 隐藏底层网络通信的复杂性 联想网络通信本质是啥?netty 网络通信的框架 一个完整的rpc会涉及到哪些过程? 数据传输,保证其可靠性通常都是TCP来传输,常用的http协议就是在其基础之上 网络数据肯定是二进制数据,那么就会涉及到序列化和反序列化. 这里也会产生数据通信之间的协议. 数据格式的约定内容叫协议.协议包括请求头和请求体. 请求头: 一般用于身份识别、协议标识、数据大小、请求类型、序列化类型 消息体 : 请求业务参数信息和扩展信息 协议 http 协议和rpc 协议都属于应用层协议. Rpc 数据请求通过网络,二进制格式传输,写入本地socket 通过网卡发到另外的设备上. 数据也不是一次把数据全部传递过去,中间可能需要拆包,合并请求等(合并的前提是同一个tcp连接上的数据) 这些取决于tcp的窗口大小,系统参数配置. 协议 也是给请求一个参考边界. 例如数据大小,结尾格式等.可以联想到redis 的resp协议使用#key#value 这样的分割方式. 为啥还要rpc自己的协议? http协议不能满足要求吗? 他们有什么样的区别?http协议属于无状态协议,而且协议本身有很多无用的内容,比如换行符、回车符、请求头导致数据多. 无法实现请求跟响应关联,每次都需要重新建立连接,响应完成关闭连接. rpc 是如果和实现请求和响应关联的呢? dubbo 是消费者发出请求,Atomiclong 产生消息id,,之后底层IO是异步发送消息,dubbo发送请求后,需要阻塞等待消费者返回消息.消费者id存储在map结构里,服务提供者返回附带请求消息id,之后dubbo 通过消息id就能对应上请求和响应啦. 怎么完成自定义的协议呢? 协议的边界 给一个固定大小的长度表示数据长度,之后在根据数据的大小进行读取数据. 数据的序列化方式 如果不指定序列化方式的话,那么也解析不出来数据的格式啊? 得出结论,数据大小,序列化的方式这些 固定下来的数据空间,我们可以放到协议头上,具体的请求内容放置在协议体. bit offset 0-15 16-47 48-63 64-71 72-79 80-87 0 魔术位 数据长度 消息id 请求和响应关联 协议版本 消息类型 序列化方式 协议体 请求接口 请求参数 可变长度 可扩展的协议? RPC序列化 方式protobuf —》protostuff 不支持null ,不支持单纯的Map List 对象集合需要放在对象里. kryo、hessian 序列化考虑参考图: 序列化注意事项: 对象要尽量简单，没有太多的依赖关系，属性不要太多，尽量高内聚； 入参对象与返回值对象体积不要太大，更不要传太大的集合； 尽量使用简单的、常用的、开发语言原生的对象，尤其是集合类； 对象不要有复杂的继承关系，最好不要有父子类的情况。 零拷贝传输数据通常是程序发起写–〉应用缓存区(cpu拷贝)–〉内核缓冲区– (依靠DMA) –〉网卡–〉其他设备每一次都需要把数据写到用户空间缓冲区 之后到系统内核的缓冲区 ,这样每次都需要2次的写.所谓的零拷贝 就是直接写入内核,之后从内核直接读取数据…就是把数据用户空间和内核空间都将数据写入到同一个地方. 虚拟内存的方式?二种解决方式: mmap+write senfile还要深入了解下以后.netty的零copy-zero 是怎么做的呢?todo 后续要进行进一步了解netty是完全站在了用户空间上,也就是jvm上.偏向数据操作的优化 netty 提供了compositeByteBuf 类 ,可以将多个byteBuf 合并为逻辑上的byteBuf,避免byteBuf间copy. byteBuf 支持slice 操作,可以分解为多个共享同一存储区域的byteBuf. 通过wrap 操作,可以将 byte[] 数组,byteBuf,byteBuffer 等包装成netty 自己的 byteBuf对象netty 解决 Tcp 沾包,拆包 都是靠compositeByteBuf 类 wrap 和 slice 去解决的.Netty 可以采用Direct Buffers 堆外内存的方式解决,与虚拟内存一样的效果.还提供了FileRegion 中包装NIO 的 FileChannel.trasnsferTo() 方法实现了零拷贝,这和linux 中的sendfile 原理一样. 扩展阅读 c10k 问题https://www.jianshu.com/p/ba7fa25d3590https://blog.csdn.net/lsgqjh/article/details/86622532 selector 模式 使用fd_set 结构告诉内核监听哪些文件句柄,之后轮询逐个排查状态,句柄是有上限的,逐个检查吞吐量低, 每次调用都重复初始化fd_set . poll 模式 主要解决了selector 模式2缺点,一个句柄上线的问题(链表方式存储)以及重复初始化的问题. (不同字段标注关注事件和发生事件) epoll 模式 event-callback 方式. 仅对发生变化的文件句柄感兴趣. 通过epoll_ctl 注册文件描述符fd , 一旦fd 就绪,内核就会采用callback激活fd ,epoll_wait 收到通知,通知应用程序.而且epoll一个文件描述符管理多个描述符,将用户进程的文件描述符事件存放在内核一个事件表里. 这样数据从内核一次到用户进程地址空间.epoll 依赖 linux 系统,需要开启epoll .本文欢迎转载，但是希望注明出处并给出原文链接。如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 alonecong@126.com 告诉我你的想法，你的建议对我非常重要。本文作者： 不利索的阿瓜联系方式： alonecong@126.com版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！]]></content>
       <tags>
         <tag>rpc</tag>
       </tags>
@@ -286,17 +286,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[网络编程相关复习]]></title>
-    <url>%2Fjc5.html</url>
-    <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[java内存gc相关复习]]></title>
     <url>%2Fjc4.html</url>
     <content type="text"><![CDATA[java内存gc相关复习##平台无关性 jvm如何加载一个.class 文件的， classloader -》runtime data area -〉execution engine -》native interface java 反射机制是 在运行状态中，对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象都能任意调用它的方法和属性；这种能力称 java 反射机制。 classforname（）；获取实例 ， method 或者方法，invoke 进行调用。setacessiable 为true bootstrapclassloader extclassloader appclassloader ##为什么有双亲委派机制？ ​ 避免同一个class被多次加载，如果一个class 被加载是需要先去查询父类加载器是否已经加载，如加载直接返回。 class.forname 是完成初始化的 classloader.loadclass 为未完成初始化的 元空间metaspace 和 永久代区别 都属于 方法区，jdk8 之后元空间代替了永久代，元空间使用本地内存，永久代使用jvm内存。 metaspace优势于永久代的几点： 字符串常量池存储在永久代中容易出现性能问题和内存溢出 类的方法和信息大小难易确认给永久代带来困难 永久代给gc 带来复杂度提升 hotspot 和 jrockit 可能要合并 有哪些会触发类初始化? 当虚拟机启动,初始化用户指定的主类. new 操作实例化目标类 会触发类的初始化 静态方法的调用,触发方法所在的静态类 静态变量引用,触发静态变量所在的静态类 如果接口 定义了default 方法,那么直接实现或者间接实现接口类的初始化,会触发初始化接口. 使用反射API 对应某类调用时,会触发该类的初始化操作. ##java堆 对象实例的分配区域，堆可以是物理不连续的空间，但是逻辑上是连续的空间 jvm三大调优参数 -Xms 堆初始大小 -Xmx 堆能达到的最大值 -Xss 规定每个虚拟机栈的大小（堆栈） ##java内存中堆和栈的区别-内存分配的策略 ​ 静态存储：编译时确定每个数据目标在运行时的存储空间 ​ 栈式存储：数据区在编译时未知，运行时模块入口前确认 ​ 堆式存储：编译时或运行时模块前都无法确认，动态分配 联系 ：引用对象、数组时，栈里定义变量保存堆中目标的首地址。 例如调用Person p = new Person 这个对象时，在栈中存储p这个变量，这个变量的引用地址为堆中这个对象的指针。 栈是自动释放，堆需要gc回收 空间大小栈比堆小 栈碎片小于堆 分配方式堆只有动态分配，栈可以是静态和动态 栈的效率比堆高 jdk 6 和jdk6+ 之后 string 的intern 方法区别？ ​ 6+以后不仅仅在字符串常量池中创建对象，而且还会在堆中创建一份。 ## 垃圾回收机制 判断对象是否进行引用了 引用计数法，可达分析算法 可做为gc Root对象 虚拟机栈中引用的对象 方法区中常量引用的对象 方法区中静态变量引用的对象 本地方法栈中jni引用的对象 活跃线程引用的对象 垃圾回收的算法标记-清除 从根集合进行扫描，对存活对象进行标记 对堆内存进行线性遍历，回收不可达的对象 碎片化严重，后续如果遇到大对象需要连续内存则触发垃圾回收 复制算法 分二块区域，存活的对象复制到to区域，之后from区域全部清除，适合生命周期短的对象。年轻代算法。 标记-整理 从根集合进行扫描，对存活对象进行标记 移动所有存活对象且按照内存地址一次排序，然后将内存地址末端进行回收。 分代垃圾回收算法 针对不同的区域进行不同的垃圾回收机制，年轻代用复制算法，老年代和永久代用标记整理或者标记清除算法，1.8以后没有永久代。 Eden survivors 区 比例8:1:1 young占1/3 堆内存 ，老年代2/3 内存 -XX:MaxTenuringThreshold 参数是经过多少次minor gc 进入 老年代。 默认值15次 -XX:pertennuerSizeThreshold 控制大对象的大小 -XX:survivorRatio eden和survivor 的比值 默认8:1:1 -XX:NewRatio 年轻代和老年代比值 。2 触发full gc 条件 老年代空间不足 7之前版本 永久代空间不足 minor gc 晋升到老年代的空间大于老年代的剩余空间 rmi 来进行rpc的java应用默认会一个小时执行一次full gc 垃圾收集器-XX:UseParNewGC 这个是减少时间停顿 多线程手机其他serial 收集器一样，复制算法 能于cms 一起配合工作 年轻代使用的垃圾收集器 默认是吞吐量-XX:UseParallelGC CMS -XX: UseconcMarkSweepGC 标记清除 减少停顿 初始标记，并发标记，重新标记，清除。会有stop the world 空间碎片问题 -XX:UseG1GC 用于年轻和老年代的垃圾回收器 复制+标记-整理 将整个堆划分成独立多个region区域 强引用，软引用，弱引用，虚引用强引用必须收到设置为null，并且jvm认可抛出oom也不会回收的对象 软引用 高速缓存，没有足够空间是垃圾回收 softReference 虚引用，]]></content>
@@ -308,9 +297,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一条更新语句是如何执行的]]></title>
-    <url>%2Fmysql2.html</url>
-    <content type="text"><![CDATA[一条更新语句是如何执行的？复习之前学过的内容，分析器，解析器，优化器，执行器 。更新流程和查询不一样，会涉及到2个重要的日志，一个redo log ，一个是bin log 。 Redo Log redo log 属于innodb 引擎的日志 mysql中的WAL 技术，全称 write-ahead-loging ，关键点，先写内存后写磁盘，更新到内存更新就算完成了，innodb会在系统空闲时候去做写入磁盘操作。 redo log 是固定大小的，比如配置4个大小为1G的文件，从头开始写，写到3的末尾结束。 write pos 和 check point 中间的位置是可以写入的内容，2个pos 都是向前推进的，当write 追上check的位置时，不能执行更新，需要check 往前进行推进。即使数据库发生异常，mysql 也能保证之前提交的记录保存下来，这个机制叫做crash-safe 。 Bin log binlog 属于server层的日志 ，binlog 有二种模式，一种是statement 另外是row ，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更 新前和更新后都有。注： mysql 其实就2块，一块server层 另外一块是引擎层 。 redo log 和 binlog 的不同点 redo log 属于引擎层，binlog 属于server层。 redo log 记录是的物理的日志，例如 “某个数据项上进行了修改”，binlog 是逻辑日志，记录这个语句的原始逻辑，例如 给id 为2 的c字段加一。 redo log 可以循环写，空间固定会用完，binlog 进行追加写，写到固定大小后，换另外一块写，不会覆盖。 分析下一个sql 更新的过程 例如更新一个表中id=2 的数据 首先执行器先找出id=2 的记录，id 是索引，通过索引树查询这条记录，判断如果在当前数据页中，直接返回给执行器，如果不是要从磁盘读取到内容，之后返回给执行器。 之后这行c 的值进行加一操作，写入到新行中。 新行数据写入到内存中，之后写入redolog 这个时候redo log处于 prepare 准备阶段。 mysql 写入binlog ，提交事务处于commit 状态，提交完成。 二阶段提交 这里写入日志分为prepare 和 commit 二个阶段，这就属于2阶段提交。首先数据库要根据自己的业务每天或者是2天进行一次全量的备份，可以编写定时脚本取做，cornb ？所谓的二阶段提交就是保证redo log 和 bin log 保持逻辑上的一致。 思考 如果先写redo log 后写 binlog 不使用二阶段提交会出什么问题？ 如果写bin log 后 redo log 有什么样的问题发生？不仅仅是mysql 崩溃时候 出现数据不一致，还有可能在数据扩容的时候发生不一致的情况，如果不采用二阶段提交。小结redo log 有一个参数 innodb-flush-log-at-trx-commit 设置成1 ，表示每次事务的redo 日志都持久化到磁盘，这样mysql 异常重启之后数据不会丢失。binlog 参数 sync-binlog 设置成1 ，表示每次事务binlog 都写入磁盘，mysql重启数据不会丢失。]]></content>
+    <title><![CDATA[网络编程相关复习]]></title>
+    <url>%2Fjc5.html</url>
+    <content type="text"><![CDATA[网络编程复习7层 物理层 ，链路层，网络层，传输层，会话层，表示层，应用层 tcp 报文头 构成 source ，target ，dist 各占2字节 ，序号 4字节，Ack序号，offset，tcp Flags ，滑动窗口， tcpflags ACK,SYN,FIN，urg，rst，psh 三次握手 C端发送SYN ，seq=x ，S端 ACK和SYN 标识都是1 ，seq = y ，C端 接收 ACK =1 ，ack = y+1，seq =x+1. 为什么需要三次握手？ 最主要的是sequence number ，数据通信序号，防止数据混乱 C 端 失败 ，tcp有一个保活机制，超过keepalivetime 自动中断 S 端 S接收到C端的SYN ，C端未收到S端的ACK确认，S端会不断重试5次，1，2，4，8，16，32.]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一条SQL查询语句是如何执行的]]></title>
+    <url>%2Fmysql3.html</url>
+    <content type="text"><![CDATA[#一条SQL查询语句是如何执行的?当我们执行一条语句时候，select * from table where ID = 1；下边是mysql 语句执行的过程 12mysql -h$ip -P$port -u$user -pshow processlist 查看进程之后就显示出，现在数据库连接的状态等。其中第一条就是空闲的连接，默认时间为8h，参数为wait-timeout ，请注意最早开发还遇到过 Lost connection to MySQL server during query 这样的错误就是因为连接超时自动断开了。客户端其实最好保持长连接状态 ，执行完大的任务后，执行下 mysql_reset_connection，重新初始化连接资源。mysql 8版本之后，查询缓存已经被去掉了。主要简单理解下，mysql 执行过程，了解分析器，优化器，执行器，存储引擎 innodb，myisam]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -330,9 +330,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[一条SQL查询语句是如何执行的]]></title>
-    <url>%2Fmysql3.html</url>
-    <content type="text"><![CDATA[#一条SQL查询语句是如何执行的?当我们执行一条语句时候，select * from table where ID = 1；下边是mysql 语句执行的过程 12mysql -h$ip -P$port -u$user -pshow processlist 查看进程之后就显示出，现在数据库连接的状态等。其中第一条就是空闲的连接，默认时间为8h，参数为wait-timeout ，请注意最早开发还遇到过 Lost connection to MySQL server during query 这样的错误就是因为连接超时自动断开了。客户端其实最好保持长连接状态 ，执行完大的任务后，执行下 mysql_reset_connection，重新初始化连接资源。mysql 8版本之后，查询缓存已经被去掉了。主要简单理解下，mysql 执行过程，了解分析器，优化器，执行器，存储引擎 innodb，myisam]]></content>
+    <title><![CDATA[一条更新语句是如何执行的]]></title>
+    <url>%2Fmysql2.html</url>
+    <content type="text"><![CDATA[一条更新语句是如何执行的？复习之前学过的内容，分析器，解析器，优化器，执行器 。更新流程和查询不一样，会涉及到2个重要的日志，一个redo log ，一个是bin log 。 Redo Log redo log 属于innodb 引擎的日志 mysql中的WAL 技术，全称 write-ahead-loging ，关键点，先写内存后写磁盘，更新到内存更新就算完成了，innodb会在系统空闲时候去做写入磁盘操作。 redo log 是固定大小的，比如配置4个大小为1G的文件，从头开始写，写到3的末尾结束。 write pos 和 check point 中间的位置是可以写入的内容，2个pos 都是向前推进的，当write 追上check的位置时，不能执行更新，需要check 往前进行推进。即使数据库发生异常，mysql 也能保证之前提交的记录保存下来，这个机制叫做crash-safe 。 Bin log binlog 属于server层的日志 ，binlog 有二种模式，一种是statement 另外是row ，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更 新前和更新后都有。注： mysql 其实就2块，一块server层 另外一块是引擎层 。 redo log 和 binlog 的不同点 redo log 属于引擎层，binlog 属于server层。 redo log 记录是的物理的日志，例如 “某个数据项上进行了修改”，binlog 是逻辑日志，记录这个语句的原始逻辑，例如 给id 为2 的c字段加一。 redo log 可以循环写，空间固定会用完，binlog 进行追加写，写到固定大小后，换另外一块写，不会覆盖。 分析下一个sql 更新的过程 例如更新一个表中id=2 的数据 首先执行器先找出id=2 的记录，id 是索引，通过索引树查询这条记录，判断如果在当前数据页中，直接返回给执行器，如果不是要从磁盘读取到内容，之后返回给执行器。 之后这行c 的值进行加一操作，写入到新行中。 新行数据写入到内存中，之后写入redolog 这个时候redo log处于 prepare 准备阶段。 mysql 写入binlog ，提交事务处于commit 状态，提交完成。 二阶段提交 这里写入日志分为prepare 和 commit 二个阶段，这就属于2阶段提交。首先数据库要根据自己的业务每天或者是2天进行一次全量的备份，可以编写定时脚本取做，cornb ？所谓的二阶段提交就是保证redo log 和 bin log 保持逻辑上的一致。 思考 如果先写redo log 后写 binlog 不使用二阶段提交会出什么问题？ 如果写bin log 后 redo log 有什么样的问题发生？不仅仅是mysql 崩溃时候 出现数据不一致，还有可能在数据扩容的时候发生不一致的情况，如果不采用二阶段提交。小结redo log 有一个参数 innodb-flush-log-at-trx-commit 设置成1 ，表示每次事务的redo 日志都持久化到磁盘，这样mysql 异常重启之后数据不会丢失。binlog 参数 sync-binlog 设置成1 ，表示每次事务binlog 都写入磁盘，mysql重启数据不会丢失。]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -418,17 +418,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[RabbitMq]]></title>
-    <url>%2Frabbit.html</url>
-    <content type="text"><![CDATA[RabbitMqAmqp 消息协议 Routingkey 路由健 连接生产者消息和exchage之间纽带。routingkey需要和交换机类型和绑定健bingdingkey联合才能最终生效。 Binding 通过绑定exchage和队列关联起来。绑定时候指定一个bindingkey。 exchange 路由交换机 交换机类型 fanout，direct，topic ，headers fanout是广播形式， 无视routingkey，它会把所有发送到该交换器的消息路由到所有与该交换器绑定的队列中 direct精确匹配 消息路由到那些 BindingKey和 RoutingKey完全匹配的队列中。 topic 是模糊匹配 RoutingKey 为一个点号” “分隔的字符串 BindingKey 和 RoutingKey 一样也是点号” “分隔的字符串; BindingKey 中可以存在两种特殊 字符串”*”和”#”，用于做模糊匹配，其中”#”用于匹配0个或者多个单词。 运转流程 首先生产者与mq的broker产生建立连接connection，开通一个channel 生产者声明一个交换机。比如交换机类型，消息是否持久化等。 生产者声明一个队列并设置属性，是否排他，是否持久化，是否自动删除 生产者通过路由键将交换机和队列绑定起来 生产者将消息发送到mq的broker 响应的交换机通过routingkey查找对应的队列 如果找到把响应的信息存储在队列中，如果不匹配按照相关配置返回生产者或者丢弃。 关闭信道，关闭连接 消费者建立连接，开通信道，向mq broker请求消费消息，可能设置一些回调函数，消费者确认ack接收到消息，mq从队列中删除已经确认的消息，关闭信道，关闭连接。 AMQP协议本身包括三层 module layer 协议最高层，主要提供一些客户端的命令queue.declare 定义队列 queue.consumer 定义订阅消费队列中消息 session layer 将客户端命令发送给服务端，将服务端返回给客户端。 ransport layer 传输二进制数据流，提供帧处理，信道复用]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[解毒redis 集群]]></title>
     <url>%2Fredis_cluster.html</url>
     <content type="text"><![CDATA[redis 复习常用的数据结构string，list，set，zset ，hash，hyperLogLog，geo底层数据结构简单动态字符串，链表，字典，跳跃表，整数集合，压缩列表，对象从海量key中，查询处某一个固定的key前缀？如果使用keys 的命令匹配的话，会导致内存消耗过大，线上应用停顿。需要使用scan cursor 命令save 阻塞,bgsave fork出子进程进行备份rdb自动触发rdb的方式，bgsave 根据redis.conf配置的save 60 1 这样的操作。主从复制时候，主节点自动触发bgsave原理 首先会去查询是否是有bgsave的子进程 系统调用fork，创建进程，实现了copyonwriteAOFappend-only-file除了查询以外所有变更数据库状态的指令config set appendonly yes （客户端命令）Redis 数据恢复从4.0以后RDB+AOF 混合模式gossip 流言协议一致性hash算法 对2^32进行取模，将hash值空间组成虚拟的圆环。hash环数据倾斜问题，引入虚拟结点解决数据倾斜问题。Redis 单副本Redis 单副本，采用单个 Redis 节点部署架构，没有备用节点实时同步数据，不提供数据持久化和备份策略，适用于数据可靠性要求不高的纯缓存业务场景。优点：1、架构简单、部署方便2、高性价比，当缓存使用时无需备用节点（单实例可用性可以用 supervisor 或 crontab 保证），当然为了满足业务的高可用性，也可以牺牲一个备用节点，但同时刻只有一个实例对外提供服务。3、高性能缺点：1、不保证数据的可靠性2、当缓存使用，进程重启后，数据丢失，即使有备用的节点解决高可用性，但是仍然不能解决缓存预热问题，因此不适用于数据可靠性要求高的业务。3、高性能受限于单核 CPU 的处理能力（Redis 是单线程机制），CPU 为主要瓶颈，所以适合操作命令简单，排序、计算较少的场景。也可以考虑用 memcached 替代。Redis 多副本（主从）Redis 多副本，采用主从（replication）部署结构，相较于单副本而言最大的特点就是主从实例间数据实时同步，并且提供数据持久化和备份策略。主从实例部署在不同的物理服务器上，根据公司的基础环境配置，可以实现同时对外提供服务和读写分离策略。优点：1、高可靠性，一方面，采用双机主备架构，能够在主库出现故障时自动进行主备切换，从库提升为主库提供服务，保证服务平稳运行。另一方面，开启数据持久化功能和配置合理的备份策略，能有效的解决数据误操作和数据异常丢失的问题。2、读写分离策略，从节点可以扩展主库节点的读能力，有效应对大并发量的读操作。缺点：1、故障恢复复杂，如果没有 RedisHA 系统（需要开发），当主库节点出现故障时，需要手动将一个从节点晋升为主节点，同时需要通知业务方变更配置，并且需要让其他从库节点去复制新主库节点，整个过程需要人为干预，比较繁琐。2、主库的写能力受到单机的限制，可以考虑分片3、主库的存储能力受到单机的限制，可以考虑 Pika4、原生复制的弊端在早期的版本也会比较突出，如：Redis 复制中断后，Slave 会发起 psync，此时如果同步不成功，则会进行全量同步，主库执行全量备份的同时可能会造成毫秒或秒级的卡顿；又由于 COW 机制，导致极端情况下的主库内存溢出，程序异常退出或宕机；主库节点生成备份文件导致服务器磁盘 IO 和 CPU（压缩）资源消耗；发送 数 GB 大小的备份文件导致服务器出口带宽暴增，阻塞请求。建议升级到最新版本Redis Sentinel（哨兵）Redis Sentinel 是社区版本推出的原生高可用解决方案，Redis Sentinel 部署架构主要包括两部分：Redis Sentinel 集群和 Redis 数据集群，其中 Redis Sentinel 集群是由若干 Sentinel 节点组成的分布式集群。可以实现故障发现、故障自动转移、配置中心和客户端通知。Redis Sentinel 的节点数量要满足 2n+1（n&gt;=1）的奇数个。优点：1、Redis Sentinel 集群部署简单2、能够解决 Redis 主从模式下的高可用切换问题3、很方便实现 Redis 数据节点的线形扩展，轻松突破 Redis 自身单线程瓶颈，可极大满足对 Redis 大容量或高性能的业务需求。4、可以实现一套 Sentinel 监控一组 Redis 数据节点或多组数据节点缺点：1、部署相对 Redis 主从模式要复杂一些，原理理解更繁琐2、资源浪费，Redis 数据节点中 slave 节点作为备份节点不提供服务3、Redis Sentinel 主要是针对 Redis 数据节点中的主节点的高可用切换，对 Redis 的数据节点做失败判定分为主观下线和客观下线两种，对于 Redis 的从节点有对节点做主观下线操作，并不执行故障转移。4、不能解决读写分离问题，实现起来相对复杂建议：1、如果监控同一业务，可以选择一套 Sentinel 集群监控多组 Redis 数据节点的方案，反之选择一套 Sentinel 监控一组 Redis 数据节点的方案2、sentinel monitor 配置中的 &lt; quorum &gt; 建议设置成 Sentinel 节点的一半加 1，当 Sentinel 部署在多个 IDC 的时候，单个 IDC 部署的 Sentinel 数量不建议超过（Sentinel 数量 – quorum）。3、合理设置参数，防止误切，控制切换灵敏度控制quorumdown-after-milliseconds 30000failover-timeout 180000maxclienttimeout4、部署的各个节点服务器时间尽量要同步，否则日志的时序性会混乱5、Redis 建议使用 pipeline 和 multi-keys 操作，减少 RTT 次数，提高请求效率6、自行搞定配置中心（zookeeper），方便客户端对实例的链接访问Redis ClusterRedis Cluster 是社区版推出的 Redis 分布式集群解决方案，主要解决 Redis 分布式方面的需求，比如，当遇到单机内存，并发和流量等瓶颈的时候，Redis Cluster 能起到很好的负载均衡的目的。Redis Cluster 集群节点最小配置 6 个节点以上（3 主 3 从），其中主节点提供读写操作，从节点作为备用节点，不提供请求，只作为故障转移使用。Redis Cluster 采用虚拟槽分区，所有的键根据哈希函数映射到 0～16383 个 整数槽内，每个节点负责维护一部分槽以及槽所印映射的键值数据。优点：1、 无中心架构2、 数据按照 slot 存储分布在多个节点，节点间数据共享，可动态调整数据分布。3、 可扩展性，可线性扩展到 1000 多个节点，节点可动态添加或删除。4、 高可用性，部分节点不可用时，集群仍可用。通过增加 Slave 做 standby 数据副本，能够实现故障自动 failover，节点之间通过 gossip 协议交换状态信息，用投票机制完成 Slave 到 Master 的角色提升。5、 降低运维成本，提高系统的扩展性和可用性。缺点：1、 Client 实现复杂，驱动要求实现 Smart Client，缓存 slots mapping 信息并及时更新，提高了开发难度，客户端的不成熟影响业务的稳定性。目前仅 JedisCluster 相对成熟，异常处理部分还不完善，比如常见的 “max redirect exception”。2、 节点会因为某些原因发生阻塞（阻塞时间大于 clutser-node-timeout），被判断下线，这种 failover 是没有必要的。3、 数据通过异步复制，不保证数据的强一致性。4、 多个业务使用同一套集群时，无法根据统计区分冷热数据，资源隔离性较差，容易出现相互影响的情况。5、 Slave 在集群中充当 “冷备”，不能缓解读压力，当然可以通过 SDK 的合理设计来提高 Slave 资源的利用率。6、 key 批量操作限制，如使用 mset、mget 目前只支持具有相同 slot 值的 key 执行批量操作。对于映射为不同 slot 值的 key 由于 keys 不支持跨 slot 查询，所以执行 mset、mget、sunion 等操作支持不友好。7、 key 事务操作支持有限，只支持多 key 在同一节点上的事务操作，当多个 key 分布于不同的节点上时无法使用事务功能。8、 key 作为数据分区的最小粒度，因此不能将一个很大的键值对象如 hash、list 等映射到不同的节点。9、 不支持多数据库空间，单机下的 redis 可以支持到 16 个数据库，集群模式下只能使用 1 个数据库空间，即 db 0。10、 复制结构只支持一层，从节点只能复制主节点，不支持嵌套树状复制结构。11、 避免产生 hot-key，导致主库节点成为系统的短板。12、 避免产生 big-key，导致网卡撑爆、慢查询等。13、重试时间应该大于 cluster-node-time 时间14、Redis Cluster 不建议使用 pipeline 和 multi-keys 操作，减少 max redirect 产生的场景。 扩展阅读下 孤独烟博客-集群方式参考]]></content>
@@ -440,9 +429,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[openresty nginx]]></title>
-    <url>%2Fng.html</url>
-    <content type="text"><![CDATA[安装openresty nginx命令install openresty/brew/openresty```123456789101112131415161718192021222324252627之后当前目录下创建`mkdir ~/work cd ~/work mkdir logs/ conf/`在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 `nginx -s reload nginx -h nginx -p nginx -c `nginx.conf 配置文件内容 配置这个反向服务代理要代理的服务器集群&lt;!-- more --&gt;``` shellupstream backend_server &#123; server localhost:8080 weight=1;&#125;server&#123; listen 7777; location / &#123; proxy_pass http://backend_server ; &#125; #当用户访问这个目录下文件，即认为在访问静态资源 location /resources &#123; alias //usr/local/opt/openresty/nginx/html; &#125;&#125;]]></content>
+    <title><![CDATA[RabbitMq]]></title>
+    <url>%2Frabbit.html</url>
+    <content type="text"><![CDATA[RabbitMqAmqp 消息协议 Routingkey 路由健 连接生产者消息和exchage之间纽带。routingkey需要和交换机类型和绑定健bingdingkey联合才能最终生效。 Binding 通过绑定exchage和队列关联起来。绑定时候指定一个bindingkey。 exchange 路由交换机 交换机类型 fanout，direct，topic ，headers fanout是广播形式， 无视routingkey，它会把所有发送到该交换器的消息路由到所有与该交换器绑定的队列中 direct精确匹配 消息路由到那些 BindingKey和 RoutingKey完全匹配的队列中。 topic 是模糊匹配 RoutingKey 为一个点号” “分隔的字符串 BindingKey 和 RoutingKey 一样也是点号” “分隔的字符串; BindingKey 中可以存在两种特殊 字符串”*”和”#”，用于做模糊匹配，其中”#”用于匹配0个或者多个单词。 运转流程 首先生产者与mq的broker产生建立连接connection，开通一个channel 生产者声明一个交换机。比如交换机类型，消息是否持久化等。 生产者声明一个队列并设置属性，是否排他，是否持久化，是否自动删除 生产者通过路由键将交换机和队列绑定起来 生产者将消息发送到mq的broker 响应的交换机通过routingkey查找对应的队列 如果找到把响应的信息存储在队列中，如果不匹配按照相关配置返回生产者或者丢弃。 关闭信道，关闭连接 消费者建立连接，开通信道，向mq broker请求消费消息，可能设置一些回调函数，消费者确认ack接收到消息，mq从队列中删除已经确认的消息，关闭信道，关闭连接。 AMQP协议本身包括三层 module layer 协议最高层，主要提供一些客户端的命令queue.declare 定义队列 queue.consumer 定义订阅消费队列中消息 session layer 将客户端命令发送给服务端，将服务端返回给客户端。 ransport layer 传输二进制数据流，提供帧处理，信道复用]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -454,6 +443,17 @@
     <title><![CDATA[分布式解决方案]]></title>
     <url>%2Ftranscation_slotion.html</url>
     <content type="text"><![CDATA[#分布式解决方案 FescarFescar github 地址传统的解决无侵入的方案为XA，但是XA 有一定的局限性，比如要求mysql版本高于5.7其他都是在业务上采用如下解决方案： 基于可靠消息解决 TCC Saga 什么是分布式事务？分布式事务就是一个包含了若干个分支事务的全局事务。全局事务就是协调包含的分支事务从而达成一致，要么全部成功，否则全部失败。分支事务就是本地的事务ACID，这与XA的理念是一样的。下图就是基本的分布式事务的过程 Transaction Coordinator (TC)： 事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚。 Transaction Manager (TM)： 控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议。 Resource Manager (RM)： 控制分支事务，负责分支注册、状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚。 TM向TC 首先申请开启一个全局事务，全局事务创建成功并返回一个XID(全局事务id） XID 必须要在全局事务中进行传播，如果没有xid那么不能判断出属于哪一个全局事务啦！ RM 向 TC 注册分支事务，将其纳入 XID 对应全局事务的管辖。 TM 向 TC 发起针对 XID 的全局提交或回滚决议。 TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求。]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[openresty nginx]]></title>
+    <url>%2Fng.html</url>
+    <content type="text"><![CDATA[安装openresty nginx命令install openresty/brew/openresty```123456789101112131415161718192021222324252627之后当前目录下创建`mkdir ~/work cd ~/work mkdir logs/ conf/`在conf 下创建nginx.conf 配置文件，默认的配置文件在`/usr/local/etc/openresty/nginx.conf` 默认的端口80 `nginx -s reload nginx -h nginx -p nginx -c `nginx.conf 配置文件内容 配置这个反向服务代理要代理的服务器集群&lt;!-- more --&gt;``` shellupstream backend_server &#123; server localhost:8080 weight=1;&#125;server&#123; listen 7777; location / &#123; proxy_pass http://backend_server ; &#125; #当用户访问这个目录下文件，即认为在访问静态资源 location /resources &#123; alias //usr/local/opt/openresty/nginx/html; &#125;&#125;]]></content>
       <categories>
         <category>编程</category>
       </categories>

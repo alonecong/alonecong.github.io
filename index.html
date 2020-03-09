@@ -446,7 +446,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.7k
                 </span>
               
 
@@ -552,17 +552,6 @@
 </table>
 <p>可扩展的协议?</p>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcngg8cu6vj31280c4wfy.jpg" alt></p>
-<h4 id="RPC序列化-方式"><a href="#RPC序列化-方式" class="headerlink" title="RPC序列化 方式"></a>RPC序列化 方式</h4><p><strong>protobuf —》protostuff   不支持null ,不支持单纯的Map List 对象集合需要放在对象里.</strong></p>
-<p>kryo、hessian </p>
-<p>序列化考虑参考图:</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcninc7xqpj312u09sdh4.jpg" alt></p>
-<p>序列化注意事项:</p>
-<ul>
-<li>对象要尽量简单，没有太多的依赖关系，属性不要太多，尽量高内聚；</li>
-<li>入参对象与返回值对象体积不要太大，更不要传太大的集合；</li>
-<li>尽量使用简单的、常用的、开发语言原生的对象，尤其是集合类；</li>
-<li>对象不要有复杂的继承关系，最好不要有父子类的情况。<br><img src="https://" alt style="width:100%"></li>
-</ul>
         
 
 

@@ -148,7 +148,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTly1gcngg8cu6vj31280c4wfy.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTly1gcninc7xqpj312u09sdh4.jpg">
 <meta property="og:image" content="https:///">
-<meta property="og:updated_time" content="2020-03-09T03:49:42.542Z">
+<meta property="og:updated_time" content="2020-03-09T07:16:22.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RPC (Remote Procedur call ) 远程服务调用">
 <meta name="twitter:description" content="RPC (Remote Procedur call ) 远程服务调用什么是rpc?举个小河上的桥例子. rpc的作用? 屏蔽远程调用和本地的区别,让我们感觉像本地调用 隐藏底层网络通信的复杂性  联想网络通信本质是啥?netty 网络通信的框架 一个完整的rpc会涉及到哪些过程? 数据传输,保证其可靠性通常都是TCP来传输,常用的http协议就是在其基础之上  网络数据肯定是二进制数据,那么就会">
@@ -453,7 +453,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.7k
                 </span>
               
 
@@ -558,6 +558,7 @@
 </table>
 <p>可扩展的协议?</p>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcngg8cu6vj31280c4wfy.jpg" alt></p>
+<a id="more"></a>
 <h4 id="RPC序列化-方式"><a href="#RPC序列化-方式" class="headerlink" title="RPC序列化 方式"></a>RPC序列化 方式</h4><p><strong>protobuf —》protostuff   不支持null ,不支持单纯的Map List 对象集合需要放在对象里.</strong></p>
 <p>kryo、hessian </p>
 <p>序列化考虑参考图:</p>
@@ -569,9 +570,21 @@
 <li>尽量使用简单的、常用的、开发语言原生的对象，尤其是集合类；</li>
 <li>对象不要有复杂的继承关系，最好不要有父子类的情况。<br><img src="https://" alt style="width:100%"></li>
 </ul>
-<a id="more"></a>
-<p><hr></p>
-<div class="note warning"><br><p>本文欢迎转载，但是希望注明出处并给出原文链接。<br>如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。<br>如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 <a href="mailto:alonecong@126.com" target="_blank" rel="noopener">alonecong@126.com</a> 告诉我你的想法，你的建议对我非常重要。<br></p></div><br><div class="note danger"><br><p>本文作者： 不利索的阿瓜<br>联系方式： <a href="mailto:alonecong@126.com" target="_blank" rel="noopener">alonecong@126.com</a><br>版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！<br></p></div>
+<h4 id="零拷贝传输数据"><a href="#零拷贝传输数据" class="headerlink" title="零拷贝传输数据"></a>零拷贝传输数据</h4><p>通常是程序发起写–〉应用缓存区(cpu拷贝)–〉内核缓冲区– (依靠DMA) –〉网卡–〉其他设备<br>每一次都需要把数据写到用户空间缓冲区 之后到系统内核的缓冲区 ,这样每次都需要2次的写.<br>所谓的零拷贝 就是直接写入内核,之后从内核直接读取数据…就是把数据用户空间和内核空间都将数据写入到同一个地方. 虚拟内存的方式?<br>二种解决方式:</p>
+<ul>
+<li>mmap+write </li>
+<li>senfile<br><strong>还要深入了解下以后.</strong><h5 id="netty的零copy-zero-是怎么做的呢"><a href="#netty的零copy-zero-是怎么做的呢" class="headerlink" title="netty的零copy-zero 是怎么做的呢?"></a>netty的零copy-zero 是怎么做的呢?</h5><strong>todo 后续要进行进一步了解</strong><br>netty是完全站在了用户空间上,也就是jvm上.偏向数据操作的优化</li>
+<li>netty 提供了compositeByteBuf 类 ,可以将多个byteBuf 合并为逻辑上的byteBuf,避免byteBuf间copy.</li>
+<li>byteBuf 支持slice 操作,可以分解为多个共享同一存储区域的byteBuf.</li>
+<li>通过wrap 操作,可以将 byte[] 数组,byteBuf,byteBuffer 等包装成netty 自己的 byteBuf对象<br>netty 解决 Tcp 沾包,拆包 都是靠compositeByteBuf 类 wrap 和 slice 去解决的.<br>Netty 可以采用Direct Buffers 堆外内存的方式解决,与虚拟内存一样的效果.<br>还提供了FileRegion 中包装NIO 的 FileChannel.trasnsferTo() 方法实现了零拷贝,这和linux 中的sendfile 原理一样.</li>
+</ul>
+<p>扩展阅读 c10k 问题<br><a href>https://www.jianshu.com/p/ba7fa25d3590</a><br><a href="netty源码分析">https://blog.csdn.net/lsgqjh/article/details/86622532</a></p>
+<ul>
+<li>selector 模式<br>  使用fd_set 结构告诉内核监听哪些文件句柄,之后轮询逐个排查状态,句柄是有上限的,逐个检查吞吐量低, 每次调用都重复初始化fd_set .</li>
+<li>poll 模式<br>  主要解决了selector 模式2缺点,一个句柄上线的问题(链表方式存储)以及重复初始化的问题. (不同字段标注关注事件和发生事件)</li>
+<li>epoll 模式<br>  event-callback 方式. 仅对发生变化的文件句柄感兴趣.  通过epoll_ctl 注册文件描述符fd , 一旦fd 就绪,内核就会采用callback激活fd  ,epoll_wait 收到通知,通知应用程序.而且epoll一个文件描述符管理多个描述符,将用户进程的文件描述符事件存放在内核一个事件表里. 这样数据从内核一次到用户进程地址空间.epoll 依赖 linux 系统,需要开启epoll .<br><hr><div class="note warning"><br><p>本文欢迎转载，但是希望注明出处并给出原文链接。<br>如果你有任何疑问，欢迎在下方评论区留言，我会尽快答复。<br>如果你喜欢或者不喜欢这篇文章，欢迎你发邮件到 <a href="mailto:alonecong@126.com" target="_blank" rel="noopener">alonecong@126.com</a> 告诉我你的想法，你的建议对我非常重要。<br></p></div><br><div class="note danger"><br><p>本文作者： 不利索的阿瓜<br>联系方式： <a href="mailto:alonecong@126.com" target="_blank" rel="noopener">alonecong@126.com</a><br>版权声明： 除特别声明外，所有文章均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！<br></p></div>
+</li>
+</ul>
 
       
     </div>
@@ -825,7 +838,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC-Remote-Procedur-call-远程服务调用"><span class="nav-number">1.</span> <span class="nav-text">RPC (Remote Procedur call ) 远程服务调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是rpc"><span class="nav-number">1.1.</span> <span class="nav-text">什么是rpc?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rpc的作用"><span class="nav-number">1.2.</span> <span class="nav-text">rpc的作用?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#联想网络通信本质是啥"><span class="nav-number">1.3.</span> <span class="nav-text">联想网络通信本质是啥?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个完整的rpc会涉及到哪些过程"><span class="nav-number">1.4.</span> <span class="nav-text">一个完整的rpc会涉及到哪些过程?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#协议"><span class="nav-number">1.5.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#为啥还要rpc自己的协议-http协议不能满足要求吗-他们有什么样的区别"><span class="nav-number">1.5.1.</span> <span class="nav-text">为啥还要rpc自己的协议? http协议不能满足要求吗? 他们有什么样的区别?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么完成自定义的协议呢"><span class="nav-number">2.</span> <span class="nav-text">怎么完成自定义的协议呢?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC序列化-方式"><span class="nav-number">3.</span> <span class="nav-text">RPC序列化 方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC-Remote-Procedur-call-远程服务调用"><span class="nav-number">1.</span> <span class="nav-text">RPC (Remote Procedur call ) 远程服务调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是rpc"><span class="nav-number">1.1.</span> <span class="nav-text">什么是rpc?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rpc的作用"><span class="nav-number">1.2.</span> <span class="nav-text">rpc的作用?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#联想网络通信本质是啥"><span class="nav-number">1.3.</span> <span class="nav-text">联想网络通信本质是啥?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个完整的rpc会涉及到哪些过程"><span class="nav-number">1.4.</span> <span class="nav-text">一个完整的rpc会涉及到哪些过程?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#协议"><span class="nav-number">1.5.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#为啥还要rpc自己的协议-http协议不能满足要求吗-他们有什么样的区别"><span class="nav-number">1.5.1.</span> <span class="nav-text">为啥还要rpc自己的协议? http协议不能满足要求吗? 他们有什么样的区别?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么完成自定义的协议呢"><span class="nav-number">2.</span> <span class="nav-text">怎么完成自定义的协议呢?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC序列化-方式"><span class="nav-number">3.</span> <span class="nav-text">RPC序列化 方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#零拷贝传输数据"><span class="nav-number">4.</span> <span class="nav-text">零拷贝传输数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#netty的零copy-zero-是怎么做的呢"><span class="nav-number">4.1.</span> <span class="nav-text">netty的零copy-zero 是怎么做的呢?</span></a></li></ol></li></ol></div>
             
 
           </div>
